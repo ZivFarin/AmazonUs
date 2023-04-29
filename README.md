@@ -40,7 +40,7 @@ These are very short and actually use amazon (and it's API) as their main exampl
       It's better to keep this terminal open and open another one for the frontend using VSCode's 'split terminal feature.
     + Use a 'GET' request in postman on 'http://localhost:5000' just to see you get a valid responses.<br/>
       If you did - it works.<br/>
-  + Preparing the DB:
+  + Preparing the DB: 
     + Follow the instructions in the [backend video](https://www.youtube.com/watch?v=RcQwcyyCOmM) from about 09:40 and on regarding how to set up a DB on your computer.<br/>
     Note that your password should be '12345678' and the DB name should be 'amazonus'.
     Just keep on using these throughout the setup process.<br/>
