@@ -26,6 +26,7 @@ class Event(db.Model):
         """
         self.description = description
 
+
 def format_event(event):
     """Return:
         The json formatting of the given event.
@@ -36,9 +37,11 @@ def format_event(event):
         "description": event.description
     }
 
+
 @app.route('/')
 def index():
     return "Root page reached!"
+
 
 @app.route('/events', methods = ['POST'])
 def create_event():
@@ -65,6 +68,40 @@ def get_events():
     for event in events:
         event_list.append(format_event(event))
     return {'events': event_list}
+
+
+# The pointy brackets mean this is a query parameter.
+@app.route('/event/<id>', methods=['GET'])
+def get_event(id):
+    """Returns:
+
+        A single event by it's id"""
+    event = Event.query.filter_by(id=id).one()
+    formatted_event = format_event(event)
+    return {'event': formatted_event}
+
+
+@app.route('/event/<id>', methods=['DELETE'])
+def delete_event(id):
+    """Deletes an event from the database.
+    Returns: A single event by it's id"""
+    event = Event.query.filter_by(id=id).one()
+    db.session.delete(event)
+    db.session.commit()
+    return f'Event (id: {id}) was deleted.'
+
+
+@app.route('/event/<id>', methods=['PUT'])
+def update_event(id):
+    """Edits an event from the database.
+    Returns: A single event by it's id"""
+    # note we are taking A LIST this time!
+    event = Event.query.filter_by(id=id)
+    description = request.json['description']
+    event.update(dict(description = description, creation_date = datetime.utcnow()))
+    db.session.commit()
+    return {'event': format_event(event.one())}
+
 
 if __name__ == '__main__':
     app.run(debug=True)
