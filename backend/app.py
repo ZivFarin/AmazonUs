@@ -1,5 +1,6 @@
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 from datetime import datetime
 
 
@@ -9,6 +10,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:12345678@localhos
 app.app_context().push()
 # Initialize app's DB
 db = SQLAlchemy(app)
+# I actually don't know what that is about:
+CORS(app)
 
 # Set up an event model (a row in the Event table)
 class Event(db.Model):
