@@ -110,6 +110,7 @@ function App() {
                 <li style={{display: "flex"}} key={event.id}>
                   <button onClick={() => handleDelete(event.id)}>X</button>
                   <button onClick={() => toggleEdit(event)}>Edit</button>
+                  {format(new Date(event.creation_date), "MM/dd, p")}: {" "}
                   {event.description}
                 </li>
               )
