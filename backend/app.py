@@ -40,7 +40,7 @@ def format_event(event):
 def index():
     return "Root page reached!"
 
-@app.route('/event', methods = ['POST'])
+@app.route('/events', methods = ['POST'])
 def create_event():
     """ Adds new event to DB.
     
@@ -56,6 +56,15 @@ def create_event():
     # Return the event as json (helps with UI)
     return format_event(event)
     
+
+@app.route('/events', methods = ['GET'])
+def get_events():
+    """Gets an event from DB."""
+    events = Event.query.order_by(Event.creation_date.asc()).all()
+    event_list = []
+    for event in events:
+        event_list.append(format_event(event))
+    return {'events': event_list}
 
 if __name__ == '__main__':
     app.run(debug=True)
