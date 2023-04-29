@@ -45,3 +45,4 @@ These are very short and actually use amazon as their main example, so watching 
     + Follow the instructions in the [backend video](https://www.youtube.com/watch?v=RcQwcyyCOmM) at about 09:40 and on about how to set up a DB on your computer.<br/>Note that your password should be '12345678' and the DB name should be 'amazonus'. Just use these throughout the setup process.<br/>
     I recommend doing the postman actions with him to see the code working.
 + <u>Running the Frontend</u>
+  + If you already have react installed on your computer - just navigate into the frontend folder and run `npm start`.

@@ -1,6 +1,6 @@
-import {useEffect, useState} from 'react';
-import axios from "axios"
-import {format} from "date-fns";
+import axios from "axios";
+import { format } from "date-fns";
+import { useEffect, useState } from 'react';
 
 import './App.css';
 
@@ -17,7 +17,7 @@ function App() {
     const { events } = data.data
     setEventsList(events);
   }
-  
+
   const handleChange = (e, field) => {
     if (field === 'edit') {
       setEditDescription(e.target.value);
@@ -41,12 +41,12 @@ function App() {
     setEventId(event.id);
     setEditDescription(event.description);
   }
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (editDescription) {
-        const data = await axios.put(`${baseUrl}/event/${eventId}`, {description: editDescription})
+        const data = await axios.put(`${baseUrl}/event/${eventId}`, { description: editDescription })
         const updatedEvent = data.data.event;
         const updatedList = eventsList.map(event => {
           if (event.id === eventId) {
@@ -56,7 +56,7 @@ function App() {
         })
         setEventsList(updatedList)
       } else {
-        const data = await axios.post(`${baseUrl}/events`, {description})
+        const data = await axios.post(`${baseUrl}/events`, { description })
         setEventsList([...eventsList, data.data])
       }
       setDescription('');
@@ -70,7 +70,7 @@ function App() {
   useEffect(() => {
     fetchEvents();
   }, [])
-  
+
   return (
     <div className="App">
       <section>
@@ -94,7 +94,7 @@ function App() {
               return (
                 <li>
                   <form onSubmit={handleSubmit} key={event.id}>
-                    <input 
+                    <input
                       onChange={(r) => handleChange(r, 'edit')}
                       type="text"
                       name="editDescription"
@@ -107,7 +107,7 @@ function App() {
               )
             } else {
               return (
-                <li style={{display: "flex"}} key={event.id}>
+                <li style={{ display: "flex" }} key={event.id}>
                   <button onClick={() => handleDelete(event.id)}>X</button>
                   <button onClick={() => toggleEdit(event)}>Edit</button>
                   {format(new Date(event.creation_date), "MM/dd, p")}: {" "}
