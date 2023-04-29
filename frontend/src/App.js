@@ -20,14 +20,22 @@ function App() {
     setDescription(e.target.value);
   }
 
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`${baseUrl}/event/${id}`)
+      fetchEvents()
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const data = await axios.post(`${baseUrl}/events`, {description})
       setEventsList([...eventsList, data.data])
       setDescription('');
-    }
-    catch (err) {
+    } catch (err) {
       console.error(err.message);
     }
   }
@@ -55,7 +63,10 @@ function App() {
         <ul>
           {eventsList.map(event => {
             return (
-              <li key={event.id}>{event.description}</li>
+              <li style={{display: "flex"}} key={event.id}>
+                <button onClick={() => handleDelete(event.id)}>X</button>
+                {event.description}
+              </li>
             )
           })}
         </ul>
