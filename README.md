@@ -42,6 +42,6 @@ These are very short and actually use amazon as their main example, so watching 
       You can use VSCode's 'split terminal feature to stay in this folder while running the front end on the other terminal.
     + Use a 'GET' request in postman on 'http://localhost:5000' to see you get a valid responses.  If you did - it works.<br/>
   + Preparing the DB:
-    + Follow the instructions in the [backend video](https://www.youtube.com/watch?v=RcQwcyyCOmM) at about 09:40 and on about how to set up a DB on your computer.<br/>Note that your password should be '12345678' and the DB name should be 'amazonus'. Just use these throughout the setup process.
-    + After
+    + Follow the instructions in the [backend video](https://www.youtube.com/watch?v=RcQwcyyCOmM) at about 09:40 and on about how to set up a DB on your computer.<br/>Note that your password should be '12345678' and the DB name should be 'amazonus'. Just use these throughout the setup process.<br/>
+    I recommend doing the postman actions with him to see the code working.
 + <u>Running the Frontend</u>
