@@ -27,6 +27,7 @@ These are very short and actually use amazon as their main example, so watching 
   + ([this](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) might save you some time...).
   + **Leave the 'PG-admin' option CHECKED!!!!!** (just leave all of them checked...)
   + In the second 'check the wanted options' I've checked **every thing** in it's latest version - in 64 bits.  Skip this at your own peril.
+  + Make all DB related passwords '12345678'.
 + Download [Postman](https://www.postman.com/downloads/) (which will automate api calls from the backend without needing a frontend or even a browser)
 
 # preparing the project
@@ -40,5 +41,5 @@ These are very short and actually use amazon as their main example, so watching 
     + Run `flask run` to run the backend.
     + Use postman on 'http://localhost:5000' to see you get a response.  If you did - it works.
   + Preparing the DB:
-    + Follow the instructions in the [backend video](https://www.youtube.com/watch?v=RcQwcyyCOmM) at about 09:40 on how to set up a DB on your computer.<br/>Note that your password should be 'password' and the DB name should be 'amazonus'
+    + Follow the instructions in the [backend video](https://www.youtube.com/watch?v=RcQwcyyCOmM) at about 09:40 on how to set up a DB on your computer.<br/>Note that your password should be '12345678' and the DB name should be 'amazonus'
 + <u>Running the Frontend</u>

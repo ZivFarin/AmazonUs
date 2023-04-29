@@ -1,11 +1,12 @@
-from flask import Flask, jsonify
+from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 
 # Initialize Flask app
 app=Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:password@localhost/amazonus"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:12345678@localhost/amazonus"
+app.app_context().push()
 # Initialize app's DB
 db = SQLAlchemy(app)
 
@@ -25,9 +26,36 @@ class Event(db.Model):
         """
         self.description = description
 
+def format_event(event):
+    """Return:
+        The json formatting of the given event.
+    """
+    return{
+        "id": event.id,
+        "creation_date": event.creation_date,
+        "description": event.description
+    }
+
 @app.route('/')
 def index():
-    return "This"
+    return "Root page reached!"
+
+@app.route('/event', methods = ['POST'])
+def create_event():
+    """ Adds new event to DB.
+    
+    Returns:
+        A json formatted version of the event
+    """
+    # Create an event
+    description = request.json['description']
+    event = Event(description)
+    # Add it to the data base were logged into.
+    db.session.add(event)
+    db.session.commit()
+    # Return the event as json (helps with UI)
+    return format_event(event)
+    
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
