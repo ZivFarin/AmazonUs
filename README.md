@@ -27,19 +27,21 @@ These are very short and actually use amazon as their main example, so watching 
   + ([this](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) might save you some time...).
   + **Leave the 'PG-admin' option CHECKED!!!!!** (just leave all of them checked...)
   + In the second 'check the wanted options' I've checked **every thing** in it's latest version - in 64 bits.  Skip this at your own peril.
-  + Make all DB related passwords '12345678'.
+  + Make all DB related passwords '12345678', otherwise - go with the defaults.
 + Download [Postman](https://www.postman.com/downloads/) (which will automate api calls from the backend without needing a frontend or even a browser)
 
 # preparing the project
 + Clone from repo
 + <u>Running the backend</u>
-  + Running the backend server
+  + Preparing the backend server
     + in the terminal - `cd` into "backend" folder
-    + Run `pipenv install`, then `pipenv shell`.
-    + Keep this shell alive as you will run your backend in it from here on.
-      You can use VSCode's 'split terminal feature' to run the back and front end simultaneously.
-    + Run `flask run` to run the backend.
-    + Use postman on 'http://localhost:5000' to see you get a response.  If you did - it works.
+    + Run `pipenv install` (this will download and install of of this project's dependencies into an environment)
+  + Running the backend server
+    + Inside the backend folder - run `pipenv shell flask run`.<br/>
+      Keep this shell alive as you will run your backend in it from here on.
+      You can use VSCode's 'split terminal feature to stay in this folder while running the front end on the other terminal.
+    + Use a 'GET' request in postman on 'http://localhost:5000' to see you get a valid responses.  If you did - it works.<br/>
   + Preparing the DB:
-    + Follow the instructions in the [backend video](https://www.youtube.com/watch?v=RcQwcyyCOmM) at about 09:40 on how to set up a DB on your computer.<br/>Note that your password should be '12345678' and the DB name should be 'amazonus'
+    + Follow the instructions in the [backend video](https://www.youtube.com/watch?v=RcQwcyyCOmM) at about 09:40 and on about how to set up a DB on your computer.<br/>Note that your password should be '12345678' and the DB name should be 'amazonus'. Just use these throughout the setup process.
+    + After
 + <u>Running the Frontend</u>
