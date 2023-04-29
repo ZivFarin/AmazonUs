@@ -2,10 +2,10 @@
 ![Amazonus banner](resources/Amazonus.jpg "AmazonUs")
 **Capturing amazon's free shipping with the power of community.**
 
-This is [the project's word file](https://docs.google.com/document/d/1jmD3A_LeHQJUKwWg_DfLRRwrRqQm51C9XPU734alZHk/edit), in which - are all sorts of things that should actually be here, such as:
+This is a [link to the project's word file](https://docs.google.com/document/d/1jmD3A_LeHQJUKwWg_DfLRRwrRqQm51C9XPU734alZHk/edit).
 
 ---
-This is based of of these video series (not a much watch, just follow the prerequisite):
+This project is based off of this video series (not a must watch. You can basically just follow the prerequisites below instead):
 1. [Backend](https://www.youtube.com/watch?v=RcQwcyyCOmM)
 2. [Frontend](https://www.youtube.com/watch?v=EAcD5ueqvHQ)
 
@@ -13,8 +13,8 @@ This is based of of these video series (not a much watch, just follow the prereq
 
 # Prerequisites
 
-## Get a general sense of what's going on:
-These are very short and actually use amazon as their main example, so watching them is quite a good idea:
+## Get a general sense of how the fullstack is built:
+These are very short and actually use amazon (and it's API) as their main example, so watching them is quite a good idea:
 + [What is backend](https://www.youtube.com/watch?v=WG5ikvJ2TKA)
 + [What is frontend](https://www.youtube.com/watch?v=XBu54nfzxAQ)
 + [Super concise SQL explanation](https://www.youtube.com/watch?v=zsjvFFKOm3c), but you better also watch the [more in-depth video](https://www.youtube.com/watch?v=Cz3WcZLRaWc)<br/> which refers to MySQL - but it's good for SQLs in general.
@@ -23,26 +23,27 @@ These are very short and actually use amazon as their main example, so watching 
 + Download [python](https://www.python.org/downloads/)
   + Python packages
     + `pip install pipenv`
-+ Download [PostgreSQL](https://www.postgresql.org/download/)
-  + ([this](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) might save you some time...).
++ Download [PostgreSQL](https://www.postgresql.org/download/) ([this](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) might save you some searching...).
   + **Leave the 'PG-admin' option CHECKED!!!!!** (just leave all of them checked...)
-  + In the second 'check the wanted options' I've checked **every thing** in it's latest version - in 64 bits.  Skip this at your own peril.
+  + In the second 'check the wanted options' I've checked **every thing except the already installed option** in it's latest version - in 64 bits.  Skip this at your own peril.
   + Make all DB related passwords '12345678', otherwise - go with the defaults.
-+ Download [Postman](https://www.postman.com/downloads/) (which will automate api calls from the backend without needing a frontend or even a browser)
++ Download [Postman](https://www.postman.com/downloads/) (which is used to "automate" api calls to the backend without needing a frontend or even a browser)
 
 # preparing the project
-+ Clone from repo
++ Clone this project from this GitHub repo.
 + <u>Running the backend</u>
   + Preparing the backend server
     + in the terminal - `cd` into "backend" folder
-    + Run `pipenv install` (this will download and install of of this project's dependencies into an environment)
+    + Run `pipenv install` which will download and install all of this project's dependencies into an environment.
   + Running the backend server
     + Inside the backend folder - run `pipenv shell flask run`.<br/>
-      Keep this shell alive as you will run your backend in it from here on.
-      You can use VSCode's 'split terminal feature to stay in this folder while running the front end on the other terminal.
-    + Use a 'GET' request in postman on 'http://localhost:5000' to see you get a valid responses.  If you did - it works.<br/>
+      It's better to keep this terminal open and open another one for the frontend using VSCode's 'split terminal feature.
+    + Use a 'GET' request in postman on 'http://localhost:5000' just to see you get a valid responses.<br/>
+      If you did - it works.<br/>
   + Preparing the DB:
-    + Follow the instructions in the [backend video](https://www.youtube.com/watch?v=RcQwcyyCOmM) at about 09:40 and on about how to set up a DB on your computer.<br/>Note that your password should be '12345678' and the DB name should be 'amazonus'. Just use these throughout the setup process.<br/>
-    I recommend doing the postman actions with him to see the code working.
+    + Follow the instructions in the [backend video](https://www.youtube.com/watch?v=RcQwcyyCOmM) from about 09:40 and on regarding how to set up a DB on your computer.<br/>
+    Note that your password should be '12345678' and the DB name should be 'amazonus'.
+    Just keep on using these throughout the setup process.<br/>
+    I recommend doing the sql server set up and postman actions with him until everything is working.
 + <u>Running the Frontend</u>
-  + If you already have react installed on your computer - just navigate into the frontend folder and run `npm start`.
+  + If you already have react installed on your computer - just navigate into the frontend folder and run `npm start` (you should do this after the server is running).
