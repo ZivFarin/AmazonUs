@@ -19,7 +19,7 @@ function App() {
   }
   
   const handleChange = (e, field) => {
-    if (field == 'edit') {
+    if (field === 'edit') {
       setEditDescription(e.target.value);
     } else {
       setDescription(e.target.value);
