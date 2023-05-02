@@ -4,6 +4,8 @@
 
 This is a [link to the project's word file](https://docs.google.com/document/d/1jmD3A_LeHQJUKwWg_DfLRRwrRqQm51C9XPU734alZHk/edit).
 
+This is the [course timeline](https://docs.google.com/document/d/1WQdbG7vpldybgLMACT_5cnEMC5H_RsYiuoQoPQzpFsA/edit)
+
 ---
 This project is based off of this video series (not a must watch. You can basically just follow the prerequisites below instead):
 1. [Backend](https://www.youtube.com/watch?v=RcQwcyyCOmM)
