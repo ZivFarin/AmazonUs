@@ -29,11 +29,11 @@ These are very short and actually use amazon (and it's API) as their main exampl
   + Make all DB related passwords '12345678', otherwise - go with the defaults.
 + Download [Postman](https://www.postman.com/downloads/) (which is used to "automate" api calls to the backend without needing a frontend or even a browser)
 
-# preparing the project
+# Preparing the project
 + Clone this project from this GitHub repo.
 + <u>Running the backend</u>
   + Preparing the backend server
-    + in the terminal - `cd` into "backend" folder
+    + In the terminal - `cd` into "backend" folder
     + Run `pipenv install` which will download and install all of this project's dependencies into an environment.
   + Running the backend server
     + Inside the backend folder - run `pipenv shell flask run`.<br/>
