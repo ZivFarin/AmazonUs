@@ -49,3 +49,6 @@ These are very short and actually use amazon (and it's API) as their main exampl
     I recommend doing the sql server set up and postman actions with him until everything is working.
 + <u>Running the Frontend</u>
   + If you already have react installed on your computer - just navigate into the frontend folder and run `npm start` (you should do this after the server is running).
+
+# DataBase Configurations
+![Amazonus SQL](resources/SQL-2023-05-06.png "Amazonus SQL")
