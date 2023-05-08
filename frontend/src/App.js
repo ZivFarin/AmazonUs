@@ -5,6 +5,7 @@ import CustomerMainPage from "./Pages/CustomerMainPage";
 import GetInTouchPage from "./Pages/GetInTouchPage";
 import AddItemURLPage from "./Pages/AddItemURLPage";
 import Navbar from "./components/Navbar";
+import SignupPage from "./Pages/SignupPage";
 
 
 function App() {
@@ -14,8 +15,10 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        <Navbar />
         {isLoggedIn ? <LogoutButton /> : null} 
+        {isLoggedIn ? <Navbar /> : null} 
+
+
         <main>
           <Switch>
             <Route path="/Login" exact component={LoginPage} />
@@ -23,6 +26,7 @@ function App() {
             <Route path="/addItem" exact render={() => isLoggedIn ? <AddItemURLPage/> : null} />
             <Route path="/getInTouch" exact component={GetInTouchPage} />
             <Route path="/" exact component={LoginPage} />
+            <Route path="/Signup" exact component={SignupPage}/> 
           </Switch>
         </main>
       </div>
