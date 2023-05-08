@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 import './Login.css';
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { Link } from 'react-router-dom';
+
 
 //connecting to the firebase project
 const firebaseConfig = {
@@ -45,24 +47,6 @@ function Login({ history }) {
       });
   };
 
-  //handling the signup to the system
-  const handleSignUp = (event) => {
-    event.preventDefault();
-    //taking the user email and password for the signup
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        // Set isLoggedIn flag in localStorage
-        localStorage.setItem('isLoggedIn', true); 
-        // redirecting the page to the customerMain page after login
-        history.push('/customerMain');
-        history.go(0);
-      })
-      //catching errors
-      .catch((error) => {
-        const errorMessage = error.message;
-        setError(errorMessage);
-      });
-  };
 
   // If user is already logged in, redirect to the customerMain page
   if (localStorage.getItem('isLoggedIn')) {
@@ -88,7 +72,7 @@ function Login({ history }) {
       />
       {error && <div className="login-form__error">{error}</div>}
       <button type="submit" className="login-form__submit">Login</button>
-      <button onClick={handleSignUp} className="login-form__submit">Create account</button>
+      <Link to="/signup" className="signup-form__submit">Create account</Link>
     </form>
   );
 }

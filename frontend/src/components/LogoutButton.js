@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { useHistory } from "react-router-dom";
+import "./LogoutButton.css";
 
 function LogoutButton() {
   const history = useHistory();

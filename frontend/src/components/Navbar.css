@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
+    background-color: #559be7;
     color: #fff;
     padding: 1rem;
   }
@@ -28,6 +28,6 @@
   }
   
   .nav-link:hover {
-    text-decoration: underline;
+    color: rgb(237, 163, 206);
   }
   
