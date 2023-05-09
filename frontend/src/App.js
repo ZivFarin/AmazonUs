@@ -7,26 +7,32 @@ import AddItemURLPage from "./Pages/AddItemURLPage";
 import Navbar from "./components/Navbar";
 import SignupPage from "./Pages/SignupPage";
 
-
 function App() {
   // Check if user is authenticated
-  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
 
   return (
     <BrowserRouter>
       <div>
-        {isLoggedIn ? <LogoutButton /> : null} 
-        {isLoggedIn ? <Navbar /> : null} 
-
+        {isLoggedIn ? <LogoutButton /> : null}
+        {isLoggedIn ? <Navbar /> : null}
 
         <main>
           <Switch>
             <Route path="/Login" exact component={LoginPage} />
-            <Route path="/customerMain" exact render={() => isLoggedIn ? <CustomerMainPage/> : null} />
-            <Route path="/addItem" exact render={() => isLoggedIn ? <AddItemURLPage/> : null} />
+            <Route
+              path="/customerMain"
+              exact
+              render={() => (isLoggedIn ? <CustomerMainPage /> : null)}
+            />
+            <Route
+              path="/addItem"
+              exact
+              render={() => (isLoggedIn ? <AddItemURLPage /> : null)}
+            />
             <Route path="/getInTouch" exact component={GetInTouchPage} />
             <Route path="/" exact component={LoginPage} />
-            <Route path="/Signup" exact component={SignupPage}/> 
+            <Route path="/Signup" exact component={SignupPage} />
           </Switch>
         </main>
       </div>

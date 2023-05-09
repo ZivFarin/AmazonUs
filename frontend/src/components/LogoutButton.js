@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { useHistory } from "react-router-dom";
-import "./LogoutButton.css";
+import styles from "./LogoutButton.module.css";
 
 function LogoutButton() {
   const history = useHistory();
@@ -12,7 +12,6 @@ function LogoutButton() {
     history.push("/Login"); // Redirect to login page
     history.go(0);
   }, [history]);
-  
 
   const resetTimeout = useCallback(() => {
     clearTimeout(timeoutRef.current);
@@ -37,8 +36,8 @@ function LogoutButton() {
   }, [resetTimeout]);
 
   return (
-    <div className="logout-button-container">
-      <button className="logout-button" onClick={handleLogout}>
+    <div className={styles["logout-button-container"]}>
+      <button className={styles["logout-button"]} onClick={handleLogout}>
         Logout
       </button>
     </div>
