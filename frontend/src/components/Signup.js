@@ -52,9 +52,9 @@ function Signup() {
   };
 
   return (
-    <div className={styles["login-page"]}>
+    <div className={styles["login-form"]}>
       <h1>Create Account</h1>
-      <form className={styles["login-page"]} onSubmit={handleSignUp}>
+      <form className="login-form" onSubmit={handleSignUp}>
         <input
           type="first name"
           placeholder="First Name"
