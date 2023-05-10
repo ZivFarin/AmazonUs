@@ -49,3 +49,19 @@ These are very short and actually use amazon (and it's API) as their main exampl
     I recommend doing the sql server set up and postman actions with him until everything is working.
 + <u>Running the Frontend</u>
   + If you already have react installed on your computer - just navigate into the frontend folder and run `npm start` (you should do this after the server is running).
+
+# Preparing and using the Database
++ <u>Running the reset script</u>
+  + <b>Do not run this script on your own!</b> This script will reset all the tables in the DB and will re-add the mock data. <b>Only run this script after receiving team approval!</b>
+    + In the terminal - `cd` into "backend/DB" folder.
+    + Run `python dbsetup.py`.
++ <u>Setting the DB in pgAdmin4</u>
+  + In pgAdmin4 in the top left, right click `Servers`. Then click `Register` -> `Server...`.
+  + In the 'General' tab, set the 'Name' field to `amazonus`.
+  + In the 'Connection' tab
+    + Set the 'Host name/address' field to `amazonus.cjtaog2z5fsh.eu-north-1.rds.amazonaws.com`.
+    + Set the 'Password' field to `12345678`.
+    + Make sure that 'Port' is set to `5432`, and that 'Username' is set to `postgres`.
+  + Click Save.
+   
+  
