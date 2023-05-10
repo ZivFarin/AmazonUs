@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import './index.css'; // import the CSS file here
+import styles from './index.module.css';
 
 const root = createRoot(document.getElementById('root'));
 root.render(

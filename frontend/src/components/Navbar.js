@@ -1,24 +1,23 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Navbar.css';
-import LogoutButton from './Signup'
+import React from "react";
+import { Link } from "react-router-dom";
+import styles from "./Navbar.module.css";
 
 function Navbar() {
   return (
-    <nav className="navbar">
-      <ul className="navbar-nav">
-        <li className="nav-item">
-          <Link to="/customerMain" className="nav-link">
+    <nav className={styles.navbar}>
+      <ul className={styles["navbar-nav"]}>
+        <li className={styles["nav-item"]}>
+          <Link to="/customerMain" className={styles["nav-link"]}>
             Main
           </Link>
         </li>
-        <li className="nav-item">
-          <Link to="/addItem" className="nav-link">
+        <li className={`${styles["nav-item"]} ${styles["nav-link"]}`}>
+          <Link to="/addItem" className={styles["nav-link"]}>
             Add item
           </Link>
         </li>
-        <li className="nav-item">
-          <Link to="/getInTouch" className="nav-link">
+        <li className={`${styles["nav-item"]} ${styles["nav-link"]}`}>
+          <Link to="/getInTouch" className={styles["nav-link"]}>
             Contact
           </Link>
         </li>

@@ -1,0 +1,71 @@
+/* import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,300;1,400&display=swap');
+
+/* login form styles */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+}
+
+/* input field styles */
+.login-form__input {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  
+}
+
+/* adjust width for non-select input fields */
+.login-form__input:not(select) {
+  width: 100%;
+}
+
+/* error message styles */
+.login-form__error {
+  margin: 10px 0;
+  color: red;
+}
+
+/* submit button styles */
+.login-form__submit,
+.signup-form__submit {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* adjust styles for signup form button */
+.signup-form__submit {
+  text-align: center;
+  text-decoration: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* button hover styles */
+.login-form__submit:hover,
+.signup-form__submit:hover {
+  background-color: #0069d9;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* adjust width for non-select input fields */
+.login-form__input:not(select) {
+  width: 100%;
+}

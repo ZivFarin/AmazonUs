@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import "./Login.css";
+import styles from "./Signup.module.css";
 import { initializeApp } from "firebase/app";
 import { useHistory } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
 
 //connecting to the firebase project
 const firebaseConfig = {
@@ -30,8 +29,7 @@ function Signup() {
   const [error, setError] = useState("");
   const history = useHistory();
 
-  const userData = {email,firstName,lastName,region,telephone};
-
+  const userData = { email, firstName, lastName, region, telephone };
 
   //handling the signup to the system
   const handleSignUp = (event) => {
@@ -40,14 +38,12 @@ function Signup() {
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         // Set isLoggedIn flag in localStorage
-        localStorage.setItem('isLoggedIn', true); 
+        localStorage.setItem("isLoggedIn", true);
         // redirecting the page to the customerMain page after login
-        history.push('/customerMain');
+        history.push("/customerMain");
         history.go(0);
-        
-      }).then(
-        console.log(userData)
-      )
+      })
+      .then(console.log(userData))
       //catching errors
       .catch((error) => {
         const errorMessage = error.message;
@@ -56,39 +52,39 @@ function Signup() {
   };
 
   return (
-    <div className="login-page">
-      <h1 >Create Account</h1>
+    <div className={styles["login-form"]}>
+      <h1>Create Account</h1>
       <form className="login-form" onSubmit={handleSignUp}>
         <input
           type="first name"
           placeholder="First Name"
-          className="login-form__input"
+          className={styles["login-form__input"]}
           value={firstName}
           onChange={(event) => setFirstName(event.target.value)}
         />
         <input
           type="last name"
           placeholder="Last Name"
-          className="login-form__input"
+          className={styles["login-form__input"]}
           value={lastName}
           onChange={(event) => setLastName(event.target.value)}
         />
         <input
           type="email"
           placeholder="Email"
-          className="login-form__input"
+          className={styles["login-form__input"]}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
-          className="login-form__input"
+          className={styles["login-form__input"]}
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
         <select
-          className="login-form__input"
+          className={styles["login-form__input"]}
           value={region}
           onChange={(event) => setRegion(event.target.value)}
         >
@@ -102,12 +98,12 @@ function Signup() {
         <input
           type="telephone"
           placeholder="telephone"
-          className="login-form__input"
+          className={styles["login-form__input"]}
           value={telephone}
           onChange={(event) => setTelephone(event.target.value)}
         />
-        {error && <div className="login-form__error">{error}</div>}
-        <button type="submit" className="login-form__submit">
+        {error && <div className={styles["login-form__error"]}>{error}</div>}
+        <button type="submit" className={styles["login-form__submit"]}>
           Create Account
         </button>
       </form>

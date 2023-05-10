@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./AddItemURL.css";
+import styles from "./AddItemURL.module.css";
 
 function AddItemURL() {
   const [itemUrl, setItemUrl] = useState("");
@@ -21,17 +21,17 @@ function AddItemURL() {
   };
 
   return (
-    <form className="login-form" onSubmit={handleSubmit}>
+    <form className={styles["login-form"]} onSubmit={handleSubmit}>
       <label htmlFor="itemUrl">Add your item URL here:</label>
       <input
-        className="login-form__input"
+        className={styles["login-form__input"]}
         type="text"
         id="itemUrl"
         value={itemUrl}
         onChange={handleInputChange}
       />
       {error && <p className="login-form__error">{error}</p>}
-      <button className="login-form__submit" type="submit">
+      <button className={styles["login-form__submit"]} type="submit">
         Submit
       </button>
     </form>
