@@ -6,6 +6,7 @@ import GetInTouchPage from "./Pages/GetInTouchPage";
 import AddItemURLPage from "./Pages/AddItemURLPage";
 import Navbar from "./components/Navbar";
 import SignupPage from "./Pages/SignupPage";
+import LandingPagePage from "./Pages/LandingPagePage";
 
 function App() {
   // Check if user is authenticated
@@ -19,6 +20,7 @@ function App() {
 
         <main>
           <Switch>
+            <Route path="/" exact component={LandingPagePage} />
             <Route path="/Login" exact component={LoginPage} />
             <Route
               path="/customerMain"
@@ -31,8 +33,8 @@ function App() {
               render={() => (isLoggedIn ? <AddItemURLPage /> : null)}
             />
             <Route path="/getInTouch" exact component={GetInTouchPage} />
-            <Route path="/" exact component={LoginPage} />
             <Route path="/Signup" exact component={SignupPage} />
+            <Route path="/*" exact component={LandingPagePage} />
           </Switch>
         </main>
       </div>

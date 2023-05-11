@@ -1,15 +1,15 @@
-import "./GetInTouch.css";
+import styles from "./GetInTouch.module.css";
 
 function GetInTouch() {
   return (
-    <div>
-      <h2>Use these to contact us:</h2>
-      <p>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Use these to contact us:</h2>
+      <p className={styles.text}>
         E-mail us to: AUSupport@gmail.com
         <br />
         Phone us at: +972505000000
       </p>
-      <p>
+      <p className={styles.text}>
         Always at your service,
         <br />
         AmazonUs team
