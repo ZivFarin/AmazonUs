@@ -34,6 +34,23 @@ function Signup() {
   //handling the signup to the system
   const handleSignUp = (event) => {
     event.preventDefault();
+    //Input validation for names, phone and region selection + setting the error massage
+    if (firstName.trim() === "") {
+      setError("First name can't be empty");
+      return;
+    }
+    if (lastName.trim() === "") {
+      setError("Last name can't be empty");
+      return;
+    }
+    if (region.trim() === "") {
+      setError("Please select a region");
+      return;
+    }
+    if (telephone.trim().length !== 10) {
+      setError("Phone must have 10 digits");
+      return;
+    }
     //taking the user email and password for the signup
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
@@ -44,7 +61,7 @@ function Signup() {
         history.go(0);
       })
       .then(console.log(userData))
-      //catching errors
+      //catching errors from firebase
       .catch((error) => {
         const errorMessage = error.message;
         setError(errorMessage);
