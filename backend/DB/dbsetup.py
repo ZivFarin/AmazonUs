@@ -4,11 +4,9 @@ from datetime import datetime, timezone
 # this script delets all the tables from the amazonus DB and creats new ones with mock data
 # currently the script works on loclhost DB
 
-conn = pc2.connect(user="postgres", password="12345678", database="amazonus", host="127.0.0.1") # connecting to the DB
+conn = pc2.connect(user="postgres", password="12345678", database="amazonus", host="amazonus.cjtaog2z5fsh.eu-north-1.rds.amazonaws.com", port= '5432') # connecting to the DB
 cur = conn.cursor() 
-# deleting the tables
-sql = '''DROP table IF EXISTS event'''
-cur.execute(sql) 
+# deleting the tables 
 sql = '''DROP table IF EXISTS items'''
 cur.execute(sql)
 sql = '''DROP table IF EXISTS carts'''
@@ -75,7 +73,7 @@ conn.commit()
 # inserting the mock data
 cur.execute("""
     INSERT INTO users(Email, Region, First_Name, Last_Name, Telephone)
-    VALUES('elad@gmail.com','Hamerkaz' , 'Ellad', 'Zaltsman', '050-000-0000'),
+    VALUES('elad@gmail.com','Hamerkaz' , 'Elad', 'Zaltsman', '050-000-0000'),
     ('omri@gmail.com','Hamerkaz' , 'Omri', 'Steinberg', '050-111-1111'),
     ('ziv@gmail.com','North' , 'Ziv', 'Farin', '050-222-2222'),
     ('ploni@gmail.com','North' , 'Ploni', 'Almoni', '050-333-3333')
