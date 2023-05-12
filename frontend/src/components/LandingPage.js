@@ -4,6 +4,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function LandingPage() {
   return (
+    
     <div>
       <div className={styles["text-container"]}>
         <h1 className={styles.title}>AmazonUS</h1>
