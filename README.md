@@ -64,4 +64,5 @@ These are very short and actually use amazon (and it's API) as their main exampl
     + Make sure that 'Port' is set to `5432`, and that 'Username' is set to `postgres`.
   + Click Save.
    
-  
+  # Database design
+  ![Amazonus banner](resources/ERD.jpg "AmazonUs")
