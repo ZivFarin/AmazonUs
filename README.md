@@ -1,6 +1,20 @@
-# AMAZONUS
 ![Amazonus banner](resources/Amazonus.jpg "AmazonUs")
 >**Capturing amazon's free shipping with the power of community.**
+
+
+# Table Of Contents
+
+- [Table Of Contents](#table-of-contents)
+- [Basic Links](#basic-links)
+- [Prerequisites](#prerequisites)
+  - [Get a general sense of how the fullstack is built:](#get-a-general-sense-of-how-the-fullstack-is-built)
+  - [Required Installations](#required-installations)
+- [Preparing the project](#preparing-the-project)
+- [Preparing and using the Database](#preparing-and-using-the-database)
+
+
+
+# Basic Links
 
 This is a [link to the project's word file](https://docs.google.com/document/d/1jmD3A_LeHQJUKwWg_DfLRRwrRqQm51C9XPU734alZHk/edit).
 
