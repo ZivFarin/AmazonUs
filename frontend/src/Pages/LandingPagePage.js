@@ -1,7 +1,6 @@
-import LandingPage from "../components/LandingPage";
-
+import NewLanding from "../components/NewLanding";
 const LandingPagePage = () => {
-  return <LandingPage/>;
+  return <NewLanding/>
 };
 
 export default LandingPagePage;
