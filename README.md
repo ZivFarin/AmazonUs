@@ -10,7 +10,8 @@
   - [Get a general sense of how the fullstack is built:](#get-a-general-sense-of-how-the-fullstack-is-built)
   - [Required Installations](#required-installations)
 - [Preparing the project](#preparing-the-project)
-- [Preparing and using the Database](#preparing-and-using-the-database)
+- [Preparing the Database](#database-setup)
+- [Database design](#database-design)
 
 
 
@@ -64,7 +65,7 @@ These are very short and actually use amazon (and it's API) as their main exampl
 + <u>Running the Frontend</u>
   + If you already have react installed on your computer - just navigate into the frontend folder and run `npm start` (you should do this after the server is running).
 
-# Preparing and using the Database
+# Database setup
 + <u>Running the reset script</u>
   + <b>Do not run this script on your own!</b> This script will reset all the tables in the DB and will re-add the mock data. <b>Only run this script after receiving team approval!</b>
     + In the terminal - `cd` into "backend/DB" folder.
