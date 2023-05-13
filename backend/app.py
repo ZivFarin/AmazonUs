@@ -16,6 +16,86 @@ db = SQLAlchemy(app)
 CORS(app)
 
 
+
+
+
+class User(db.Model):
+    user_id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), nullable=False)
+    region = db.Column(db.String(20), nullable=False)
+    first_name = db.Column(db.String(25), nullable=False)
+    last_name = db.Column(db.String(25), nullable=False)
+    telephone = db.Column(db.String(12), nullable=False)
+
+    def __repr__(self):
+        return f"User: {self.email}"
+    
+    def __init__(self, email, region, first_name, last_name, telephone):
+        self.email = email
+        self.region = region
+        self.first_name = first_name
+        self.last_name = last_name
+        self.telephone = telephone
+
+    def to_json(self):
+        return {
+        "id": self.user_id,
+        "email": self.email,
+        "region": self.region,
+        "first_name": self.first_name,
+        "last_name": self.last_name,
+        "telephone": self.telephone
+        }
+
+    
+
+@app.route("/users", methods=["POST"])
+def create_user():
+    """Adds new event to DB.
+
+    Returns:
+        A json formatted version of the event
+    """
+    # Create an event
+    email = request.json["email"]
+    region = request.json["region"]
+    first_name = request.json["first_name"]
+    last_name = request.json["last_name"]
+    telephone = request.json["telephone"]
+
+    user = User(email, region, first_name, last_name, telephone)
+    # Add it to the data base were logged into.
+    db.session.add(user)
+    db.session.commit()
+    # Return the event as json (helps with UI)
+    return user.to_json()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Set up an event model (a row in the Event table)
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
