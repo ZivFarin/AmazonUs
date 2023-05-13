@@ -93,13 +93,14 @@ class User(db.Model, db_item):
 
 @app.route("/user", methods=["POST"])
 def create_user_handler():
+    # create user from json
     email = request.json["email"]
     region = request.json["region"]
     first_name = request.json["first_name"]
     last_name = request.json["last_name"]
     telephone = request.json["telephone"]
-
     user = User(email, region, first_name, last_name, telephone)
+    
     add_as_row_in_corresponding_db(user)
 
     # Return the event as json (helps with UI)
