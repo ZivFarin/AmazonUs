@@ -10,7 +10,7 @@
   - [Get a general sense of how the fullstack is built:](#get-a-general-sense-of-how-the-fullstack-is-built)
   - [Required Installations](#required-installations)
 - [Preparing the project](#preparing-the-project)
-- [Preparing the Database](#database-setup)
+- [Database setup](#database-setup)
 - [Database design](#database-design)
 
 
@@ -82,3 +82,5 @@ These are very short and actually use amazon (and it's API) as their main exampl
    
   # Database design
   ![Amazonus banner](resources/ERD.jpg "AmazonUs")
+  
+  To initiate DB creation, run ```python3 create_basic_db.py``` from the project root.
