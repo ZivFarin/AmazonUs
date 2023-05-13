@@ -222,18 +222,17 @@ class Cart(db.Model, db_item):
     """models a cart row in the cart table."""
     id = db.Column(db.Integer, primary_key=True)
     regional_Admin = db.Column(db.Integer,db.ForeignKey('regional_admin.id'))
-    # cart "status: '-1:PendingClientPayment 0:ClientsPayed 1:Oredered';
-    status = db.Column(db.Integer, nullable=False)
+    # cart "status: '-1:PendingClientPayment 0:ClientsPayed 1:Ordered';
+    status = db.Column(db.Integer, nullable=False, default=-1)
     status_change = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    items =db.relationship('Item', backref='cart')
+    items = db.relationship('Item', backref='cart')
 
     def __repr__(self):
         """Returns a string representation of the object."""
         return f"{self.id}"
 
-    def __init__(self, regional_Admin, status):
+    def __init__(self, regional_Admin):
         self.regional_Admin = regional_Admin
-        self.status = status
 
     def to_json(self):
         return {
@@ -249,8 +248,7 @@ class Cart(db.Model, db_item):
 def add_cart():
     # create cart from json
     regional_Admin = request.json["regional_Admin"]
-    status = request.json["status"]
-    cart = Cart(regional_Admin, status)
+    cart = Cart(regional_Admin)
 
     add_as_row_in_corresponding_db(cart)
 
@@ -276,7 +274,8 @@ class Item(db.Model, db_item):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
     cart_id = db.Column(db.Integer,db.ForeignKey('cart.id'))
-    status = db.Column(db.Integer, nullable=False)
+    # item status: -1:PendingMatch 0:Matched 1:PendingPayment 2:Payed
+    status = db.Column(db.Integer, nullable=False, default=-1)
     status_change = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     price = db.Column(db.Float, nullable=False)
     name = db.Column(db.String, nullable=False)
@@ -288,10 +287,9 @@ class Item(db.Model, db_item):
         """Returns a string representation of the object."""
         return f"{self.id}"
 
-    def __init__(self, user_id, cart_id, status, price, name, url, picture):
+    def __init__(self, user_id, cart_id, price, name, url, picture):
         self.user_id = user_id
         self.cart_id = cart_id
-        self.status = status
         self.price = price
         self.name = name
         self.url = url
@@ -311,23 +309,40 @@ class Item(db.Model, db_item):
         "picture": self.picture
         }
 
-def get_price_from_url(url):
+def get_item_price_from_url(url):
     """
     TODO MOCK! needs to be created
     """
     return 30.4
 
+def get_item_name_from_url(url):
+    """
+    TODO MOCK! needs to be created
+    """
+    return "Phone"
+
+def get_cart_id():
+    """
+    TODO MOCK! needs to be created
+    """
+    return 1
+
+def get_pict_from_url(url):
+    """
+    TODO MOCK! needs to be created
+    """
+    return "Richard"
+
 @app.route("/item", methods=["POST"])
 def add_item():
     # create item from json
     user_id = request.json["user_id"]
-    cart_id = request.json["cart_id"]
-    status = request.json["status"]
+    cart_id = get_cart_id()
     url = request.json["url"]
-    price = get_price_from_url(url)
-    name = request.json["name"]
-    picture = request.json["picture"]
-    item = Item(user_id, cart_id,  status,  price,  name,  url, picture)
+    price = get_item_price_from_url(url)
+    name = get_item_name_from_url(url)
+    picture = get_pict_from_url(url)
+    item = Item(user_id, cart_id,  price,  name,  url, picture)
 
     add_as_row_in_corresponding_db(item)
 
