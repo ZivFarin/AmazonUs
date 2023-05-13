@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import styles from "./AddItemURL.module.css";
 
 function AddItemURL() {
   const [itemUrl, setItemUrl] = useState("");
   const [error, setError] = useState("");
+  const history = useHistory();
   const amazonstr1 = "https://www.amazon.com/";
   const amazonstr2 = "www.amazon.com/";
   const amazonstr3 = "amazon.com/";
@@ -36,11 +38,15 @@ function AddItemURL() {
     } else {
       const title = itemUrl.match(/\/([a-zA-Z0-9-]+)\/dp\//)[1];
       console.log(title.replaceAll("-", " "));
-      window.confirm(
-        "You have uploaded the item " + title.replaceAll("-", " ")
-      );
-      //Here will be the sending json thingy.
-      console.log("The item was uploaded successfully " + itemUrl);
+
+      if (window.confirm("You have uploaded the item " + title.replaceAll("-", " "))){
+        //Here will be the sending json thingy.
+        console.log("The item was uploaded successfully " + itemUrl);
+      }
+      else{
+        history.push("/addItem");
+        history.go(0);
+      }
     }
   };
 
