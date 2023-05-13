@@ -311,7 +311,11 @@ class Item(db.Model, db_item):
         "picture": self.picture
         }
 
-
+def get_price_from_url(url):
+    """
+    TODO MOCK! needs to be created
+    """
+    return 30.4
 
 @app.route("/item", methods=["POST"])
 def add_item():
@@ -319,9 +323,9 @@ def add_item():
     user_id = request.json["user_id"]
     cart_id = request.json["cart_id"]
     status = request.json["status"]
-    price = request.json["price"]
-    name = request.json["name"]
     url = request.json["url"]
+    price = get_price_from_url(url)
+    name = request.json["name"]
     picture = request.json["picture"]
     item = Item(user_id, cart_id,  status,  price,  name,  url, picture)
 
