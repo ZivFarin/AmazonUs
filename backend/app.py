@@ -222,6 +222,7 @@ class Cart(db.Model, db_item):
     """models a cart row in the cart table."""
     id = db.Column(db.Integer, primary_key=True)
     regional_Admin = db.Column(db.Integer,db.ForeignKey('regional_admin.id'))
+    # cart "status: '-1:PendingClientPayment 0:ClientsPayed 1:Oredered';
     status = db.Column(db.Integer, nullable=False)
     status_change = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     items =db.relationship('Item', backref='cart')
@@ -246,10 +247,11 @@ class Cart(db.Model, db_item):
 
 @app.route("/cart", methods=["POST"])
 def add_cart():
+    # create cart from json
     regional_Admin = request.json["regional_Admin"]
     status = request.json["status"]
-
     cart = Cart(regional_Admin, status)
+    
     add_as_row_in_corresponding_db(cart)
 
     # Return the event as json (helps with UI)
