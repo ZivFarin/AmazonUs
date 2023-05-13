@@ -1,10 +1,10 @@
 import psycopg2 as pc2
 from datetime import datetime, timezone
 
-# this script delets all the tables from the amazonus DB and creats new ones with mock data
-# currently the script works on loclhost DB
+# this script deletes all the tables from the amazonus DB and creates new ones with mock data
+# currently the script works on localhost DB, but could be operating on our DB server by replacing current host: amazonus.cjtaog2z5fsh.eu-north-1.rds.amazonaws.com
 
-conn = pc2.connect(user="postgres", password="12345678", database="amazonus", host="amazonus.cjtaog2z5fsh.eu-north-1.rds.amazonaws.com", port= '5432') # connecting to the DB
+conn = pc2.connect(user="postgres", password="12345678", database="amazonus", host="localhost", port= '5432') # connecting to the DB
 cur = conn.cursor() 
 # deleting the tables 
 sql = '''DROP table IF EXISTS items'''
