@@ -106,6 +106,11 @@ def create_user_handler():
     # Return the event as json (helps with UI)
     return user.to_json()
 
+@app.route("/login/<email>", methods=["GET"])
+def get_user_details_from_email(email):
+    """get user details by email."""
+    user_details = User.query.filter_by(email=email).one()
+    return user_details.to_json()
 
 
 
