@@ -259,6 +259,92 @@ def add_cart():
 
 
 
+# Item
+class Item(db.Model, db_item):
+    """models a item row in the item table."""
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.relationship('User')
+    cart_id = db.relationship('Cart')
+    status = db.Column(db.Integer, nullable=False)
+    status_change = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    price = db.Column(db.Float, nullable=False)
+    name = db.Column(db.String, nullable=False)
+    url = db.Column(db.String, nullable=False)
+    picture = db.Column(db.String, nullable=False)
+
+
+    def __repr__(self):
+        """Returns a string representation of the object."""
+        return f"{self.id}"
+
+    def __init__(self, user_id, cart_id, status, price, name, url):
+        self.user_id = user_id
+        self.cart_id = cart_id
+        self.status = status
+        self.price = price
+        self.name = name
+        self.url = url
+        
+
+    def to_json(self):
+        return {
+        "id": self.id,
+        "user_id": self.user_id,
+        "cart_id": self.cart_id,
+        "status": self.status,
+        "status_change": self.status_change,
+        "price": self.price,
+        "name": self.name,
+        "url": self.url,
+        "picture": self.picture
+        }
+
+
+
+@app.route("/item", methods=["POST"])
+def add_item():
+    user_id = request.json["user_id"]
+    cart_id = request.json["cart_id"]
+    status = request.json["status"]
+    price = request.json["price"]
+    name = request.json["name"]
+    url = request.json["url"]
+
+    item = Item(user_id, cart_id,  status,  price,  name,  url)
+    add_as_row_in_corresponding_db(item)
+
+    # Return the event as json (helps with UI)
+    return item.to_json()
+
+
+
+# Need to create a 'PATCH' request too for cart's status updates.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
