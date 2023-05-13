@@ -20,7 +20,7 @@ CORS(app)
 
 
 class User(db.Model):
-    user_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), nullable=False)
     region = db.Column(db.String(20), nullable=False)
     first_name = db.Column(db.String(25), nullable=False)
