@@ -336,9 +336,9 @@ def get_pict_from_url(url):
 @app.route("/item", methods=["POST"])
 def add_item():
     # create item from json
+    url = request.json["url"]
     user_id = request.json["user_id"]
     cart_id = get_cart_id()
-    url = request.json["url"]
     price = get_item_price_from_url(url)
     name = get_item_name_from_url(url)
     picture = get_pict_from_url(url)
