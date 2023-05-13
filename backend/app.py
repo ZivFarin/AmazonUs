@@ -24,13 +24,34 @@ CORS(app)
 New versions of DB interface.
 """
 
+# DB management utilities
+
+def add_as_row_in_corresponding_db(item):
+    """
+    Adds an item as a row in the table that corresponds to it's type.
+    """
+    db.session.add(item)
+    db.session.commit()
+
+
+
 
 
 # Table items definitions
 
+class db_item():
+    """db_items must implement this"""
+    def to_json(self):
+        """Return a JSON representation of the item"""
+        raise NotImplementedError
+
+
+
+
 # User 
-class User(db.Model):
-    user_id = db.Column(db.Integer, primary_key=True)
+class User(db.Model, db_item):
+    """models a user row in the user table."""
+    id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), nullable=False)
     region = db.Column(db.String(20), nullable=False)
     first_name = db.Column(db.String(25), nullable=False)
@@ -38,6 +59,7 @@ class User(db.Model):
     telephone = db.Column(db.String(12), nullable=False)
 
     def __repr__(self):
+        """Returns a string representation of the object."""
         return f"User: {self.email}"
 
     def __init__(self, email, region, first_name, last_name, telephone):
@@ -48,8 +70,9 @@ class User(db.Model):
         self.telephone = telephone
 
     def to_json(self):
+        """Return a JSON representation of the item"""
         return {
-        "id": self.user_id,
+        "id": self.id,
         "email": self.email,
         "region": self.region,
         "first_name": self.first_name,
@@ -60,12 +83,7 @@ class User(db.Model):
 
 
 @app.route("/user", methods=["POST"])
-def create_user():
-    """Adds new event to DB.
-    Returns:
-        A json formatted version of the event
-    """
-    # Create an event
+def create_user_handler():
     email = request.json["email"]
     region = request.json["region"]
     first_name = request.json["first_name"]
@@ -73,13 +91,18 @@ def create_user():
     telephone = request.json["telephone"]
 
     user = User(email, region, first_name, last_name, telephone)
-    # Add it to the data base were logged into.
-    db.session.add(user)
-    db.session.commit()
+    add_as_row_in_corresponding_db(user)
+
     # Return the event as json (helps with UI)
     return user.to_json()
 
 
+
+
+
+
+
+                
 
 
 
