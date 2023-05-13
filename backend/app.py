@@ -100,7 +100,7 @@ def create_user_handler():
     last_name = request.json["last_name"]
     telephone = request.json["telephone"]
     user = User(email, region, first_name, last_name, telephone)
-    
+
     add_as_row_in_corresponding_db(user)
 
     # Return the event as json (helps with UI)
@@ -149,12 +149,13 @@ class Regional_admin(db.Model, db_item):
 
 @app.route("/regional_admin", methods=["POST"])
 def create_regional_admin():
+    # create create_regional_admin from json
     email = request.json["email"]
     region = request.json["region"]
     first_name = request.json["first_name"]
     last_name = request.json["last_name"]
-
     regional_admin = Regional_admin(email, region, first_name, last_name)
+    
     add_as_row_in_corresponding_db(regional_admin)
 
     # Return the event as json (helps with UI)
