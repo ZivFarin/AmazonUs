@@ -106,6 +106,11 @@ def create_user_handler():
     # Return the event as json (helps with UI)
     return user.to_json()
 
+@app.route("/login/<email>", methods=["GET"])
+def get_user_details_from_email(email):
+    """get user details by email."""
+    user_details = User.query.filter_by(email=email).one()
+    return user_details.to_json()
 
 
 
@@ -336,9 +341,9 @@ def get_pict_from_url(url):
 @app.route("/item", methods=["POST"])
 def add_item():
     # create item from json
+    url = request.json["url"]
     user_id = request.json["user_id"]
     cart_id = get_cart_id()
-    url = request.json["url"]
     price = get_item_price_from_url(url)
     name = get_item_name_from_url(url)
     picture = get_pict_from_url(url)
@@ -350,6 +355,14 @@ def add_item():
     return item.to_json()
 
 
+@app.route("/item/<user_id>", methods=["GET"])
+def get_all_user_events(user_id):
+    """get all items of user by user_id."""
+    items = Item.query.filter_by(user_id=user_id).all()
+    items_list = []
+    for item in items:
+        items_list.append(item.to_json())
+    return {"Items": items_list}
 
 # Need to create a 'PATCH' request too for cart's status updates.
 
