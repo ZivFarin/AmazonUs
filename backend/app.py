@@ -48,6 +48,21 @@ class db_item():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # User 
 class User(db.Model, db_item):
     """models a user row in the user table."""
@@ -103,6 +118,89 @@ def create_user_handler():
 
 
                 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Regional admin 
+class Regional_admin(db.Model, db_item):
+    """models a regional admin row in the regional admins table."""
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), nullable=False, unique=True)
+    region = db.Column(db.String(20), nullable=False)
+    first_name = db.Column(db.String(25), nullable=False)
+    last_name = db.Column(db.String(25), nullable=False)
+
+    def __repr__(self):
+        """Returns a string representation of the object."""
+        return f"Regional_admin: {self.email}"
+
+    def __init__(self, email, region, first_name, last_name):
+        self.email = email
+        self.region = region
+        self.first_name = first_name
+        self.last_name = last_name
+
+    def to_json(self):
+        return {
+        "id": self.id,
+        "email": self.email,
+        "region": self.region,
+        "first_name": self.first_name,
+        "last_name": self.last_name,
+        }
+
+
+
+@app.route("/regional_admin", methods=["POST"])
+def create_regional_admin():
+    email = request.json["email"]
+    region = request.json["region"]
+    first_name = request.json["first_name"]
+    last_name = request.json["last_name"]
+
+    regional_admin = Regional_admin(email, region, first_name, last_name)
+    add_as_row_in_corresponding_db(regional_admin)
+
+    # Return the event as json (helps with UI)
+    return regional_admin.to_json()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
