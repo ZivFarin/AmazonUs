@@ -219,6 +219,7 @@ class Cart(db.Model, db_item):
     regional_Admin = db.relationship('Regional_admin')
     status = db.Column(db.Integer, nullable=False)
     status_change = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    items =db.relationship('Item', backref='cart')
 
     def __repr__(self):
         """Returns a string representation of the object."""
