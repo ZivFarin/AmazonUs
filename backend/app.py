@@ -251,7 +251,7 @@ def add_cart():
     regional_Admin = request.json["regional_Admin"]
     status = request.json["status"]
     cart = Cart(regional_Admin, status)
-    
+
     add_as_row_in_corresponding_db(cart)
 
     # Return the event as json (helps with UI)
@@ -288,13 +288,14 @@ class Item(db.Model, db_item):
         """Returns a string representation of the object."""
         return f"{self.id}"
 
-    def __init__(self, user_id, cart_id, status, price, name, url):
+    def __init__(self, user_id, cart_id, status, price, name, url, picture):
         self.user_id = user_id
         self.cart_id = cart_id
         self.status = status
         self.price = price
         self.name = name
         self.url = url
+        self.picture = picture
         
 
     def to_json(self):
@@ -314,14 +315,16 @@ class Item(db.Model, db_item):
 
 @app.route("/item", methods=["POST"])
 def add_item():
+    # create item from json
     user_id = request.json["user_id"]
     cart_id = request.json["cart_id"]
     status = request.json["status"]
     price = request.json["price"]
     name = request.json["name"]
     url = request.json["url"]
+    picture = request.json["picture"]
+    item = Item(user_id, cart_id,  status,  price,  name,  url, picture)
 
-    item = Item(user_id, cart_id,  status,  price,  name,  url)
     add_as_row_in_corresponding_db(item)
 
     # Return the event as json (helps with UI)
