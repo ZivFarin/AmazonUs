@@ -63,7 +63,6 @@ class User(db.Model, db_item):
     first_name = db.Column(db.String(25), nullable=False)
     last_name = db.Column(db.String(25), nullable=False)
     telephone = db.Column(db.String(12), nullable=False, unique=True)
-    banned_user = db.relationship('Banned_user', backref='user', uselist=False)
 
     def __repr__(self):
         """Returns a string representation of the object."""
@@ -84,8 +83,7 @@ class User(db.Model, db_item):
         "region": self.region,
         "first_name": self.first_name,
         "last_name": self.last_name,
-        "telephone": self.telephone,
-        "banned_user": self.banned_user
+        "telephone": self.telephone
         }
 
 
@@ -170,7 +168,7 @@ class Banned_user(db.Model, db_item):
     """models a banned user row in the banned user table."""
     id = db.Column(db.Integer, primary_key=True)
     ban_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    banned_user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    banned_user_id = db.relationship('user')
     ban_reason = db.Column(db.String(255), nullable=False)
 
     def __repr__(self):
