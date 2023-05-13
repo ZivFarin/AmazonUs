@@ -214,6 +214,78 @@ def create_regional_admin():
 
 
 
+# Banned user 
+class banned_user(db.Model, db_item):
+    """models a banned user row in the banned user table."""
+    id = db.Column(db.Integer, primary_key=True)
+    ban_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    banned_user_id = db.relationship('user')
+    ban_reason = db.Column(db.String(255), nullable=False)
+
+    def __repr__(self):
+        """Returns a string representation of the object."""
+        return f"{self.banned_user_id} is banned because: {self.ban_reason}"
+
+    def __init__(self, banned_user_id, ban_reason):
+        self.banned_user_id = banned_user_id
+        self.ban_reason = ban_reason
+
+    def to_json(self):
+        return {
+        "id": self.id,
+        "banned_user_id": self.banned_user_id,
+        "ban_date": self.ban_date,
+        "ban_reason": self.ban_reason
+        }
+
+
+
+@app.route("/banned_user", methods=["POST"])
+def ban_user():
+    banned_user_id = request.json["banned_user_id"]
+    ban_reason = request.json["ban_reason"]
+
+    banned_user = banned_user(banned_user_id, ban_reason)
+    add_as_row_in_corresponding_db(banned_user)
+
+    # Return the event as json (helps with UI)
+    return banned_user.to_json()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
