@@ -155,7 +155,7 @@ def create_regional_admin():
     first_name = request.json["first_name"]
     last_name = request.json["last_name"]
     regional_admin = Regional_admin(email, region, first_name, last_name)
-    
+
     add_as_row_in_corresponding_db(regional_admin)
 
     # Return the event as json (helps with UI)
@@ -198,10 +198,11 @@ class Banned_user(db.Model, db_item):
 
 @app.route("/banned_user", methods=["POST"])
 def ban_user():
+    # create banned_user from json
     banned_user_id = request.json["banned_user_id"]
     ban_reason = request.json["ban_reason"]
-
     banned_user = Banned_user(banned_user_id, ban_reason)
+
     add_as_row_in_corresponding_db(banned_user)
 
     # Return the event as json (helps with UI)
