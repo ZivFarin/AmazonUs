@@ -215,7 +215,7 @@ def create_regional_admin():
 
 
 # Banned user 
-class banned_user(db.Model, db_item):
+class Banned_user(db.Model, db_item):
     """models a banned user row in the banned user table."""
     id = db.Column(db.Integer, primary_key=True)
     ban_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -245,7 +245,7 @@ def ban_user():
     banned_user_id = request.json["banned_user_id"]
     ban_reason = request.json["ban_reason"]
 
-    banned_user = banned_user(banned_user_id, ban_reason)
+    banned_user = Banned_user(banned_user_id, ban_reason)
     add_as_row_in_corresponding_db(banned_user)
 
     # Return the event as json (helps with UI)
