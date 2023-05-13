@@ -64,6 +64,7 @@ class User(db.Model, db_item):
     last_name = db.Column(db.String(25), nullable=False)
     telephone = db.Column(db.String(12), nullable=False, unique=True)
     banned_user = db.relationship('Banned_user', backref='user', uselist=False)
+    items =db.relationship('Item', backref='user')
 
     def __repr__(self):
         """Returns a string representation of the object."""
@@ -265,8 +266,8 @@ def add_cart():
 class Item(db.Model, db_item):
     """models a item row in the item table."""
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.relationship('User')
-    cart_id = db.relationship('Cart')
+    user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
+    cart_id = db.Column(db.Integer,db.ForeignKey('cart.id'))
     status = db.Column(db.Integer, nullable=False)
     status_change = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     price = db.Column(db.Float, nullable=False)
