@@ -52,11 +52,11 @@ class db_item():
 class User(db.Model, db_item):
     """models a user row in the user table."""
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=False, unique=True)
     region = db.Column(db.String(20), nullable=False)
     first_name = db.Column(db.String(25), nullable=False)
     last_name = db.Column(db.String(25), nullable=False)
-    telephone = db.Column(db.String(12), nullable=False)
+    telephone = db.Column(db.String(12), nullable=False, unique=True)
 
     def __repr__(self):
         """Returns a string representation of the object."""
