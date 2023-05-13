@@ -93,13 +93,14 @@ class User(db.Model, db_item):
 
 @app.route("/user", methods=["POST"])
 def create_user_handler():
+    # create user from json
     email = request.json["email"]
     region = request.json["region"]
     first_name = request.json["first_name"]
     last_name = request.json["last_name"]
     telephone = request.json["telephone"]
-
     user = User(email, region, first_name, last_name, telephone)
+
     add_as_row_in_corresponding_db(user)
 
     # Return the event as json (helps with UI)
@@ -122,7 +123,7 @@ class Regional_admin(db.Model, db_item):
     region = db.Column(db.String(20), nullable=False)
     first_name = db.Column(db.String(25), nullable=False)
     last_name = db.Column(db.String(25), nullable=False)
-    cart =db.relationship('Cart', backref='regional_admin')
+    cart = db.relationship('Cart', backref='regional_admin')
 
 
     def __repr__(self):
@@ -148,12 +149,13 @@ class Regional_admin(db.Model, db_item):
 
 @app.route("/regional_admin", methods=["POST"])
 def create_regional_admin():
+    # create create_regional_admin from json
     email = request.json["email"]
     region = request.json["region"]
     first_name = request.json["first_name"]
     last_name = request.json["last_name"]
-
     regional_admin = Regional_admin(email, region, first_name, last_name)
+
     add_as_row_in_corresponding_db(regional_admin)
 
     # Return the event as json (helps with UI)
@@ -196,10 +198,11 @@ class Banned_user(db.Model, db_item):
 
 @app.route("/banned_user", methods=["POST"])
 def ban_user():
+    # create banned_user from json
     banned_user_id = request.json["banned_user_id"]
     ban_reason = request.json["ban_reason"]
-
     banned_user = Banned_user(banned_user_id, ban_reason)
+
     add_as_row_in_corresponding_db(banned_user)
 
     # Return the event as json (helps with UI)
@@ -219,17 +222,17 @@ class Cart(db.Model, db_item):
     """models a cart row in the cart table."""
     id = db.Column(db.Integer, primary_key=True)
     regional_Admin = db.Column(db.Integer,db.ForeignKey('regional_admin.id'))
-    status = db.Column(db.Integer, nullable=False)
+    # cart "status: '-1:PendingClientPayment 0:ClientsPayed 1:Ordered';
+    status = db.Column(db.Integer, nullable=False, default=-1)
     status_change = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    items =db.relationship('Item', backref='cart')
+    items = db.relationship('Item', backref='cart')
 
     def __repr__(self):
         """Returns a string representation of the object."""
         return f"{self.id}"
 
-    def __init__(self, regional_Admin, status):
+    def __init__(self, regional_Admin):
         self.regional_Admin = regional_Admin
-        self.status = status
 
     def to_json(self):
         return {
@@ -243,10 +246,10 @@ class Cart(db.Model, db_item):
 
 @app.route("/cart", methods=["POST"])
 def add_cart():
+    # create cart from json
     regional_Admin = request.json["regional_Admin"]
-    status = request.json["status"]
+    cart = Cart(regional_Admin)
 
-    cart = Cart(regional_Admin, status)
     add_as_row_in_corresponding_db(cart)
 
     # Return the event as json (helps with UI)
@@ -271,7 +274,8 @@ class Item(db.Model, db_item):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
     cart_id = db.Column(db.Integer,db.ForeignKey('cart.id'))
-    status = db.Column(db.Integer, nullable=False)
+    # item status: -1:PendingMatch 0:Matched 1:PendingPayment 2:Payed
+    status = db.Column(db.Integer, nullable=False, default=-1)
     status_change = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     price = db.Column(db.Float, nullable=False)
     name = db.Column(db.String, nullable=False)
@@ -283,13 +287,13 @@ class Item(db.Model, db_item):
         """Returns a string representation of the object."""
         return f"{self.id}"
 
-    def __init__(self, user_id, cart_id, status, price, name, url):
+    def __init__(self, user_id, cart_id, price, name, url, picture):
         self.user_id = user_id
         self.cart_id = cart_id
-        self.status = status
         self.price = price
         self.name = name
         self.url = url
+        self.picture = picture
         
 
     def to_json(self):
@@ -305,18 +309,41 @@ class Item(db.Model, db_item):
         "picture": self.picture
         }
 
+def get_item_price_from_url(url):
+    """
+    TODO MOCK! needs to be created
+    """
+    return 30.4
 
+def get_item_name_from_url(url):
+    """
+    TODO MOCK! needs to be created
+    """
+    return "Phone"
+
+def get_cart_id():
+    """
+    TODO MOCK! needs to be created
+    """
+    return 1
+
+def get_pict_from_url(url):
+    """
+    TODO MOCK! needs to be created
+    """
+    return "Richard"
 
 @app.route("/item", methods=["POST"])
 def add_item():
+    # create item from json
     user_id = request.json["user_id"]
-    cart_id = request.json["cart_id"]
-    status = request.json["status"]
-    price = request.json["price"]
-    name = request.json["name"]
+    cart_id = get_cart_id()
     url = request.json["url"]
+    price = get_item_price_from_url(url)
+    name = get_item_name_from_url(url)
+    picture = get_pict_from_url(url)
+    item = Item(user_id, cart_id,  price,  name,  url, picture)
 
-    item = Item(user_id, cart_id,  status,  price,  name,  url)
     add_as_row_in_corresponding_db(item)
 
     # Return the event as json (helps with UI)
