@@ -122,6 +122,8 @@ class Regional_admin(db.Model, db_item):
     region = db.Column(db.String(20), nullable=False)
     first_name = db.Column(db.String(25), nullable=False)
     last_name = db.Column(db.String(25), nullable=False)
+    cart =db.relationship('Cart', backref='regional_admin')
+
 
     def __repr__(self):
         """Returns a string representation of the object."""
@@ -216,7 +218,7 @@ def ban_user():
 class Cart(db.Model, db_item):
     """models a cart row in the cart table."""
     id = db.Column(db.Integer, primary_key=True)
-    regional_Admin = db.relationship('Regional_admin')
+    regional_Admin = db.Column(db.Integer,db.ForeignKey('regional_admin.id'))
     status = db.Column(db.Integer, nullable=False)
     status_change = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     items =db.relationship('Item', backref='cart')
