@@ -54,15 +54,6 @@ class db_item():
 
 
 
-
-
-
-
-
-
-
-
-
 # User 
 class User(db.Model, db_item):
     """models a user row in the user table."""
@@ -110,22 +101,6 @@ def create_user_handler():
 
     # Return the event as json (helps with UI)
     return user.to_json()
-
-
-
-
-
-
-
-                
-
-
-
-
-
-
-
-
 
 
 
@@ -234,72 +209,46 @@ def ban_user():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Banned user 
-class Banned_user(db.Model, db_item):
-    """models a banned user row in the banned user table."""
+# Cart
+class Cart(db.Model, db_item):
+    """models a cart row in the cart table."""
     id = db.Column(db.Integer, primary_key=True)
-    ban_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    banned_user_id = db.relationship('user')
-    ban_reason = db.Column(db.String(255), nullable=False)
+    regional_Admin = db.relationship('Regional_admin')
+    status = db.Column(db.Integer, nullable=False)
+    status_change = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     def __repr__(self):
         """Returns a string representation of the object."""
-        return f"{self.banned_user_id} is banned because: {self.ban_reason}"
+        return f"{self.id}"
 
-    def __init__(self, banned_user_id, ban_reason):
-        self.banned_user_id = banned_user_id
-        self.ban_reason = ban_reason
+    def __init__(self, regional_Admin, status):
+        self.regional_Admin = regional_Admin
+        self.status = status
 
     def to_json(self):
         return {
         "id": self.id,
-        "banned_user_id": self.banned_user_id,
-        "ban_date": self.ban_date,
-        "ban_reason": self.ban_reason
+        "regional_Admin": self.regional_Admin,
+        "status": self.status,
+        "status_change": self.status_change
         }
 
 
 
-@app.route("/banned_user", methods=["POST"])
-def ban_user():
-    banned_user_id = request.json["banned_user_id"]
-    ban_reason = request.json["ban_reason"]
+@app.route("/cart", methods=["POST"])
+def add_cart():
+    regional_Admin = request.json["regional_Admin"]
+    status = request.json["status"]
 
-    banned_user = Banned_user(banned_user_id, ban_reason)
-    add_as_row_in_corresponding_db(banned_user)
+    cart = Cart(regional_Admin, status)
+    add_as_row_in_corresponding_db(cart)
 
     # Return the event as json (helps with UI)
-    return banned_user.to_json()
+    return cart.to_json()
 
 
 
-
-
+# Need to create a 'PATCH' request too for cart's status updates.
 
 
 
