@@ -123,7 +123,7 @@ class Regional_admin(db.Model, db_item):
     region = db.Column(db.String(20), nullable=False)
     first_name = db.Column(db.String(25), nullable=False)
     last_name = db.Column(db.String(25), nullable=False)
-    cart =db.relationship('Cart', backref='regional_admin')
+    cart = db.relationship('Cart', backref='regional_admin')
 
 
     def __repr__(self):
