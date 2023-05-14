@@ -282,7 +282,7 @@ class Item(db.Model, db_item):
     """models a item row in the item table."""
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
-    cart_id = db.Column(db.Integer,db.ForeignKey('cart.id'))
+    cart_id = db.Column(db.Integer,db.ForeignKey('cart.id'), nullable=True)
     # item status: -1:PendingMatch 0:Matched 1:PendingPayment 2:Payed
     status = db.Column(db.Integer, nullable=False, default=-1)
     status_change = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -298,7 +298,7 @@ class Item(db.Model, db_item):
 
     def __init__(self, user_id, cart_id, price, name, url, picture):
         self.user_id = user_id
-        self.cart_id = cart_id
+        self.cart_id = None
         self.price = price
         self.name = name
         self.url = url
@@ -334,7 +334,7 @@ def get_cart_id():
     """
     TODO MOCK! needs to be created
     """
-    return 1
+    return None
 
 def get_pict_from_url(url):
     """
