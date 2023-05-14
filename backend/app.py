@@ -342,11 +342,14 @@ def get_pict_from_url(url):
 def add_item():
     # create item from json
     url = request.json["url"]
-    user_id = request.json["user_id"]
+    email = request.json["email"]
     cart_id = get_cart_id()
     price = get_item_price_from_url(url)
     name = get_item_name_from_url(url)
     picture = get_pict_from_url(url)
+
+    user = User.query.filter_by(email=email).one()
+    user_id = user.id
     item = Item(user_id, cart_id,  price,  name,  url, picture)
 
     add_as_row_in_corresponding_db(item)
@@ -366,7 +369,7 @@ def get_all_user_events(email):
     return {"Items": items_list}
 
 # Need to create a 'PATCH' request too for cart's status updates.
-    
+
 
 
 
