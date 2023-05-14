@@ -37,6 +37,7 @@ function Login({ history }) {
       .then(() => {
         // Set isLoggedIn flag in localStorage
         localStorage.setItem("isLoggedIn", true);
+        
         // redirecting the page to the customerMain page after login
         history.push("/customerMain");
         history.go(0);
