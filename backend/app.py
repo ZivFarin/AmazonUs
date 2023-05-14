@@ -355,17 +355,18 @@ def add_item():
     return item.to_json()
 
 
-@app.route("/item/<user_id>", methods=["GET"])
-def get_all_user_events(user_id):
+@app.route("/item/<email>", methods=["GET"])
+def get_all_user_events(email):
     """get all items of user by user_id."""
-    items = Item.query.filter_by(user_id=user_id).all()
+    user = User.query.filter_by(email=email).one()
+    items = Item.query.filter_by(user_id = user.id).all()
     items_list = []
     for item in items:
         items_list.append(item.to_json())
     return {"Items": items_list}
 
 # Need to create a 'PATCH' request too for cart's status updates.
-
+    
 
 
 
