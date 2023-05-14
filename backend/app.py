@@ -204,8 +204,12 @@ class Banned_user(db.Model, db_item):
 @app.route("/banned_user", methods=["POST"])
 def ban_user():
     # create banned_user from json
-    banned_user_id = request.json["banned_user_id"]
+    email = request.json["email"]
     ban_reason = request.json["ban_reason"]
+
+    user = User.query.filter_by(email=email).one()
+    banned_user_id = user.id
+
     banned_user = Banned_user(banned_user_id, ban_reason)
 
     add_as_row_in_corresponding_db(banned_user)
