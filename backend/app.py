@@ -204,8 +204,12 @@ class Banned_user(db.Model, db_item):
 @app.route("/banned_user", methods=["POST"])
 def ban_user():
     # create banned_user from json
-    banned_user_id = request.json["banned_user_id"]
+    email = request.json["email"]
     ban_reason = request.json["ban_reason"]
+
+    user = User.query.filter_by(email=email).one()
+    banned_user_id = user.id
+
     banned_user = Banned_user(banned_user_id, ban_reason)
 
     add_as_row_in_corresponding_db(banned_user)
@@ -342,11 +346,14 @@ def get_pict_from_url(url):
 def add_item():
     # create item from json
     url = request.json["url"]
-    user_id = request.json["user_id"]
+    email = request.json["email"]
     cart_id = get_cart_id()
     price = get_item_price_from_url(url)
     name = get_item_name_from_url(url)
     picture = get_pict_from_url(url)
+
+    user = User.query.filter_by(email=email).one()
+    user_id = user.id
     item = Item(user_id, cart_id,  price,  name,  url, picture)
 
     add_as_row_in_corresponding_db(item)
@@ -355,10 +362,11 @@ def add_item():
     return item.to_json()
 
 
-@app.route("/item/<user_id>", methods=["GET"])
-def get_all_user_events(user_id):
+@app.route("/item/<email>", methods=["GET"])
+def get_all_user_events(email):
     """get all items of user by user_id."""
-    items = Item.query.filter_by(user_id=user_id).all()
+    user = User.query.filter_by(email=email).one()
+    items = Item.query.filter_by(user_id = user.id).all()
     items_list = []
     for item in items:
         items_list.append(item.to_json())
