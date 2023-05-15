@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LoginPage from "./Pages/LoginPage";
-import LogoutButton from "./components/LogoutButton";
+import LogoutButton from "./components/Sing in and up/LogoutButton";
 import CustomerMainPage from "./Pages/CustomerMainPage";
 import GetInTouchPage from "./Pages/GetInTouchPage";
 import AddItemURLPage from "./Pages/AddItemURLPage";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Customer/Navbar"
 import SignupPage from "./Pages/SignupPage";
 import LandingPagePage from "./Pages/LandingPagePage";
 
