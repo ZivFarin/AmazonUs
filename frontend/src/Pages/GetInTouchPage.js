@@ -1,4 +1,4 @@
-import GetInTouch from "../components/GetInTouch";
+import GetInTouch from "../components/Customer/GetInTouch";
 
 const GetInTouchPage = () => {
   return <GetInTouch/>;

@@ -1,4 +1,4 @@
-import AddItemURL from "../components/AddItemURL";
+import AddItemURL from "../components/Customer/AddItemURL"
 
 const AddItemURLPage = () => {
   return <AddItemURL/>;

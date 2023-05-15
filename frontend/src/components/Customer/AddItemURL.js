@@ -60,20 +60,20 @@ function AddItemURL() {
         )
       ) {
         let userEmailToSend = auth.currentUser.email;
-        let userURL = {"url": itemUrl,"email": userEmailToSend }
+        let userURL = { url: itemUrl, email: userEmailToSend };
         fetch("http://localhost:5000/item", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(userURL),
-        })
-        console.log(userURL);
-        console.log("The item was uploaded successfully " + itemUrl);
+        });
       } else {
         history.push("/addItem");
         history.go(0);
       }
+      history.push("/CustomerMain");
+      history.go(0);
     }
   };
 
