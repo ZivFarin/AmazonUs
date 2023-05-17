@@ -4,9 +4,10 @@ import LogoutButton from "./components/Sing in and up/LogoutButton";
 import CustomerMainPage from "./Pages/CustomerMainPage";
 import GetInTouchPage from "./Pages/GetInTouchPage";
 import AddItemURLPage from "./Pages/AddItemURLPage";
-import Navbar from "./components/Customer/Navbar"
+import Navbar from "./components/Customer/Navbar";
 import SignupPage from "./Pages/SignupPage";
 import LandingPagePage from "./Pages/LandingPagePage";
+import AboutUsPage from "./Pages/AboutUsPage";
 
 function App() {
   // Check if user is authenticated
@@ -32,8 +33,10 @@ function App() {
               exact
               render={() => (isLoggedIn ? <AddItemURLPage /> : null)}
             />
+
             <Route path="/getInTouch" exact component={GetInTouchPage} />
             <Route path="/Signup" exact component={SignupPage} />
+            <Route path="/AboutUs" exact component={AboutUsPage} />
             <Route path="/*" exact component={LandingPagePage} />
           </Switch>
         </main>

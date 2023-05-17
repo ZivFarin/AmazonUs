@@ -21,6 +21,11 @@ function Navbar() {
             Contact
           </Link>
         </li>
+        <li className={`${styles["nav-item"]} ${styles["nav-link"]}`}>
+          <Link to="/AboutUs" className={styles["nav-link"]}>
+            About Us
+          </Link>
+        </li>
       </ul>
     </nav>
   );
