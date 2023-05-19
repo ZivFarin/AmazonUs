@@ -8,7 +8,7 @@ import Navbar from "./components/Customer/Navbar";
 import SignupPage from "./Pages/SignupPage";
 import LandingPagePage from "./Pages/LandingPagePage";
 import AboutUsPage from "./Pages/AboutUsPage";
-import GeneralAdminMainPage from "./Pages/GeneralAdminMainPage";
+import RegionalAdminMainPage from "./Pages/RegionalAdminMainPage";
 
 function App() {
   // Check if user is authenticated
@@ -38,7 +38,7 @@ function App() {
             <Route path="/getInTouch" exact component={GetInTouchPage} />
             <Route path="/Signup" exact component={SignupPage} />
             <Route path="/AboutUs" exact component={AboutUsPage} />
-            <Route path="/GeneralAdminMain" exact component={GeneralAdminMainPage} />
+            <Route path="/GeneralAdminMain" exact component={RegionalAdminMainPage} />
             <Route path="/*" exact component={LandingPagePage} />
           </Switch>
         </main>
