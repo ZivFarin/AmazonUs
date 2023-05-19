@@ -17,7 +17,7 @@ for (const i in dummyArr) {
     dummyArr[i].status = "Client paid";
 }
 
-function GeneralAdminMain() {
+function RegionalAdminMain() {
   const [carts, setCarts] = useState([]);
 
   useState(() => {
@@ -61,4 +61,4 @@ function GeneralAdminMain() {
   );
 }
 
-export default GeneralAdminMain;
+export default RegionalAdminMain;
