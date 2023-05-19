@@ -8,6 +8,7 @@ const dummyArr = [
   { "id": 3, "status": 0, "status_changed": "the date 3" }
 ];
 
+//changing the status from a number to the suitabe string
 for (const i in dummyArr) {
   if (dummyArr[i].status === 1)
     dummyArr[i].status = "Ordered";
