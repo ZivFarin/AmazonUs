@@ -1,4 +1,4 @@
-import CustomerMain from "../components/CustomerMain";
+import CustomerMain from "../components/Customer/CustomerMain";
 
 const CustomerMainPage = () => {
   return <CustomerMain/>;

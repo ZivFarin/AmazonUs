@@ -1,6 +1,22 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import styles from "./AddItemURL.module.css";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAbr6iHHVwQ9BxycwDdkqeQLLD0kk3twgs",
+  authDomain: "us-184db.firebaseapp.com",
+  projectId: "us-184db",
+  storageBucket: "us-184db.appspot.com",
+  messagingSenderId: "310053069316",
+  appId: "1:310053069316:web:d22c8f84679e2aa1cc4b51",
+  measurementId: "G-S1343SSKC3",
+};
+
+//initialazing firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 function AddItemURL() {
   const [itemUrl, setItemUrl] = useState("");
@@ -38,15 +54,26 @@ function AddItemURL() {
     } else {
       const title = itemUrl.match(/\/([a-zA-Z0-9-]+)\/dp\//)[1];
       console.log(title.replaceAll("-", " "));
-
-      if (window.confirm("You have uploaded the item " + title.replaceAll("-", " "))){
-        //Here will be the sending json thingy.
-        console.log("The item was uploaded successfully " + itemUrl);
-      }
-      else{
+      if (
+        window.confirm(
+          "You have uploaded the item " + title.replaceAll("-", " ")
+        )
+      ) {
+        let userEmailToSend = auth.currentUser.email;
+        let userURL = { url: itemUrl, email: userEmailToSend };
+        fetch("http://localhost:5000/item", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userURL),
+        });
+      } else {
         history.push("/addItem");
         history.go(0);
       }
+      history.push("/CustomerMain");
+      history.go(0);
     }
   };
 

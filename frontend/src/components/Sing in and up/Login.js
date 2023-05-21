@@ -3,10 +3,7 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import styles from "./Login.module.css";
 import { initializeApp } from "firebase/app";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router-dom";
 
 //connecting to the firebase project
@@ -37,6 +34,7 @@ function Login({ history }) {
       .then(() => {
         // Set isLoggedIn flag in localStorage
         localStorage.setItem("isLoggedIn", true);
+
         // redirecting the page to the customerMain page after login
         history.push("/customerMain");
         history.go(0);

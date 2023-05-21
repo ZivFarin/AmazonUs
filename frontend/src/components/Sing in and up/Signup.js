@@ -4,6 +4,9 @@ import { initializeApp } from "firebase/app";
 import { useHistory } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
+
+
+
 //connecting to the firebase project
 const firebaseConfig = {
   apiKey: "AIzaSyAbr6iHHVwQ9BxycwDdkqeQLLD0kk3twgs",
@@ -29,7 +32,8 @@ function Signup() {
   const [error, setError] = useState("");
   const history = useHistory();
 
-  const userData = { email, firstName, lastName, region, telephone };
+
+  const userData = { "email":email, "region": region, "first_name": firstName, "last_name": lastName, "telephone":telephone };
 
   //handling the signup to the system
   const handleSignUp = (event) => {
@@ -56,16 +60,29 @@ function Signup() {
       .then(() => {
         // Set isLoggedIn flag in localStorage
         localStorage.setItem("isLoggedIn", true);
-        // redirecting the page to the customerMain page after login
-        history.push("/customerMain");
-        history.go(0);
+        fetch("http://localhost:5000/user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        })
+          .then((response) => response.json())
+          .then((response)=>{
+          // redirecting the page to the customerMain page after login
+          history.push("/Login");
+          history.go(0);})
+          .then((data) => console.log(data))
+          .catch((error) => console.error(error));
+
       })
-      .then(console.log(userData))
+      .then(console.log(JSON.stringify(userData),))
       //catching errors from firebase
       .catch((error) => {
         const errorMessage = error.message;
         setError(errorMessage);
       });
+      
   };
 
   return (
