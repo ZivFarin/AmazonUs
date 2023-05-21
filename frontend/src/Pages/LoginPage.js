@@ -1,6 +1,6 @@
-import Login from "../components/Login";
+import Login from "../components/Sing in and up/Login";
 const LoginPage = () => {
-  return <Login />;
+  return <Login  />;
 };
 
 export default LoginPage;
