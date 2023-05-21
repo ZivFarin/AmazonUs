@@ -2,7 +2,7 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import datetime
-
+from backend.merge_2_cart import find_cart
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -357,7 +357,7 @@ def add_item():
     item = Item(user_id, cart_id,  price,  name,  url, picture)
 
     add_as_row_in_corresponding_db(item)
-    
+    find_cart(item)
     # Return the event as json (helps with UI)
     return item.to_json()
 
