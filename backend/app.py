@@ -357,7 +357,7 @@ def add_item():
     item = Item(user_id, cart_id,  price,  name,  url, picture)
 
     add_as_row_in_corresponding_db(item)
-
+    
     # Return the event as json (helps with UI)
     return item.to_json()
 
