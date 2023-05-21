@@ -1,8 +1,7 @@
 import datetime
 from backend.app import Item, Cart, User, Banned_user, Regional_admin
-from flask import Flask, request
-from flask_sqlalchemy import SQLAlchemy
 from backend.app import add_as_row_in_corresponding_db, db
+
 
 
 def find_cart(item):
