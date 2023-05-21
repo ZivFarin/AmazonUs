@@ -1,12 +1,22 @@
-from app import Item, Cart, User, Banned_user
+import datetime
+from backend.app import Item, Cart, User, Banned_user, Regional_admin
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
+from backend.app import add_as_row_in_corresponding_db, db
+
 
 def find_cart(item):
    items = get_eligible_items(item)
    if items == None: # If there is no items eligible for merging
-      return
-   cart_items, cart_sum = knapsack_for_amazon(items, 75)
+      return None
+   cart_items = knapsack_for_amazon(items, 75)
+   if cart_items == None:
+       return None
+   regional_admin_id = get_regional_admin_id(item)
+   cart = Cart(regional_admin_id)
+   add_as_row_in_corresponding_db(cart)
+   update_items(items, cart.id)
+
 
 
 
@@ -42,9 +52,20 @@ def knapsack_for_amazon(items, limit):
             result.append(items[j-1])
             w -= wt
     if sum >= 49:        
-        return (result, sum)
+        return result
     else:
-        return (None, None)
+        return None
 
+def get_regional_admin_id(item):
+   curr_user = User.query.filter(User.id == item.user_id).all() # Getting the data of the user who added the new item
+   regional_admin = Regional_admin.query.filter(Regional_admin.region == curr_user.region)
+   return regional_admin.id
+   
 
+def update_items(items, new_cart_id):
+    for item in items:
+        item.cart_id = new_cart_id
+        item.status = 0
+        item.status_change = datetime.utcnow
+        db.session.commit()
 
