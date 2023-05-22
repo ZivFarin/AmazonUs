@@ -1,10 +1,10 @@
 import datetime
-from backend.app import Item, Cart, User, Banned_user, Regional_admin
-from backend.app import add_as_row_in_corresponding_db, db
+from app import Item, Cart, User, Banned_user, Regional_admin
 
 
 
-def find_cart(item):
+
+def find_cart(item, db):
    items = get_eligible_items(item)
    if items == None: # If there is no items eligible for merging
       return None
@@ -13,8 +13,8 @@ def find_cart(item):
        return None
    regional_admin_id = get_regional_admin_id(item)
    cart = Cart(regional_admin_id)
-   add_as_row_in_corresponding_db(cart)
-   update_items(items, cart.id)
+   add_as_row_in_corresponding_db(cart, db)
+   update_items(items, cart.id, db)
 
 
 
@@ -61,10 +61,16 @@ def get_regional_admin_id(item):
    return regional_admin.id
    
 
-def update_items(items, new_cart_id):
+def update_items(items, new_cart_id, db):
     for item in items:
         item.cart_id = new_cart_id
         item.status = 0
         item.status_change = datetime.utcnow
         db.session.commit()
 
+def add_as_row_in_corresponding_db(item, db):
+    """
+    Adds an item as a row in the table that corresponds to it's type.
+    """
+    db.session.add(item)
+    db.session.commit()
