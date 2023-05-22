@@ -41,7 +41,6 @@ function App() {
             <Route path="/AboutUs" exact component={AboutUsPage} />
             <Route path="/RegionalAdminMain" exact component={RegionalAdminMainPage} />
             <Route path="/BanUser" exact component={BanUserPage} />
-            <Route path="/*" exact component={LandingPagePage} />
           </Switch>
         </main>
       </div>
