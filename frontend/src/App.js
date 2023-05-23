@@ -39,9 +39,8 @@ function App() {
             <Route path="/getInTouch" exact component={GetInTouchPage} />
             <Route path="/Signup" exact component={SignupPage} />
             <Route path="/AboutUs" exact component={AboutUsPage} />
-            <Route path="/GeneralAdminMain" exact component={RegionalAdminMainPage} />
+            <Route path="/RegionalAdminMain" exact component={RegionalAdminMainPage} />
             <Route path="/BanUser" exact component={BanUserPage} />
-            <Route path="/*" exact component={LandingPagePage} />
           </Switch>
         </main>
       </div>
