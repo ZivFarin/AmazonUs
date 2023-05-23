@@ -18,30 +18,49 @@ initializeApp(firebaseConfig);
 const auth = getAuth();
 
 const BanUser = () => {
-  const [itemUrl, setItemUrl] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [reason, setReason] = useState("");
   const [error, setError] = useState("");
 
   const handleInputChange = (event) => {
-    setItemUrl(event.target.value);
+    setUserEmail(event.target.value);
+  };
+  const handleReasonChange = (event) => {
+    setReason(event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    //checking if the email is in our database
+  
+    if (!reason) {
+      setError("Please enter a reason for the ban");
+      return;
+    }
+  
     try {
-      const signInMethods = await fetchSignInMethodsForEmail(auth, itemUrl);
+      const signInMethods = await fetchSignInMethodsForEmail(auth, userEmail);
       if (signInMethods.length > 0) {
-        //here the fetch will come
         console.log("Email exists in Firebase Authentication");
       } else {
         console.log("Email does not exist in Firebase Authentication");
         setError("Please try again, the email does not exist in our database");
+        return;
       }
     } catch (error) {
       console.log("Error checking email in Firebase Authentication:", error);
     }
+  
+    let userBan = { email: userEmail, ban_reason: reason };
+    console.log(userBan);
+    fetch("http://localhost:5000/banned_user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userBan),
+        });
   };
-
+  
   return (
     <form className={styles["ban_user-form"]} onSubmit={handleSubmit}>
       <label htmlFor="emailToBan">Add the email of the user you want to ban:</label>
@@ -49,9 +68,17 @@ const BanUser = () => {
         className={styles["ban_user-form__input"]}
         type="text"
         id="emailToBan"
-        value={itemUrl}
+        value={userEmail}
         onChange={handleInputChange}
       />
+         <label htmlFor="banReason">Reason for banning:</label> {/* New label for reason */}
+    <input
+      className={styles["ban_user-form__input"]}
+      type="text"
+      id="banReason"
+      value={reason}
+      onChange={handleReasonChange}
+    />
       {error && <div className={styles["ban_user-form__error"]}>{error}</div>}
       <button className={styles["ban_user-form__submit"]} type="submit">
         Ban User
@@ -59,5 +86,6 @@ const BanUser = () => {
     </form>
   );
 };
+
 
 export default BanUser;
