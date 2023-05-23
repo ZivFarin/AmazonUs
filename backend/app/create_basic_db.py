@@ -1,4 +1,4 @@
-from backend.app.models import db
+from models import db
 
 # Drop all tables
 db.drop_all()
