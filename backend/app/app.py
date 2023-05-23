@@ -87,6 +87,16 @@ def get_all_regional_admin_carts(email):
     return {"Carts": carts_list}
 
 
+@app.route("/carts/<front_cart_id>", methods=["GET"])
+def get_items_of_cart(front_cart_id):
+    """get all items of cart by cart id."""
+    items = Item.query.filter_by(cart_id = front_cart_id).all()
+    items_list = []
+    for item in items:
+        items_list.append(item.to_json())
+    return items_list
+
+
 # Need to create a 'PATCH' request too for cart's status updates.
 
 
