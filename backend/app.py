@@ -181,7 +181,7 @@ def create_regional_admin():
 class Banned_user(db.Model, db_item):
     """models a banned user row in the banned user table."""
     id = db.Column(db.Integer, primary_key=True)
-    ban_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    ban_date = db.Column(db.DateTime, nullable=True)
     banned_user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     ban_reason = db.Column(db.String(255), nullable=False)
 
