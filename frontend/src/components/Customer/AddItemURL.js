@@ -72,6 +72,7 @@ function AddItemURL() {
         history.push("/addItem");
         history.go(0);
       }
+      alert("You have chosen to upload your item, thank you");
       history.push("/CustomerMain");
       history.go(0);
     }

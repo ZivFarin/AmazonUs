@@ -166,6 +166,8 @@ def create_regional_admin():
     # Return the event as json (helps with UI)
     return regional_admin.to_json()
 
+    
+
 
 
 
@@ -265,8 +267,18 @@ def add_cart():
     return cart.to_json()
 
 
+@app.route("/cart/<email>", methods=["GET"])
+def get_all_regional_admin_carts(email):
+    """get all carts of Regional admin by email."""
+    regional_admin = Regional_admin.query.filter_by(email=email).one()
+    carts = Cart.query.filter_by(regional_Admin = regional_admin.id).all()
+    carts_list = []
+    for cart in carts:
+        carts_list.append(cart.to_json())
+    return {"Carts": carts_list}
 
 # Need to create a 'PATCH' request too for cart's status updates.
+
 
 
 
