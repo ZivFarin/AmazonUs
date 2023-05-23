@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from backend.app.config import app
+from config import app
 from datetime import datetime
 
 

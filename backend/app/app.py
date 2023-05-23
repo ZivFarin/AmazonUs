@@ -1,6 +1,6 @@
 from flask import Flask, request
-from backend.app.config import app
-from backend.app.models import User, Regional_admin, Banned_user, Cart, Item, add_as_row_in_corresponding_db
+from config import app
+from models import User, Regional_admin, Banned_user, Cart, Item, add_as_row_in_corresponding_db
 
 
 # User api
