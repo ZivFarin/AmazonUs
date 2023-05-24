@@ -44,6 +44,12 @@ def create_regional_admin():
     # Return the event as json (helps with UI)
     return regional_admin.to_json()
 
+@app.route("/regional_admin/<email>", methods=["GET"])
+def check_regional_admin(email):
+    """check if email is belong to regional admin."""
+    regional_admin = Regional_admin.query.filter_by(email=email).one().to_json()
+    return regional_admin
+
 
 # banned user api
 
