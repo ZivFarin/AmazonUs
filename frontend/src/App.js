@@ -10,6 +10,7 @@ import LandingPagePage from "./Pages/LandingPagePage";
 import AboutUsPage from "./Pages/AboutUsPage";
 import RegionalAdminMainPage from "./Pages/RegionalAdminMainPage";
 import BanUserPage from "./Pages/BanUserPage";
+import CartInfoPage from "./Pages/CartInfoPage";
 
 function App() {
   // Check if user is authenticated
@@ -41,6 +42,9 @@ function App() {
             <Route path="/AboutUs" exact component={AboutUsPage} />
             <Route path="/RegionalAdminMain" exact component={RegionalAdminMainPage} />
             <Route path="/BanUser" exact component={BanUserPage} />
+            <Route path="/CartInfo" exact component={CartInfoPage} />
+
+
           </Switch>
         </main>
       </div>

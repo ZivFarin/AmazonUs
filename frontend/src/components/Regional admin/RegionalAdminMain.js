@@ -4,6 +4,8 @@ import CardRed from '../../UI/CardRed';
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import "firebase/auth";
+import { useHistory } from 'react-router-dom';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAbr6iHHVwQ9BxycwDdkqeQLLD0kk3twgs",
@@ -22,6 +24,8 @@ const auth = getAuth(app);
 function RegionalAdminMain() {
   const [carts, setCarts] = useState([]);
   const [userEmail, setUserEmail] = useState("");
+  const history = useHistory();
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -45,11 +49,12 @@ function RegionalAdminMain() {
         const data = await response.json();
         console.log(data);
         const carts = data.Carts;
-        carts.map((item) => ({
-          id: carts.id,
+        const updatedCarts = carts.map((item) => ({
+          id: item.id,
           status: getStatusString(item.status),
         }));
-        setCarts(carts);
+        setCarts(updatedCarts);
+        
       } catch (error) {
         console.error("Error fetching carts:", error);
       }
@@ -63,46 +68,42 @@ function RegionalAdminMain() {
   
 
   const getStatusString = (status) => {
-    if (status === 1)
+    if (status === 1){
+      console.log("1");
       return "Ordered";
-    if (status === -1)
+    }
+      
+    if (status === -1){
+      console.log("1");
       return "Waiting for customer to pay";
-    if (status === 0)
+
+    }
+    if (status === 0){
+      console.log("1");
       return "Client paid";
+
+    }
+    
     return "";
   };
 
-  const handleNudgeClient = (cartId) => {
-    // Logic to nudge the client
-    // ...
-
-    // Refresh the cart data after nudging
-    fetch('/cart')
-      .then(response => response.json())
-      .then(data => {
-        const cartData = data.map(item => ({
-          id: item.id,
-          status: getStatusString(item.status),
-          status_changed: item.status_change,
-        }));
-        setCarts(cartData);
-      })
-      .catch(error => {
-        console.error('Error fetching cart data:', error);
-      });
+  const handleCartIdSend = (cartId) => {
+    history.push({
+      pathname: '/CartInfo',
+      state: { cartId: cartId },
+    });
   };
 
   return (
     <section>
-      {carts.map(cart => (
-        (cart.status === "Ordered") ? (
+      {carts.map((cart) => (
+        cart.status === 'Ordered' ? (
           <Card key={cart.id}>
             <div>cart id: {cart.id}</div>
             <div>{cart.status}</div>
-            <div>{cart.status_changed}</div>
-            {(cart.status === "Waiting for customer to pay") && (
+            {cart.status === 'Waiting for customer to pay' && (
               <div>
-                <button onClick={() => handleNudgeClient(cart.id)}>Nudge client</button>
+                <button onClick={() => handleCartIdSend(cart.id)}>Go to cart info</button>
               </div>
             )}
           </Card>
@@ -110,10 +111,9 @@ function RegionalAdminMain() {
           <CardRed key={cart.id}>
             <div>cart id: {cart.id}</div>
             <div>{cart.status}</div>
-            <div>{cart.status_changed}</div>
-            {(cart.status === "Waiting for customer to pay") && (
+            {cart.status === 'Waiting for customer to pay' && (
               <div>
-                <button onClick={() => handleNudgeClient(cart.id)}>Nudge client</button>
+                <button onClick={() => handleCartIdSend(cart.id)}>Go to cart info</button>
               </div>
             )}
           </CardRed>
