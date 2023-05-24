@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 import "firebase/auth";
 import Card from "../../UI/Card";
 import Loading from "../../UI/Loading";
-
+import {PayPalScriptProvider,PayPalButtons} from "@paypal/react-paypal-js"
 const firebaseConfig = {
   apiKey: "AIzaSyAbr6iHHVwQ9BxycwDdkqeQLLD0kk3twgs",
   authDomain: "us-184db.firebaseapp.com",
