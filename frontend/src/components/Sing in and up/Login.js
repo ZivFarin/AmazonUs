@@ -34,10 +34,30 @@ function Login({ history }) {
       .then(() => {
         // Set isLoggedIn flag in localStorage
         localStorage.setItem("isLoggedIn", true);
+        fetch("http://localhost:5000/regional_admin/" + email, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const id = data.id;
 
+            if (typeof id === "number") {
+              history.push("/RegionalAdminMain");
+              history.go(0);
+            }
+            //Add the general admin mail
+            else if (email === "blablablablablablabla") {
+              history.push("/GeneralAdminMain");
+              history.go(0);
+            } else {
+              history.push("/customerMain");
+              history.go(0);
+            }
+          });
         // redirecting the page to the customerMain page after login
-        history.push("/customerMain");
-        history.go(0);
       })
       //catching errors
       .catch((error) => {
@@ -48,8 +68,8 @@ function Login({ history }) {
 
   // If user is already logged in, redirect to the customerMain page
   if (localStorage.getItem("isLoggedIn")) {
-    history.push("/customerMain");
-    history.go(0);
+    //history.push("/customerMain");
+    //history.go(0);
   }
 
   return (
