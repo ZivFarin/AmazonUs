@@ -4,7 +4,10 @@ import { getAuth } from "firebase/auth";
 import "firebase/auth";
 import Card from "../../UI/Card";
 import Loading from "../../UI/Loading";
-import PayPalButtonsComponent from "./PayPalButtons";
+import PayPalButton from "./PayPalButton";
+import styles from "./CustomerMain.module.css";
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyAbr6iHHVwQ9BxycwDdkqeQLLD0kk3twgs",
   authDomain: "us-184db.firebaseapp.com",
@@ -31,7 +34,7 @@ function CustomerMain() {
       }
     }, 2000); // Delay of 2 seconds (2000 milliseconds)
 
-    return () => clearTimeout(timer); // Clear the timer if the component unmounts or the dependency array changes
+    return () => clearTimeout(timer); // Clear the timer if the component unmounts or the dependency array changes
   }, []);
   let url = "http://localhost:5000/item/" + userEmail;
   useEffect(() => {
@@ -55,7 +58,7 @@ function CustomerMain() {
 
     fetchData();
   }, [url]);
-/*Dont forget to add a rendering of cart id into the section*/
+  /*Dont forget to add a rendering of cart id into the section*/
   return userEmail === "" ? (
     <Loading />
   ) : (
@@ -63,19 +66,23 @@ function CustomerMain() {
       <h1>Customer main page</h1>
       {userItems.map((item) => (
         <Card key={item.id}>
-          <div>cart id: </div>
-          <div>item name: {item.name}</div>
-          <div>
-            item link: <a href={item.url}>click here</a>
+          <div className={styles.container}>
+            <div className={styles.text}>
+              <div>cart id: </div>
+              <div>item name: {item.name}</div>
+              <div>
+                item link: <a href={item.url}>click here</a>
+              </div>
+            </div>
+            {item.status === 2 && (
+              <div className={styles.button}>
+                <PayPalButton item={item} />
+              </div>
+            )}
           </div>
-          {item.status === 2 && ( 
-            <>
-            <div></div> {/* Empty line */}
-            <PayPalButtonsComponent item={item} />
-          </>
-          )}
         </Card>
       ))}
+
     </section>
   );
 }
