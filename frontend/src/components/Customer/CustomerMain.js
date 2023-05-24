@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 import "firebase/auth";
 import Card from "../../UI/Card";
 import Loading from "../../UI/Loading";
-
+import PayPalButtonsComponent from "./PayPalButtons";
 const firebaseConfig = {
   apiKey: "AIzaSyAbr6iHHVwQ9BxycwDdkqeQLLD0kk3twgs",
   authDomain: "us-184db.firebaseapp.com",
@@ -68,6 +68,12 @@ function CustomerMain() {
           <div>
             item link: <a href={item.url}>click here</a>
           </div>
+          {item.status === 2 && ( 
+            <>
+            <div></div> {/* Empty line */}
+            <PayPalButtonsComponent item={item} />
+          </>
+          )}
         </Card>
       ))}
     </section>
