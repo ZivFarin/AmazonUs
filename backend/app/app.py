@@ -2,6 +2,7 @@ from flask import Flask, request
 from config import app
 from models import User, Regional_admin, Banned_user, Cart, Item, add_as_row_in_corresponding_db
 from merge_2_cart import find_cart
+from sqlalchemy.orm.exc import NoResultFound
 
 # User api
 
@@ -47,8 +48,13 @@ def create_regional_admin():
 @app.route("/regional_admin/<email>", methods=["GET"])
 def check_regional_admin(email):
     """check if email is belong to regional admin."""
-    regional_admin = Regional_admin.query.filter_by(email=email).one().to_json()
-    return regional_admin
+    try:
+        regional_admin = Regional_admin.query.filter_by(email=email).one()
+        regional_admin_json = regional_admin.to_json()
+    except NoResultFound:
+        regional_admin_json = {}
+    return regional_admin_json
+    
 
 
 # banned user api

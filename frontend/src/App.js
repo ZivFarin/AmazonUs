@@ -11,7 +11,7 @@ import AboutUsPage from "./Pages/AboutUsPage";
 import RegionalAdminMainPage from "./Pages/RegionalAdminMainPage";
 import BanUserPage from "./Pages/BanUserPage";
 import CartInfoPage from "./Pages/CartInfoPage";
-
+import GeneralAdminPage from "./Pages/GeneralAdminMainPage";
 function App() {
   // Check if user is authenticated
   const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -43,7 +43,7 @@ function App() {
             <Route path="/RegionalAdminMain" exact component={RegionalAdminMainPage} />
             <Route path="/BanUser" exact component={BanUserPage} />
             <Route path="/CartInfo" exact component={CartInfoPage} />
-
+            <Route path="/GeneralAdminMain" exact component={GeneralAdminPage}/>
 
           </Switch>
         </main>
