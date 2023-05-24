@@ -93,7 +93,11 @@ def get_items_of_cart(front_cart_id):
     items = Item.query.filter_by(cart_id = front_cart_id).all()
     items_list = []
     for item in items:
-        items_list.append(item.to_json())
+        email = User.query.filter_by(id = item.user_id).with_entities(User.email).one()
+        item_json = item.to_json()  # Convert item object to JSON representation
+        email_value = email[0]  # Extract the email value from the email object
+        item_json["email"] = email_value  # Add email to the item JSON
+        items_list.append(item_json)
     return items_list
 
 
