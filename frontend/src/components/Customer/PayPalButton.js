@@ -1,14 +1,16 @@
 import React from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import styles from "./PayPalButton.module.css";
 
-const PayPalButtonsComponent = ({ item }) => {
+
+const PayPalButton = ({ item }) => {
   return (
     <PayPalScriptProvider
       options={{
         "client-id": "AenS6yd4eVo7_-_cpoeRU9YkENVVOwZZuHowJowFcoS46XyEpxPfkWItC6s7GCiedpOivmM-fOMAeaxa",
       }}
     >
-      <PayPalButtons
+      <PayPalButtons className={styles["body"]}
         createOrder={(data, actions) => {
           return actions.order.create({
             purchase_units: [
@@ -35,4 +37,4 @@ const PayPalButtonsComponent = ({ item }) => {
   );
 };
 
-export default PayPalButtonsComponent;
+export default PayPalButton;

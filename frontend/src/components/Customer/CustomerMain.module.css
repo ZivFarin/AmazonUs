@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Add position relative to the container */
+  }
+  
+  .text {
+    margin-bottom: 1rem;
+  }
+  
+  .button {
+    position: absolute;
+    top: -6px;
+    right: 0;
+  }
+  
