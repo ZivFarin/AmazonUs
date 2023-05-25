@@ -78,6 +78,7 @@ function CartInfo() {
       {items.map((item) =>
         item.status === "2" ? (
           <Card key={item.id}>
+            <div>item id: {item.id}</div>
             <div>cart id: {cartId}</div>
             <div>status: {item.status}</div>
             <div>item name: {item.name}</div>
@@ -86,13 +87,18 @@ function CartInfo() {
           </Card>
         ) : (
           <CardRed key={item.id}>
+            <div>item id: {item.id}</div>
+
             <div>cart id: {cartId}</div>
             <div>status: {item.status}</div>
             <div>item name: {item.name}</div>
             <div>item price: {item.price}</div>
             <div>user email: {item.email}</div>
             <div>
-            <button style={buttonStyle} onClick={() => handleNudgeCustomer(item.email, item.name)}>
+              <button
+                style={buttonStyle}
+                onClick={() => handleNudgeCustomer(item.email, item.name)}
+              >
                 Nudge customer
               </button>
             </div>
@@ -103,4 +109,4 @@ function CartInfo() {
   );
 }
 
-export default CartInfo
+export default CartInfo;

@@ -71,7 +71,7 @@ const BanUser = () => {
         value={userEmail}
         onChange={handleInputChange}
       />
-         <label htmlFor="banReason">Reason for banning:</label> {/* New label for reason */}
+         <label htmlFor="banReason">Reason for banning:</label> 
     <input
       className={styles["ban_user-form__input"]}
       type="text"
