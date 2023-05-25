@@ -7,7 +7,6 @@ import Loading from "../../UI/Loading";
 import PayPalButton from "./PayPalButton";
 import styles from "./CustomerMain.module.css";
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyAbr6iHHVwQ9BxycwDdkqeQLLD0kk3twgs",
   authDomain: "us-184db.firebaseapp.com",
@@ -49,6 +48,8 @@ function CustomerMain() {
           id: item.id,
           name: item.name,
           url: item.url,
+          price: item.price,
+          cartId: item.cart_id,
         }));
         setUserItems(itemsData);
       } catch (error) {
@@ -63,13 +64,14 @@ function CustomerMain() {
     <Loading />
   ) : (
     <section>
-      <h1>Customer main page</h1>
+      <h1 className={styles.banner}>Your items are: </h1>
       {userItems.map((item) => (
         <Card key={item.id}>
           <div className={styles.container}>
             <div className={styles.text}>
-              <div>cart id: </div>
+              <div>cart id: {item.cart_id}</div>
               <div>item name: {item.name}</div>
+              <div>price: {item.price}$</div>
               <div>
                 item link: <a href={item.url}>click here</a>
               </div>
@@ -82,7 +84,6 @@ function CustomerMain() {
           </div>
         </Card>
       ))}
-
     </section>
   );
 }

@@ -8,7 +8,7 @@ function Navbar() {
       <ul className={styles["navbar-nav"]}>
         <li className={styles["nav-item"]}>
           <Link to="/customerMain" className={styles["nav-link"]}>
-            Main
+            Home
           </Link>
         </li>
         <li className={`${styles["nav-item"]} ${styles["nav-link"]}`}>
@@ -18,7 +18,7 @@ function Navbar() {
         </li>
         <li className={`${styles["nav-item"]} ${styles["nav-link"]}`}>
           <Link to="/getInTouch" className={styles["nav-link"]}>
-            Contact
+            Contact 
           </Link>
         </li>
         <li className={`${styles["nav-item"]} ${styles["nav-link"]}`}>
