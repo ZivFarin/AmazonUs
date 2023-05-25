@@ -46,7 +46,7 @@ class User(db.Model, db_item):
         return f"User: {self.email}"
 
     def __init__(self, email, region, first_name, last_name, telephone):
-        self.email = email
+        self.email = email.lower()
         self.region = region
         self.first_name = first_name
         self.last_name = last_name
