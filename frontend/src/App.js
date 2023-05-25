@@ -13,6 +13,8 @@ import BanUserPage from "./Pages/BanUserPage";
 import CartInfoPage from "./Pages/CartInfoPage";
 import GeneralAdminPage from "./Pages/GeneralAdminMainPage";
 import CollectItemPage from "./Pages/CollectItemPage";
+import Page404Page from "./Pages/Page404Page";
+
 function App() {
   // Check if user is authenticated
   const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -46,6 +48,9 @@ function App() {
             <Route path="/CartInfo" exact component={CartInfoPage} />
             <Route path="/CollectItem" exact component={CollectItemPage}/>
             <Route path="/GeneralAdminMain" exact component={GeneralAdminPage}/>
+            <Route path="/*" exact component={Page404Page}/>
+
+
 
 
           </Switch>
