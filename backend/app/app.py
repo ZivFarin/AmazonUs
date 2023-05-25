@@ -159,7 +159,7 @@ def add_item():
     # create item from json
     url = request.json["url"]
     email = request.json["email"]
-    cart_id = get_cart_id()
+    cart_id = None
     price = get_item_price_from_url(url)
     name = get_item_name_from_url(url)
     picture = get_pict_from_url(url)
