@@ -1,8 +1,11 @@
 from flask import Flask, request
 from config import app
-from models import User, Regional_admin, Banned_user, Cart, Item, add_as_row_in_corresponding_db
+from models import User, Regional_admin, Banned_user, Cart, Item, add_as_row_in_corresponding_db,db
 from merge_2_cart import find_cart
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy import and_
+from datetime import datetime
+
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -132,21 +135,12 @@ def get_item_price_from_url(url):
         totalPrice = float(price_decimal)/ 100.0 + float(price_integer)
     except AttributeError: 
         totalPrice = "-1" # if we have error price is -1
-    print("Products price = ", totalPrice)
-    print("**************************************")
-    print("**************************************")
     return totalPrice
 
 def get_item_name_from_url(url):
     path_parts = url.split('/')
     name = path_parts[3].replace('-', ' ')
     return name
-
-def get_cart_id():
-    """
-    TODO MOCK! needs to be created
-    """
-    return None
 
 def get_pict_from_url(url):
     """
@@ -200,6 +194,7 @@ def update_Items():
     db.session.commit()
     # Return the event as json (helps with UI)
     return items_json
+
 
 
 if __name__ == "__main__":
