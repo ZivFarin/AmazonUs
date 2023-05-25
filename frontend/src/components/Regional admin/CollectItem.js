@@ -40,10 +40,17 @@ function CollectItem() {
         const response = await fetch(url);
         const data = await response.json();
         console.log(data);
-        
+
         for (let i = 0; i < data.length; i++) {
           if (data[i].email === userEmail) {
-            console.log("yay");
+            let itemCollected = { email: userEmail, cart_id: cartID };
+            fetch("http://localhost:5000/updateItems", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(itemCollected),
+            });
             break;
           } else {
             console.log("no");
@@ -82,7 +89,6 @@ function CollectItem() {
       console.log("Error checking email in Firebase Authentication:", error);
     }
   };
-
 
   return (
     <form className={styles["collect-form"]} onSubmit={handleSubmit}>
