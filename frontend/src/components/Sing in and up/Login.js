@@ -20,6 +20,7 @@ const firebaseConfig = {
 //initialazing firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+let typeOfUser = 0;
 
 function Login({ history }) {
   const [email, setEmail] = useState("");
@@ -45,14 +46,17 @@ function Login({ history }) {
             const id = data.id;
 
             if (typeof id === "number") {
+              typeOfUser = 2;
               history.push("/RegionalAdminMain");
               history.go(0);
             }
             //Add the general admin mail
             else if (email === "blablablablablablabla") {
+              typeOfUser = 1;
               history.push("/GeneralAdminMain");
               history.go(0);
             } else {
+              typeOfUser = 3;
               history.push("/customerMain");
               history.go(0);
             }
@@ -68,8 +72,16 @@ function Login({ history }) {
 
   // If user is already logged in, redirect to the customerMain page
   if (localStorage.getItem("isLoggedIn")) {
-    //history.push("/customerMain");
-    //history.go(0);
+    if (typeOfUser === 3) {
+      history.push("/customerMain");
+      history.go(0);
+    } else if ((typeOfUser = 2)) {
+      history.push("/RegionalAdminMain");
+      history.go(0);
+    } else {
+      history.push("/GeneralAdminMain");
+      history.go(0);
+    }
   }
 
   return (
