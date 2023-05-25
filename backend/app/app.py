@@ -1,8 +1,11 @@
 from flask import Flask, request
 from config import app
-from models import User, Regional_admin, Banned_user, Cart, Item, add_as_row_in_corresponding_db
+from models import User, Regional_admin, Banned_user, Cart, Item, add_as_row_in_corresponding_db,db
 from merge_2_cart import find_cart
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy import and_
+from datetime import datetime
+
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -132,21 +135,12 @@ def get_item_price_from_url(url):
         totalPrice = float(price_decimal)/ 100.0 + float(price_integer)
     except AttributeError: 
         totalPrice = "-1" # if we have error price is -1
-    print("Products price = ", totalPrice)
-    print("**************************************")
-    print("**************************************")
     return totalPrice
 
 def get_item_name_from_url(url):
     path_parts = url.split('/')
     name = path_parts[3].replace('-', ' ')
     return name
-
-def get_cart_id():
-    """
-    TODO MOCK! needs to be created
-    """
-    return None
 
 def get_pict_from_url(url):
     """
@@ -159,7 +153,7 @@ def add_item():
     # create item from json
     url = request.json["url"]
     email = request.json["email"]
-    cart_id = get_cart_id()
+    cart_id = None
     price = get_item_price_from_url(url)
     name = get_item_name_from_url(url)
     picture = get_pict_from_url(url)
@@ -184,7 +178,23 @@ def get_all_user_events(email):
         items_list.append(item.to_json())
     return {"Items": items_list}
 
-# Need to create a 'PATCH' request too for cart's status updates.
+@app.route("/updateItems", methods=["POST"])
+def update_Items():
+    # create item from json
+    email = request.json["email"]
+    cart_id = request.json["cart_id"]
+    user = User.query.filter_by(email=email).one()
+    user_id = user.id
+    items = Item.query.filter(and_(Item.cart_id == cart_id, Item.user_id == user_id)).all()
+    items_json = []
+    for item in items:
+        item.status = 3
+        item.status_change = datetime.utcnow()
+        items_json.append(item.to_json())
+    db.session.commit()
+    # Return the event as json (helps with UI)
+    return items_json
+
 
 
 if __name__ == "__main__":
