@@ -94,6 +94,15 @@ function RegionalAdminMain() {
     });
   };
 
+  const buttonStyle = {
+    backgroundColor: "#BAE7FF",
+    color: "black",
+    padding: "8px 16px",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+  };
+
   return (
     <section>
       {carts.map((cart) => (
@@ -103,7 +112,7 @@ function RegionalAdminMain() {
             <div>{cart.status}</div>
             {cart.status === 'Waiting for customer to pay' && (
               <div>
-                <button onClick={() => handleCartIdSend(cart.id)}>Go to cart info</button>
+                <button style={buttonStyle} onClick={() => handleCartIdSend(cart.id)}>Go to cart info</button>
               </div>
             )}
           </Card>
@@ -113,7 +122,7 @@ function RegionalAdminMain() {
             <div>{cart.status}</div>
             {cart.status === 'Waiting for customer to pay' && (
               <div>
-                <button onClick={() => handleCartIdSend(cart.id)}>Go to cart info</button>
+                <button style={buttonStyle} onClick={() => handleCartIdSend(cart.id)}>Go to cart info</button>
               </div>
             )}
           </CardRed>

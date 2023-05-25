@@ -1,12 +1,13 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useLocation, useHistory } from "react-router-dom";
+import { useState } from "react";
 import Card from "../../UI/Card";
 import CardRed from "../../UI/CardRed";
 
 function CartInfo() {
   const [items, setItems] = useState([]);
   const location = useLocation();
+  const history = useHistory();
   const cartId = location.state && location.state.cartId;
 
   let url = "http://localhost:5000/carts/" + cartId;
@@ -46,6 +47,32 @@ function CartInfo() {
     }
     return "";
   };
+
+  const handleNudgeCustomer = (email, name) => {
+    const subject = encodeURIComponent("Payment Reminder");
+    const body = encodeURIComponent(
+      `Dear customer,\n\nWe noticed that you didn't pay for the ${name}. Please proceed with the payment to complete your purchase.\n\nThank you!`
+    );
+    const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+    const emailWindow = window.open(mailtoLink, "_blank");
+
+    const handleWindowBlur = () => {
+      emailWindow.removeEventListener("blur", handleWindowBlur);
+      history.goBack(); // Redirect to the previous URL
+    };
+
+    emailWindow.addEventListener("blur", handleWindowBlur);
+  };
+
+  const buttonStyle = {
+    backgroundColor: "#BAE7FF",
+    color: "black",
+    padding: "8px 16px",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+  };
+
   return (
     <section>
       {items.map((item) =>
@@ -65,7 +92,9 @@ function CartInfo() {
             <div>item price: {item.price}</div>
             <div>user email: {item.email}</div>
             <div>
-              <button>Nudge customer</button>
+            <button style={buttonStyle} onClick={() => handleNudgeCustomer(item.email, item.name)}>
+                Nudge customer
+              </button>
             </div>
           </CardRed>
         )
@@ -74,4 +103,4 @@ function CartInfo() {
   );
 }
 
-export default CartInfo;
+export default CartInfo
