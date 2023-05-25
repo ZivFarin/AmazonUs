@@ -3,7 +3,9 @@ from config import app
 from models import User, Regional_admin, Banned_user, Cart, Item, add_as_row_in_corresponding_db
 from merge_2_cart import find_cart
 from sqlalchemy.orm.exc import NoResultFound
-
+import requests
+from bs4 import BeautifulSoup
+import re
 # User api
 
 @app.route("/user", methods=["POST"])
@@ -119,16 +121,26 @@ def get_items_of_cart(front_cart_id):
 # item api
 
 def get_item_price_from_url(url):
-    """
-    TODO MOCK! needs to be created
-    """
-    return 30.4
+    HEADERS = ({'User-Agent':'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.4044.113 Safari/5370.36 Brave/5035',
+                                    'Accept-Language': 'en-US, en;q=0.5'})
+    html = requests.get(url,headers=HEADERS)
+    soup = BeautifulSoup(html.content, 'lxml')
+    try:
+        price_integer_request = soup.find("span", attrs={'class': 'a-price-whole'}) 
+        price_integer = ''.join(filter(str.isdigit, str(price_integer_request)))
+        price_decimal = soup.find("span", attrs={'class': 'a-price-fraction'}).string.strip().replace(',', '')
+        totalPrice = float(price_decimal)/ 100.0 + float(price_integer)
+    except AttributeError: 
+        totalPrice = "-1" # if we have error price is -1
+    print("Products price = ", totalPrice)
+    print("**************************************")
+    print("**************************************")
+    return totalPrice
 
 def get_item_name_from_url(url):
-    """
-    TODO MOCK! needs to be created
-    """
-    return "Phone"
+    path_parts = url.split('/')
+    name = path_parts[3].replace('-', ' ')
+    return name
 
 def get_cart_id():
     """
