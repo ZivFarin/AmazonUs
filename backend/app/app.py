@@ -184,7 +184,22 @@ def get_all_user_events(email):
         items_list.append(item.to_json())
     return {"Items": items_list}
 
-# Need to create a 'PATCH' request too for cart's status updates.
+@app.route("/updateItems", methods=["POST"])
+def update_Items():
+    # create item from json
+    email = request.json["email"]
+    cart_id = request.json["cart_id"]
+    user = User.query.filter_by(email=email).one()
+    user_id = user.id
+    items = Item.query.filter(and_(Item.cart_id == cart_id, Item.user_id == user_id)).all()
+    items_json = []
+    for item in items:
+        item.status = 3
+        item.status_change = datetime.utcnow()
+        items_json.append(item.to_json())
+    db.session.commit()
+    # Return the event as json (helps with UI)
+    return items_json
 
 
 if __name__ == "__main__":
