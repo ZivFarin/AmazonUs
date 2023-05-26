@@ -20,7 +20,7 @@ def find_cart(item):
 def get_eligible_items(item):
    curr_user = User.query.filter(User.id == item.user_id).first() # Getting the data of the user who added the new item
    banned_users = Banned_user.query.all() # Getting all the banned users
-   banned_users_id = [getattr(b,'id') for b in banned_users] # Isolating the banned user id
+   banned_users_id = [getattr(b,'banned_user_id') for b in banned_users] # Isolating the banned user id
    eligible_users = User.query.filter(User.region == curr_user.region, ~User.id.in_(banned_users_id)).all() # Gtting all the other users who share the same region
    eligible_users_id = [getattr(u,'id') for u in eligible_users] # Isolating the user id
    items = []
