@@ -89,14 +89,29 @@ def ban_user_list():
     banned_user_email = [getattr(e,'email') for e in banned_user_user] # Isolating the banned users email
     ban_request = []
     for i in range(len(banned_user_reason)): # appending the ban requests 
-        ban_request.append(ban_request_to_jason(banned_user_email[i], banned_user_reason[i]))
+        ban_request.append(ban_request_to_json(banned_user_email[i], banned_user_reason[i]))
     return ban_request
 
-def ban_request_to_jason(banned_user_email, banned_user_reason): # create a jason instance of a ban request 
+def ban_request_to_json(banned_user_email, banned_user_reason): # create a jason instance of a ban request 
     return {
         "email": banned_user_email,
         "ban_reason": banned_user_reason
         }    
+
+@app.route("/banned_user_ga", methods=["POST"])
+def update_ga_decision():
+    email = request.json["email"]
+    decision = request.json["decision"]
+    user = User.query.filter(User.email == email).first() # Getting the ban user id
+    user_id = user.id
+    if decision == True: # If hte general admin decided to ban
+        ban_user=Banned_user.query.filter(Banned_user.banned_user_id == user_id).first() # Getting the banned_user row
+        ban_user.ban_date = datetime.utcnow() # Update the ban time
+    else: # The general admin decided no to ban
+        ban_user=Banned_user.query.filter(Banned_user.banned_user_id == user_id).delete() # Delete the user's row from banned user table
+    db.session.commit() # Commiting changes
+    return ban_user.to_json()
+
 
 # cart api
 
