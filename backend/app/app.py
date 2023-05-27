@@ -80,6 +80,24 @@ def ban_user():
     # Return the event as json (helps with UI)
     return banned_user.to_json()
 
+@app.route("/banned_user", methods=["GET"])
+def ban_user_list():
+    banned_user = Banned_user.query(Banned_user.ban_date==None).all()
+    banned_user_id = [getattr(b,'banned_user_id') for b in banned_user] # Isolating the banned users id
+    banned_user_reason = [getattr(r,'ban_reason') for r in banned_user] # Isolating the banned user ban reason
+    banned_user_user = User.query(User.id.in_(banned_user_id)).all()
+    banned_user_email = [getattr(e,'email') for e in banned_user_user] # Isolating the banned users email
+    ban_request = []
+    for i in range(len(banned_user_reason)): # appending the ban requests 
+        ban_request.append(ban_request_to_jason(banned_user_email[i], banned_user_reason[i]))
+    return ban_request
+
+def ban_request_to_jason(banned_user_email, banned_user_reason): # create a jason instance of a ban request 
+    return {
+        "email": banned_user_email,
+        "ban_reason": banned_user_reason
+        }    
+
 # cart api
 
 @app.route("/cart", methods=["POST"])
