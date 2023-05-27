@@ -51,7 +51,7 @@ function Login({ history }) {
               history.go(0);
             }
             //Add the general admin mail
-            else if (email === "blablablablablablabla") {
+            else if (email === "dbm@gmail.com") {
               typeOfUser = 1;
               history.push("/GeneralAdminMain");
               history.go(0);

@@ -14,6 +14,7 @@ import CartInfoPage from "./Pages/CartInfoPage";
 import GeneralAdminPage from "./Pages/GeneralAdminMainPage";
 import CollectItemPage from "./Pages/CollectItemPage";
 import Page404Page from "./Pages/Page404Page";
+import UnBanUserGA from "./components/Genreal Admin/UnBanUserGA";
 
 function App() {
   // Check if user is authenticated
@@ -48,6 +49,7 @@ function App() {
             <Route path="/CartInfo" exact component={CartInfoPage} />
             <Route path="/CollectItem" exact component={CollectItemPage}/>
             <Route path="/GeneralAdminMain" exact component={GeneralAdminPage}/>
+            <Route path="/UnBanUserGA" exact component={UnBanUserGA}/>
             <Route path="/*" exact component={Page404Page}/>
 
 
