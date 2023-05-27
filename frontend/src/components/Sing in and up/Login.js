@@ -20,7 +20,6 @@ const firebaseConfig = {
 //initialazing firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-let typeOfUser = 0;
 
 function Login({ history }) {
   const [email, setEmail] = useState("");
@@ -33,8 +32,7 @@ function Login({ history }) {
     //taking the user email and password for the login
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        // Set isLoggedIn flag in localStorage
-        localStorage.setItem("isLoggedIn", true);
+        //Fecth
         fetch("http://localhost:5000/regional_admin/" + email, {
           method: "GET",
           headers: {
@@ -46,17 +44,20 @@ function Login({ history }) {
             const id = data.id;
 
             if (typeof id === "number") {
-              typeOfUser = 2;
+              // Set isLoggedIn flag in localStorage
+              localStorage.setItem("isLoggedIn", "Regional");
               history.push("/RegionalAdminMain");
               history.go(0);
             }
             //Add the general admin mail
             else if (email === "dbm@gmail.com") {
-              typeOfUser = 1;
+              // Set isLoggedIn flag in localStorage
+              localStorage.setItem("isLoggedIn", "General");
               history.push("/GeneralAdminMain");
               history.go(0);
             } else {
-              typeOfUser = 3;
+              // Set isLoggedIn flag in localStorage
+              localStorage.setItem("isLoggedIn", "Customer");
               history.push("/customerMain");
               history.go(0);
             }
@@ -71,18 +72,17 @@ function Login({ history }) {
   };
 
   // If user is already logged in, redirect to the customerMain page
-  if (localStorage.getItem("isLoggedIn")) {
-    if (typeOfUser === 3) {
+  if (localStorage.getItem("isLoggedIn")==="Customer") {
       history.push("/customerMain");
       history.go(0);
-    } else if ((typeOfUser = 2)) {
+    } else if (localStorage.getItem("isLoggedIn")==="Regional") {
       history.push("/RegionalAdminMain");
       history.go(0);
-    } else {
+    } else if(localStorage.getItem("isLoggedIn")==="General") {
       history.push("/GeneralAdminMain");
       history.go(0);
     }
-  }
+    
 
   return (
     <form className={styles["login-form"]} onSubmit={handleLogin}>
