@@ -112,6 +112,14 @@ def update_ga_decision():
     db.session.commit() # Commiting changes
     return ban_user.to_json()
 
+@app.route("/unban_user", methods=["POST"])
+def unban_user():
+    email = request.json["email"]
+    user = User.query.filter(User.email == email).first() # Getting the ban user id
+    user_id = user.id
+    ban_user=Banned_user.query.filter(Banned_user.banned_user_id == user_id).delete() # Delete the user's row from banned user table
+    db.session.commit() # Commiting changes
+    return ban_user.to_json()
 
 # cart api
 
