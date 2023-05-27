@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-const [userEmail, setUserEmail] = useState("");
 import styles from "../Regional admin/BanUser.module.css";
 
-function BanUserGA() {
+function UnBanUserGA() {
+  const [userEmail, setUserEmail] = useState("");
+  const [error, setError] = useState("");
   const handleInputChange = (event) => {
     setUserEmail(event.target.value);
     setError("");
@@ -20,10 +21,10 @@ function BanUserGA() {
       />
       {error && <div className={styles["ban_user-form__error"]}>{error}</div>}
       <button className={styles["ban_user-form__submit"]} type="submit">
-        Submit
+        Un-ban
       </button>
     </form>
   );
 }
 
-export default BanUserGA;
+export default UnBanUserGA;
