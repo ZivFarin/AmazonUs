@@ -104,7 +104,7 @@ def update_ga_decision():
     decision = request.json["decision"]
     user = User.query.filter(User.email == email).first() # Getting the ban user id
     user_id = user.id
-    if decision == True: # If hte general admin decided to ban
+    if decision == 'True': # If hte general admin decided to ban
         ban_user=Banned_user.query.filter(Banned_user.banned_user_id == user_id).first() # Getting the banned_user row
         ban_user.ban_date = datetime.utcnow() # Update the ban time
     else: # The general admin decided no to ban
