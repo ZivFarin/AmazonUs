@@ -2,12 +2,29 @@ import React, { useState, useEffect } from "react";
 import BanCard from "../../UI/BanCard";
 import styles from "../Customer/CustomerMain.module.css";
 
-
 const handleBanUser = (useremail) => {
-  //Send approve ban if email != null, if null cancel ban
+  let decision = { email: useremail, decision: "True" };
+  fetch("http://localhost:5000/banned_user_ga",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(decision),
+    });
+    //window.location.reload();
 };
 const handleCancelBanUser = (useremail) => {
-  //cancel ban 
+  let decision = { email: useremail, decision: "False" };
+  fetch("http://localhost:5000/banned_user_ga",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(decision),
+    });
+    //window.location.reload();
 };
 const buttonStyle = {
   height: "40px",
@@ -42,7 +59,7 @@ function GeneralAdminMain() {
       }
     };
     fetchData();
-  }, [] );
+  }, []);
   return (
     <section>
       <h1 className={styles.banner}>Users that are waiting for ban: </h1>
@@ -57,11 +74,15 @@ function GeneralAdminMain() {
               <button
                 style={buttonStyle}
                 onClick={() => handleBanUser(user.email)}
-              >Ban user</button>
+              >
+                Ban user
+              </button>
               <button
                 style={buttonStyle}
                 onClick={() => handleCancelBanUser(user.email)}
-              >Cancel</button>
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </BanCard>
