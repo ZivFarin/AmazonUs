@@ -5,7 +5,7 @@ from merge_2_cart import find_cart
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy import and_
 from datetime import datetime
-
+import json
 import requests
 from bs4 import BeautifulSoup
 # User api
@@ -29,7 +29,17 @@ def create_user_handler():
 def get_user_details_from_email(email):
     """get user details by email."""
     user_details = User.query.filter_by(email=email).one()
-    return user_details.to_json()
+    user_id = user_details.id  
+    is_ban = Banned_user.query.filter_by(banned_user_id = user_id).one()
+    json_user = user_details.to_json()
+    if is_ban.ban_date is not None:
+        json_user['banned_user'] = 'True'
+        new_json_str = json.dumps(json_user)
+    else: 
+        json_user['banned_user'] = 'False'
+        new_json_str = json.dumps(json_user)
+    return new_json_str
+
 
 
 
