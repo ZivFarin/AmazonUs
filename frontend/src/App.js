@@ -17,6 +17,7 @@ import GeneralAdminPage from "./Pages/GeneralAdminMainPage";
 import CollectItemPage from "./Pages/CollectItemPage";
 import Page404Page from "./Pages/Page404Page";
 import UnBanUserGAPage from "./Pages/UnBanUserGAPage";
+import YouAreBannedPage from "./Pages/YouAreBannedPage";
 
 function App() {
   // Check if user is authenticated
@@ -33,6 +34,13 @@ function App() {
           <Switch>
             <Route path="/" exact component={LandingPagePage} />
             <Route path="/Login" exact component={LoginPage} />
+            {isLoggedIn === "BannedCustomer" && (
+                <Route
+                  path="/YouAreBanned"
+                  exact
+                  component={YouAreBannedPage}
+                />
+            )}
             {isLoggedIn === "Customer" && (
               <>
                 <Route
