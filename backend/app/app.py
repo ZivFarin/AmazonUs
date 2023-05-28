@@ -29,8 +29,11 @@ def create_user_handler():
 def get_user_details_from_email(email):
     """get user details by email."""
     user_details = User.query.filter_by(email=email).one()
-    user_id = user_details.id  
-    is_ban = Banned_user.query.filter_by(banned_user_id = user_id).one()
+    user_id = user_details.id
+    try:
+        is_ban = Banned_user.query.filter_by(banned_user_id = user_id).one()
+    except NoResultFound:
+        return user_details.to_json()
     json_user = user_details.to_json()
     if is_ban.ban_date is not None:
         json_user['banned_user'] = 'True'

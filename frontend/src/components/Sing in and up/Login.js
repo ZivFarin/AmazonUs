@@ -25,26 +25,12 @@ function Login({ history }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [checkForBan,setCheckForBan] = useState("");
 
   //handling the login to the system
   const handleLogin = (event) => {
     event.preventDefault();
-    //taking the user email and password for the login
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        fetch("http://localhost:5000/login/" + email, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((response) => response.json())
-          .then((banned) => {
-            setCheckForBan(banned.check);
-            console.log(checkForBan);
-          });
-        //Fecth
         fetch("http://localhost:5000/regional_admin/" + email, {
           method: "GET",
           headers: {
@@ -54,34 +40,36 @@ function Login({ history }) {
           .then((response) => response.json())
           .then((data) => {
             const id = data.id;
-            if (checkForBan === "True") {
-              localStorage.setItem("isLoggedIn", "BannedCustomer");
-              history.push("/YouAreBanned");
+            if (typeof id === "number") {
+              localStorage.setItem("isLoggedIn", "Regional");
+              history.push("/RegionalAdminMain");
+              history.go(0);
+            } else if (email === "dbm@gmail.com") {
+              localStorage.setItem("isLoggedIn", "General");
+              history.push("/GeneralAdminMain");
               history.go(0);
             } else {
-              if (typeof id === "number") {
-                // Set isLoggedIn flag in localStorage
-                localStorage.setItem("isLoggedIn", "Regional");
-                history.push("/RegionalAdminMain");
-                history.go(0);
-              }
-              //Add the general admin mail
-              else if (email === "dbm@gmail.com") {
-                // Set isLoggedIn flag in localStorage
-                localStorage.setItem("isLoggedIn", "General");
-                history.push("/GeneralAdminMain");
-                history.go(0);
-              } else {
-                // Set isLoggedIn flag in localStorage
-                localStorage.setItem("isLoggedIn", "Customer");
-                history.push("/customerMain");
-                history.go(0);
-              }
+              fetch("http://localhost:5000/login/" + email, {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              })
+                .then((response) => response.json())
+                .then((banned) => {
+                  if (banned.banned_user === "True") {
+                    localStorage.setItem("isLoggedIn", "BannedCustomer");
+                    history.push("/YouAreBanned");
+                    history.go(0);
+                  } else {
+                    localStorage.setItem("isLoggedIn", "Customer");
+                    history.push("/customerMain");
+                    history.go(0);
+                  }
+                });
             }
           });
-        // redirecting the page to the customerMain page after login
       })
-      //catching errors
       .catch((error) => {
         const errorMessage = error.message;
         setError(errorMessage);
