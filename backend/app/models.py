@@ -60,8 +60,7 @@ class User(db.Model, db_item):
         "region": self.region,
         "first_name": self.first_name,
         "last_name": self.last_name,
-        "telephone": self.telephone,
-        "banned_user": self.banned_user
+        "telephone": self.telephone
         }
 
 
