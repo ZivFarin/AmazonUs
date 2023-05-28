@@ -8,7 +8,6 @@ from datetime import datetime
 
 import requests
 from bs4 import BeautifulSoup
-import re
 # User api
 
 @app.route("/user", methods=["POST"])
@@ -184,10 +183,19 @@ def get_item_name_from_url(url):
     return name
 
 def get_pict_from_url(url):
-    """
-    TODO MOCK! needs to be created
-    """
-    return "Richard"
+    HEADERS = ({'User-Agent':'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.4044.113 Safari/5370.36 Brave/5035',
+                                    'Accept-Language': 'en-US, en;q=0.5'})
+    html = requests.get(url,headers=HEADERS)
+    soup = BeautifulSoup(html.content, 'lxml')
+    try:
+        price_integer_request = str(soup.find("div", attrs={'id': 'imgTagWrapperId'}))
+        items = price_integer_request.split('"')
+        index = next((i for i, cell in enumerate(items) if 'src=' in cell), -1)
+        picture_url = items[index+1]
+    except AttributeError: 
+        picture_url = "-1" # if we have error price is -1
+    return picture_url
+
 
 @app.route("/item", methods=["POST"])
 def add_item():
