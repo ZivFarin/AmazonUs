@@ -26,7 +26,7 @@ const pathArray = [
   "/CustomerMain",
   "/addItem",
   "/getInTouch",
-  "/Signup",
+  "/signup",
   "/AboutUs",
   "/RegionalAdminMain",
   "/BanUser",
