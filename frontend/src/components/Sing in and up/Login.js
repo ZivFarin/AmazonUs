@@ -86,6 +86,9 @@ function Login({ history }) {
   } else if (localStorage.getItem("isLoggedIn") === "General") {
     history.push("/GeneralAdminMain");
     history.go(0);
+  } else if (localStorage.getItem("isLoggedIn") === "BannedCustomer") {
+    history.push("/YouAreBanned");
+    history.go(0);
   }
 
   return (

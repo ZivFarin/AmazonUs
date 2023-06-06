@@ -7,7 +7,7 @@ function Navbar() {
     <nav className={styles.navbar}>
       <ul className={styles["navbar-nav"]}>
         <li className={styles["nav-item"]}>
-          <Link to="/customerMain" className={styles["nav-link"]}>
+          <Link to="/CustomerMain" className={styles["nav-link"]}>
             Home
           </Link>
         </li>

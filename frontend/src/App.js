@@ -19,6 +19,23 @@ import Page404Page from "./Pages/Page404Page";
 import UnBanUserGAPage from "./Pages/UnBanUserGAPage";
 import YouAreBannedPage from "./Pages/YouAreBannedPage";
 
+const pathArray = [
+  "/",
+  "/Login",
+  "/YouAreBanned",
+  "/CustomerMain",
+  "/addItem",
+  "/getInTouch",
+  "/Signup",
+  "/AboutUs",
+  "/RegionalAdminMain",
+  "/BanUser",
+  "/CartInfo",
+  "/CollectItem",
+  "/GeneralAdminMain",
+  "/UnBanUserGA",
+  "/404",
+];
 function App() {
   // Check if user is authenticated
 
@@ -32,51 +49,49 @@ function App() {
         {isLoggedIn === "General" ? <GANavBar /> : null}
         <main>
           <Switch>
-            <Route path="/" exact component={LandingPagePage} />
-            <Route path="/Login" exact component={LoginPage} />
+            <Route path={pathArray[0]} exact component={LandingPagePage} />
+            <Route path={pathArray[1]} exact component={LoginPage} />
+            <Route path={pathArray[14]} exact component={Page404Page} />
+            <Route path={pathArray[6]} exact component={SignupPage} />
             {isLoggedIn === "BannedCustomer" && (
-                <Route
-                  path="/YouAreBanned"
-                  exact
-                  component={YouAreBannedPage}
-                />
+              <Route path={pathArray[2]} exact component={YouAreBannedPage} />
             )}
             {isLoggedIn === "Customer" && (
               <>
                 <Route
-                  path="/customerMain"
+                  path={pathArray[3]}
                   exact
                   component={CustomerMainPage}
                 />
-                <Route path="/addItem" exact component={AddItemURLPage} />
-                <Route path="/getInTouch" exact component={GetInTouchPage} />
-                <Route path="/Signup" exact component={SignupPage} />
-                <Route path="/AboutUs" exact component={AboutUsPage} />
+                <Route path={pathArray[4]} exact component={AddItemURLPage} />
+                <Route path={pathArray[5]} exact component={GetInTouchPage} />
+                <Route path={pathArray[7]} exact component={AboutUsPage} />
               </>
             )}
             {isLoggedIn === "Regional" && (
               <>
                 <Route
-                  path="/RegionalAdminMain"
+                  path={pathArray[8]}
                   exact
                   component={RegionalAdminMainPage}
                 />
-                <Route path="/BanUser" exact component={BanUserPage} />
-                <Route path="/CartInfo" exact component={CartInfoPage} />
-                <Route path="/CollectItem" exact component={CollectItemPage} />
+                <Route path={pathArray[9]} exact component={BanUserPage} />
+                <Route path={pathArray[10]} exact component={CartInfoPage} />
+                <Route path={pathArray[11]} exact component={CollectItemPage} />
               </>
             )}
             {isLoggedIn === "General" && (
               <>
                 <Route
-                  path="/GeneralAdminMain"
+                  path={pathArray[12]}
                   exact
                   component={GeneralAdminPage}
                 />
-                <Route path="/UnBanUserGA" exact component={UnBanUserGAPage} />
+                <Route path={pathArray[13]} exact component={UnBanUserGAPage} />
               </>
             )}
-            {isLoggedIn !== null && <Route path="/*" exact component={Page404Page} />}
+            {!pathArray.includes(window.location.pathname) &&
+              window.location.replace("/404")}
           </Switch>
         </main>
       </div>
