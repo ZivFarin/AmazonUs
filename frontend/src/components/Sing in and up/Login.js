@@ -63,7 +63,7 @@ function Login({ history }) {
                     history.go(0);
                   } else {
                     localStorage.setItem("isLoggedIn", "Customer");
-                    history.push("/customerMain");
+                    history.push("/CustomerMain");
                     history.go(0);
                   }
                 });
@@ -78,7 +78,7 @@ function Login({ history }) {
 
   // If user is already logged in, redirect to the customerMain page
   if (localStorage.getItem("isLoggedIn") === "Customer") {
-    history.push("/customerMain");
+    history.push("/CustomerMain");
     history.go(0);
   } else if (localStorage.getItem("isLoggedIn") === "Regional") {
     history.push("/RegionalAdminMain");
