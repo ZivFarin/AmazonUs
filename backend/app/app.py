@@ -230,11 +230,28 @@ def add_item():
     return item.to_json()
 
 
-@app.route("/item/<email>", methods=["GET"])
+# @app.route("/item/<email>", methods=["GET"])       temp as a comment will be deleted later
+# def get_all_user_events(email):
+#     """get all items of user by user_id."""
+#     user = User.query.filter_by(email=email).one()
+#     items = Item.query.filter_by(user_id = user.id).all()
+#     items_list = []
+#     for item in items:
+#         items_list.append(item.to_json())
+#     return {"Items": items_list}
+
+@app.route("/item/sort", methods=["GET"])
 def get_all_user_events(email):
-    """get all items of user by user_id."""
-    user = User.query.filter_by(email=email).one()
-    items = Item.query.filter_by(user_id = user.id).all()
+    """get all items of user by user_id, orderd by price"""
+    order = request.json["order"] # can be: "default", "desc", "asc"
+    email = request.json["email"]
+    user = User.query.filter_by(email=email).one() # getting the user's id from email
+    if order == "desc": # descending order
+        items = Item.query.filter_by(user_id = user.id).order_by(Item.price.desc()).all()
+    elif order == "asc": # ascending order
+        items = Item.query.filter_by(user_id = user.id).order_by(Item.price.asc()).all()
+    else: # default
+        items = Item.query.filter_by(user_id = user.id).all()
     items_list = []
     for item in items:
         items_list.append(item.to_json())
