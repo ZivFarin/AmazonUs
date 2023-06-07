@@ -69,11 +69,11 @@ function Signup() {
         })
           .then((response) => response.json())
           .then((response)=>{
-          // redirecting the page to the customerMain page after login
+          // redirecting the page to the login
           history.push("/Login");
           history.go(0);})
           .then((data) => console.log(data))
-          .catch((error) => console.error(error));
+          .catch(() => setError("Error phone already exists"));
 
       })
       .then(console.log(JSON.stringify(userData),))

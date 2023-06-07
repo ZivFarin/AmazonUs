@@ -43,10 +43,21 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        {isLoggedIn ? <LogoutButton /> : null}
-        {isLoggedIn === "Customer" ? <Navbar /> : null}
-        {isLoggedIn === "Regional" ? <NavbarRegionalAdmin /> : null}
-        {isLoggedIn === "General" ? <GANavBar /> : null}
+        {isLoggedIn === "Customer" ? (
+          <>
+            <LogoutButton /> <Navbar />
+          </>
+        ) : null}
+        {isLoggedIn === "Regional" ? (
+          <>
+            <LogoutButton /> <NavbarRegionalAdmin />
+          </>
+        ) : null}
+        {isLoggedIn === "General" ? (
+          <>
+            <LogoutButton /> <GANavBar />
+          </>
+        ) : null}
         <main>
           <Switch>
             <Route path={pathArray[0]} exact component={LandingPagePage} />
@@ -58,11 +69,7 @@ function App() {
             )}
             {isLoggedIn === "Customer" && (
               <>
-                <Route
-                  path={pathArray[3]}
-                  exact
-                  component={CustomerMainPage}
-                />
+                <Route path={pathArray[3]} exact component={CustomerMainPage} />
                 <Route path={pathArray[4]} exact component={AddItemURLPage} />
                 <Route path={pathArray[5]} exact component={GetInTouchPage} />
                 <Route path={pathArray[7]} exact component={AboutUsPage} />
