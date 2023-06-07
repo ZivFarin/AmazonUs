@@ -59,12 +59,54 @@ function CustomerMain() {
 
     fetchData();
   }, [url]);
-  /*Dont forget to add a rendering of cart id into the section*/
+  const getSort = () => {
+    var select = document.getElementById("Sort");
+    var selectedSort = select.value;
+    let userSort = { order: selectedSort, email: userEmail };
+    console.log(userSort);
+    const fetchData = async () => {
+      try {
+        // Fetch user items
+        fetch("http://localhost:5000/sort", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userSort),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            const itemsData = data.Items;
+            itemsData.map((item) => ({
+              id: item.id,
+              name: item.name,
+              url: item.url,
+              price: item.price,
+              cartId: item.cart_id,
+            }));
+            setUserItems(itemsData);
+          });
+      } catch (error) {
+        console.error("Error fetching user items:", error);
+      }
+    };
+
+    fetchData();
+  };
   return userEmail === "" ? (
     <Loading />
   ) : (
     <section>
       <h1 className={styles.banner}>Your items are: </h1>
+      <select className={styles["input"]} onChange={getSort} id="Sort">
+        <option value="" disabled selected>
+          Select sort option
+        </option>
+        <option value="default">Default</option>
+        <option value="ascending">Price: low to high</option>
+        <option value="descending">Price: high to low</option>
+      </select>
       {userItems.map((item) => (
         <Card key={item.id}>
           <div className={styles.container}>

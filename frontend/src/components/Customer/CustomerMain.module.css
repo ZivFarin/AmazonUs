@@ -17,3 +17,12 @@
 .banner {
   padding-left: 16px;
 }
+
+.input {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  background-image: linear-gradient(to right, rgb(255, 255, 255), rgba(142, 206, 255, 0.929));
+  border-radius: 5px;
+  width: 12%;
+}
