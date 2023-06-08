@@ -156,7 +156,7 @@ class Item(db.Model, db_item):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
     cart_id = db.Column(db.Integer,db.ForeignKey('cart.id'), nullable=True)
-    # item status: -1:PendingMatch 0:Matched 1:PendingPayment 2:Payed
+    # item status: -1:PendingMatch 0:Matched 1:PendingPayment 2:Payed 3:taken
     status = db.Column(db.Integer, nullable=False, default=-1)
     status_change = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     price = db.Column(db.Float, nullable=False)
