@@ -216,21 +216,6 @@ def get_pict_from_url(url):
         picture_url = "-1" # if we have error price is -1
     return picture_url
 
-# a fake json to send to the front so they will know to display an error message
-def get_fake_json():
-    return {
-        "id": None,
-        "user_id": None,
-        "cart_id": None,
-        "status": None,
-        "status_change": None,
-        "price": "-1",
-        "name": None,
-        "url": None,
-        "picture": None,
-        }
-
-
 @app.route("/item", methods=["POST"])
 def add_item():
     # create item from json
@@ -238,9 +223,6 @@ def add_item():
     email = request.json["email"]
     cart_id = None
     price = get_item_price_from_url(url)
-    if price == "-1": # if the price is unreadable don't add the item to the DB, send a mock to the front so they can display a message
-        fake_json = get_fake_json()
-        return fake_json
     name = get_item_name_from_url(url)
     picture = get_pict_from_url(url)
 
