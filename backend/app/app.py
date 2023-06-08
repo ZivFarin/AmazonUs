@@ -268,13 +268,17 @@ def get_all_user_events(email):
 @app.route("/sort", methods=["POST"])
 def get_all_user_events_sorted():
     """get all items of user by user_id, orderd by price"""
-    order = request.json["order"] # can be: "default", "desc", "asc"
+    order = request.json["order"] # can be: "default", "descending", "ascending", "bdescending", "bascending" 
     email = request.json["email"]
     user = User.query.filter_by(email=email).one() # getting the user's id from email
     if order == "descending": # descending order
         items = Item.query.filter_by(user_id = user.id).order_by(Item.price.desc()).all()
     elif order == "ascending": # ascending order
         items = Item.query.filter_by(user_id = user.id).order_by(Item.price.asc()).all()
+    elif order == "bdescending": # bibiliographic descending order
+        items = Item.query.filter_by(user_id = user.id).order_by(Item.name.dasc()).all()
+    elif order == "bascending": # bibiliographic ascending order
+        items = Item.query.filter_by(user_id = user.id).order_by(Item.name.asc()).all()
     else: # default
         items = Item.query.filter_by(user_id = user.id).all()
     items_list = []
