@@ -138,8 +138,7 @@ def tell_me_why(email):
     user = User.query.filter(User.email == email).first() # Getting the ban user id
     user_id = user.id
     ban_user=Banned_user.query.filter(Banned_user.banned_user_id == user_id).one() # Getting the ban info
-    reason = ban_user.ban_reason
-    return reason # return the reason
+    return ban_user.to_json() # return the ban user instance
 
 # cart api
 
