@@ -65,7 +65,6 @@ function CustomerMain() {
     var select = document.getElementById("Sort");
     var selectedSort = select.value;
     let userSort = { order: selectedSort, email: userEmail };
-    console.log(userSort);
     const fetchData = async () => {
       try {
         // Fetch user items
@@ -87,6 +86,7 @@ function CustomerMain() {
               price: item.price,
               cartId: item.cart_id,
             }));
+            console.log(itemsData);
             setUserItems(itemsData);
           });
       } catch (error) {
@@ -96,6 +96,25 @@ function CustomerMain() {
 
     fetchData();
   };
+  const getSubName = (name) => {
+    let limitedString = name.substring(0, 30);
+    let lastSpaceIndex = limitedString.lastIndexOf(" ");
+    if (lastSpaceIndex !== -1) {
+      limitedString = limitedString.substring(0, lastSpaceIndex);
+    }
+    return limitedString;
+  };
+
+  const priceAlert = (item) => {
+    if (item.price <= 0) {
+      alert("There was a problem with the item: '" +  item.name +"'.\nDelete it and re-uplaod it please");
+      //Instead of return, when delete an item exists, delete this item.
+      return;
+    }
+    else{
+      return item.price;
+    }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -104,7 +123,6 @@ function CustomerMain() {
       const filteredItems = userItems.filter((element) =>
         element.name.includes(searchField)
       );
-      console.log(filteredItems);
       setUserItems(filteredItems);
     } else {
       setUserItems(userItemsArray);
@@ -126,14 +144,16 @@ function CustomerMain() {
       </select>
       <form onSubmit={handleSubmit}>
         <input
-          className= {styles["search"]}
+          className={styles["search"]}
           type="search"
           placeholder="Search an item here"
           id="searchInput"
           value={searchField}
           onChange={(e) => setSearchField(e.target.value)}
         />
-        <button className= {styles["search_button"]} type="submit">Search</button>
+        <button className={styles["search_button"]} type="submit">
+          Search
+        </button>
       </form>
 
       {userItems.map((item) => (
@@ -141,8 +161,8 @@ function CustomerMain() {
           <div className={styles.container}>
             <div className={styles.text}>
               <div>cart id: {item.cart_id}</div>
-              <div>item name: {item.name}</div>
-              <div>price: {item.price}$</div>
+              <div>item name: {getSubName(item.name)}</div>
+              <div>price: {priceAlert(item)}$</div>
               <div>
                 item link: <a href={item.url}>click here</a>
               </div>

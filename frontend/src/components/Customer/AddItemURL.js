@@ -52,29 +52,35 @@ function AddItemURL() {
       setError("URL isn't matching the amazon domain");
       return;
     } else {
-      const title = itemUrl.match(/\/([a-zA-Z0-9-]+)\/dp\//)[1];
-      console.log(title.replaceAll("-", " "));
-      if (
-        window.confirm(
-          "You have uploaded the item " + title.replaceAll("-", " ")
-        )
-      ) {
-        let userEmailToSend = auth.currentUser.email;
-        let userURL = { url: itemUrl, email: userEmailToSend };
-        fetch("http://localhost:5000/item", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userURL),
-        });
-      } else {
+      try {
+        const title = itemUrl.match(/\/([a-zA-Z0-9-]+)\/dp\//)[1];
+        console.log(title.replaceAll("-", " "));
+        if (
+          window.confirm(
+            "You want to upload the item " + title.replaceAll("-", " ")
+          )
+        ) {
+          let userEmailToSend = auth.currentUser.email;
+          let userURL = { url: itemUrl, email: userEmailToSend };
+          fetch("http://localhost:5000/item", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userURL),
+          })
+        } else {
+          history.push("/addItem");
+          history.go(0);
+          }
+          alert("You have chosen to upload your item, thank you");
+          history.push("/addItem");
+          history.go(0);
+      } catch {
+        alert("There was a problem with your item, please upload another item");
         history.push("/addItem");
         history.go(0);
       }
-      alert("You have chosen to upload your item, thank you");
-      history.push("/CustomerMain");
-      history.go(0);
     }
   };
 
