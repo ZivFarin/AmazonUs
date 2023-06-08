@@ -141,6 +141,8 @@ function CustomerMain() {
         <option value="default">Chronological order</option>
         <option value="ascending">Price: low to high</option>
         <option value="descending">Price: high to low</option>
+        <option value="bascending">Item name: a-z</option>
+        <option value="bdescending">Item name: z-a</option>
       </select>
       <form onSubmit={handleSubmit}>
         <input

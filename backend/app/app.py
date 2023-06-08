@@ -258,7 +258,7 @@ def get_all_user_events_sorted():
     elif order == "ascending": # ascending order
         items = Item.query.filter_by(user_id = user.id).order_by(Item.price.asc()).all()
     elif order == "bdescending": # bibiliographic descending order
-        items = Item.query.filter_by(user_id = user.id).order_by(Item.name.dasc()).all()
+        items = Item.query.filter_by(user_id = user.id).order_by(Item.name.desc()).all()
     elif order == "bascending": # bibiliographic ascending order
         items = Item.query.filter_by(user_id = user.id).order_by(Item.name.asc()).all()
     else: # default
