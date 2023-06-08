@@ -304,6 +304,20 @@ def update_Items():
     return items_json
 
 
+def get_cart_sum(cart_items): # calculate the cart price
+    sum = 0
+    for item in cart_items:
+        sum +=item.price
+    return sum    
+
+@app.route("/deleteItem", methods=["POST"])
+def delete_Item():
+    item_id = request.json["item_id"]
+    deleted_item = Item.query.filter(Item.id == item_id).one()
+    cart_id = deleted_item.cart_id
+    cart_items = Item.query.filter(Item.cart_id == cart_id).all()
+    cart_sum = get_cart_sum(cart_items)
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
