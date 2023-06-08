@@ -24,7 +24,7 @@
   border: 1px solid #cccccc;
   background: linear-gradient(to right, rgb(255, 255, 255), rgba(142, 206, 255, 0.929));
   border-radius: 5px;
-  width: 12%;
+  width: 13%;
   background-color: rgba(142, 206, 255, 0.929);
 }
 
@@ -39,7 +39,7 @@
   border: 1px solid #cccccc;
   background-image: linear-gradient(to right, rgb(255, 255, 255), rgba(142, 206, 255, 0.929));
   border-radius: 5px;
-  width: 12%;
+  width: 13%;
 }
 
 .search_button{
