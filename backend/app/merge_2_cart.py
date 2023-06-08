@@ -24,7 +24,7 @@ def get_eligible_items(item):
    eligible_users = User.query.filter(User.region == curr_user.region, ~User.id.in_(banned_users_id)).all() # Gtting all the other users who share the same region
    eligible_users_id = [getattr(u,'id') for u in eligible_users] # Isolating the user id
    items = []
-   rows = Item.query.filter(Item.cart_id == None, Item.user_id.in_(eligible_users_id)).order_by(Item.id.asc()).all() # Getting the items who has no cart and it's user share the region with this item user
+   rows = Item.query.filter(Item.cart_id == None, Item.user_id.in_(eligible_users_id), Item.price > 0).order_by(Item.id.asc()).all() # Getting the items who has no cart and it's user share the region with this item user
    for row in rows:
        items.append(row)
    return items
