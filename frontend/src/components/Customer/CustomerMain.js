@@ -24,6 +24,8 @@ const auth = getAuth(app);
 function CustomerMain() {
   const [userItems, setUserItems] = useState([]);
   const [userEmail, setUserEmail] = useState("");
+  const [searchField, setSearchField] = useState("");
+  const [userItemsArray, setUserItemsArray] = useState([]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -94,19 +96,46 @@ function CustomerMain() {
 
     fetchData();
   };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setUserItemsArray(userItems);
+    if (searchField !== "") {
+      const filteredItems = userItems.filter((element) =>
+        element.name.includes(searchField)
+      );
+      console.log(filteredItems);
+      setUserItems(filteredItems);
+    } else {
+      setUserItems(userItemsArray);
+    }
+  };
+
   return userEmail === "" ? (
     <Loading />
   ) : (
     <section>
       <h1 className={styles.banner}>Your items are: </h1>
-      <select className={styles["input"]} onChange={getSort} id="Sort">
+      <select className={styles["sort_select"]} onChange={getSort} id="Sort">
         <option value="" disabled selected>
           Select sort option
         </option>
-        <option value="default">Default</option>
+        <option value="default">Chronological order</option>
         <option value="ascending">Price: low to high</option>
         <option value="descending">Price: high to low</option>
       </select>
+      <form onSubmit={handleSubmit}>
+        <input
+          className= {styles["search"]}
+          type="search"
+          placeholder="Search an item here"
+          id="searchInput"
+          value={searchField}
+          onChange={(e) => setSearchField(e.target.value)}
+        />
+        <button className= {styles["search_button"]} type="submit">Search</button>
+      </form>
+
       {userItems.map((item) => (
         <Card key={item.id}>
           <div className={styles.container}>
