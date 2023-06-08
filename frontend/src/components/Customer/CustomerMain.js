@@ -147,7 +147,7 @@ function CustomerMain() {
                 item link: <a href={item.url}>click here</a>
               </div>
             </div>
-            {item.status === 1 && (
+            {(item.status === 1 || item.status === 0) && (
               <div className={styles.button}>
                 <PayPalButton item={item} />
               </div>
