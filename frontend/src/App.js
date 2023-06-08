@@ -58,6 +58,11 @@ function App() {
             <LogoutButton /> <GANavBar />
           </>
         ) : null}
+          {isLoggedIn === "BannedCustomer" ? (
+          <>
+            <LogoutButton />
+          </>
+        ) : null}
         <main>
           <Switch>
             <Route path={pathArray[0]} exact component={LandingPagePage} />
