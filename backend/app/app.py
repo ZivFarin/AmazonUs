@@ -330,7 +330,7 @@ def delete_Item():
         deleted_item = Item.query.filter(Item.id == item_id).delete() # remove the item from the DB
         db.session.commit() # Commiting changes
         for item in cart_items:
-            if item.id == item_id: # id the item is the deleted item don't search for a new cart
+            if item.id == item_id: # id the item is the deleted item don't search for a new cart(it's already removed from the DB)
                 continue
             if item.cart_id == None: # if you dont have a cart search for one
                 find_cart(item)
