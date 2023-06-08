@@ -3,7 +3,6 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { useState, useEffect } from "react";
 
-
 //connecting to the firebase project
 const firebaseConfig = {
   apiKey: "AIzaSyAbr6iHHVwQ9BxycwDdkqeQLLD0kk3twgs",
@@ -21,39 +20,35 @@ const auth = getAuth(app);
 
 function YouAreBanned() {
   const [userEmail, setUserEmail] = useState("");
+  const [banReason, setBanReason] = useState("");
 
   useEffect(() => {
     const timer = setTimeout(() => {
       const user = auth.currentUser;
       if (user) {
-        console.log(user.email + "ffffffffffffffff");
         setUserEmail(user.email);
       }
     }, 2000); // Delay of 2 seconds (2000 milliseconds)
 
     return () => clearTimeout(timer); // Clear the timer if the component unmounts or the dependency array changes
-  }
-  
-  , []);
+  }, []);
 
-  console.log(userEmail +"fff");
   let url = "http://localhost:5000/banned_user/reason/" + userEmail;
 
   useEffect(() => {
     const fetchData = async () => {
       console.clear();
       try {
-        console.log(url);
-  fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data + "7474");
-      });
+        fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            setBanReason(data.ban_reason);
+          });
       } catch (error) {
         console.error("Error fetching user items:", error);
       }
@@ -61,15 +56,18 @@ function YouAreBanned() {
 
     fetchData();
   }, [url]);
-  
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>unfortunately you got ban</h2>
+      <h2 className={styles.title}>unfortunately you got banned...</h2>
+      <p className={styles.text}>Ban reason:&nbsp; {banReason}</p>
       <p className={styles.text}>
-        E-mail us to: AUSupport@gmail.com
+        If you think that this ban is unjustified, contact us at: <br />
         <br />
-        or Phone us at: +972505000000
+        E-mail: AUSupport@gmail.com
+        <br />
+        <br />
+        Phone: +972505000000
       </p>
       <p className={styles.text}>
         <br />
