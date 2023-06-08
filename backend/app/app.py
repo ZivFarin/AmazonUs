@@ -318,7 +318,7 @@ def delete_Item():
     cart_items = Item.query.filter(Item.cart_id == cart_id).all() # get the list of items in the same cart as the soon to be deleted item
     cart_sum = get_cart_sum(cart_items) # get the cart cost
     if cart_sum-deleted_item.price >= 49: # if the cart is still above 49$ after removing the item, remove the item and end the function
-        deleted_item = Item.query.filter(Item.id == item_id).delete()
+        deleted_item = Item.query.filter(Item.id == item_id).delete() # remove the item from the DB
         db.session.commit() # Commiting changes
         return None
     else: # if after removing the item the total price will be below 49$ dismental the cart
