@@ -313,10 +313,28 @@ def get_cart_sum(cart_items): # calculate the cart price
 @app.route("/deleteItem", methods=["POST"])
 def delete_Item():
     item_id = request.json["item_id"]
-    deleted_item = Item.query.filter(Item.id == item_id).one()
+    deleted_item = Item.query.filter(Item.id == item_id).one() # get the item info
     cart_id = deleted_item.cart_id
-    cart_items = Item.query.filter(Item.cart_id == cart_id).all()
-    cart_sum = get_cart_sum(cart_items)
+    cart_items = Item.query.filter(Item.cart_id == cart_id).all() # get the list of items in the same cart as the soon to be deleted item
+    cart_sum = get_cart_sum(cart_items) # get the cart cost
+    if cart_sum-deleted_item.price >= 49: # if the cart is still above 49$ after removing the item, remove the item and end the function
+        deleted_item = Item.query.filter(Item.id == item_id).delete()
+        db.session.commit() # Commiting changes
+        return None
+    else: # if after removing the item the total price will be below 49$ dismental the cart
+        for item in cart_items:
+            if item.status != 2: # if the status is not "payed" change it back to "PendingMatch"
+                item.status = -1
+            item.cart_id = None # update the cart id ti "None" to indicate there is no cart
+        deleted_cart = Cart.query.filter(Cart.id == cart_id).delete() # remove the cart from the DB
+        deleted_item = Item.query.filter(Item.id == item_id).delete() # remove the item from the DB
+        db.session.commit() # Commiting changes
+        for item in cart_items:
+            if item.id == item_id: # id the item is the deleted item don't search for a new cart
+                continue
+            if item.cart_id == None: # if you dont have a cart search for one
+                find_cart(item)
+        return None
     
 
 if __name__ == "__main__":
