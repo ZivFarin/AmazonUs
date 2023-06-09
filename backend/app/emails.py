@@ -58,6 +58,22 @@ def create_match_found_mail(user_name, item_name):
 """
     return message
 
+def create_purchase_reminder_mail(user_name, item_name):
+    message = f"""\
+    <html>
+    <body>
+        <p>Dear {user_name},</p>
+        <p>We noticed that you have an outstanding purchase on our website.</p>
+        <p>Your selected item '{item_name}' is waiting for you in your shopping cart. Don't miss out on this opportunity to complete your purchase!</p>
+        <p>Visit our website and proceed to checkout to finalize your order. Remember, by completing the purchase, you can benefit from free shipping on your item.</p>
+        <p>If you have any questions or need assistance, please feel free to reach out to our customer support team.</p>
+        <p>Thank you for considering our website for your purchase!</p>
+        <p>Team AmazonUs</p>
+    </body>
+    </html>
+    """
+    return message
+
 def create_collection_confirmation_mail(user_name, item_name):
     message = f"""\
 <html>
