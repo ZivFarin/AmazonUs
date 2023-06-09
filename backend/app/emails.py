@@ -13,3 +13,23 @@ def create_match_found_mail(user_name, item_name):
 </html>
 """
     return message
+
+def send_email(user_mail,subject ,message):
+    # Create a multipart message
+    msg = MIMEMultipart()
+    msg['From'] = "AmazonUsILService@gmail.com"
+    msg['To'] = user_mail
+    msg['Subject'] = subject
+    # Attach the message to the email
+    msg.attach(MIMEText(message, 'html'))
+    # creates SMTP session
+    s = smtplib.SMTP('smtp.gmail.com', 587)
+    s.ehlo()
+    # start TLS for security
+    s.starttls()
+    # Authentication
+    s.login("AmazonUsILService@gmail.com", "lswugvhjepztmkhf")
+    # sending the mail
+    s.send_message(msg)
+    # terminating the session
+    s.quit()
