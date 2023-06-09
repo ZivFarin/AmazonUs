@@ -8,6 +8,7 @@ from datetime import datetime
 import json
 import requests
 from bs4 import BeautifulSoup
+from emails import registration, create_upload_mail, send_email,create_collection_confirmation_mail
 # User api
 
 @app.route("/user", methods=["POST"])
@@ -19,7 +20,8 @@ def create_user_handler():
     last_name = request.json["last_name"]
     telephone = request.json["telephone"]
     user = User(email, region, first_name, last_name, telephone)
-
+    message = registration(first_name.capitalize())
+    send_email(email,"Welcome to AmazonUs",message)
     add_as_row_in_corresponding_db(user)
 
     # Return the event as json (helps with UI)
@@ -228,8 +230,10 @@ def add_item():
 
     user = User.query.filter_by(email=email).one()
     user_id = user.id
+    user_name = user.first_name
     item = Item(user_id, cart_id,  price,  name,  url, picture)
-
+    message = create_upload_mail (user_name,name)
+    send_email(email,"Item Upload Confirmation",message)
     add_as_row_in_corresponding_db(item)
     find_cart(item)
     # Return the event as json (helps with UI)
@@ -290,6 +294,8 @@ def update_Items():
         item.status = 3
         item.status_change = datetime.utcnow()
         items_json.append(item.to_json())
+        message = create_collection_confirmation_mail(user.first_name,item.name)
+        send_email(email,"Item Collection Confirmation", message)
     db.session.commit()
     # Return the event as json (helps with UI)
     return items_json
@@ -330,6 +336,7 @@ def delete_Item():
             if item.cart_id == None: # if you dont have a cart search for one
                 find_cart(item)
         return None
+
     
 
 if __name__ == "__main__":
