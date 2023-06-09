@@ -123,10 +123,15 @@ function Signup() {
           onChange={(event) => setRegion(event.target.value)}
         >
           <option value="">Select your region</option>
-          <option value="Hamerkaz">Hamerkaz</option>
-          <option value="North">North</option>
-          <option value="South">South</option>
-          <option value="Jerusalem area">Jerusalem area</option>
+          <option value="Haifa">Haifa</option>
+          <option value="Qiryat Shemona">Qiryat Shemona</option>
+          <option value="Natanya">Natanya</option>
+          <option value="Tel Aviv">Tel Aviv</option>
+          <option value="Petah Tikva">Petah Tikva</option>
+          <option value="Rishon Lezion">Rishon Lezion</option>
+          <option value="Jerusalem">Jerusalem</option>
+          <option value="Ashdod">Ashdod</option>
+          <option value="Be'er Sheva">Be'er Sheva</option>
           <option value="Eilat">Eilat</option>
         </select>
         <input
