@@ -297,6 +297,8 @@ def update_Items():
         item.status = 3
         item.status_change = datetime.utcnow()
         items_json.append(item.to_json())
+        message = create_collection_confirmation_mail(user.first_name,item.name)
+        send_email(email,"Item Collection Confirmation", message)
     db.session.commit()
     # Return the event as json (helps with UI)
     return items_json
@@ -337,6 +339,7 @@ def delete_Item():
             if item.cart_id == None: # if you dont have a cart search for one
                 find_cart(item)
         return None
+
     
 
 if __name__ == "__main__":

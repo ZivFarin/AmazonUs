@@ -58,6 +58,22 @@ def create_match_found_mail(user_name, item_name):
 """
     return message
 
+def create_collection_confirmation_mail(user_name, item_name):
+    message = f"""\
+<html>
+  <body>
+    <p>Dear {user_name},</p>
+    <p>Thank you for collecting your item '{item_name}'!</p>
+    <p>Enjoy your new product and the benefits it brings! If you encounter any issues or require assistance, please do not hesitate to contact our customer support team. We are here to help.</p>
+    <p>Thank you for choosing our website for your purchase!</p>
+    <p>Team AmazonUs</p>
+  </body>
+</html>
+"""
+    return message
+
+
+
 def send_email(user_mail,subject ,message):
     # Create a multipart message
     msg = MIMEMultipart()
