@@ -246,10 +246,10 @@ def get_all_user_events(email):
         items_list.append(item.to_json())
     return {"Items": items_list}
 
-def get_items_by_pending_payment():
+def get_items_by_pending_payment(user_id):
     items = []
-    pending_items = Item.query.filter(Item.status == 1).order_by(Item.id.asc()).all() # getting the pending payment items
-    not_pending_item = Item.query.filter(Item.status != 1).order_by(Item.id.asc()).all() # getting the items how are not pending payment
+    pending_items = Item.query.filter(Item.user_id == user_id, Item.status == 1).order_by(Item.id.asc()).all() # getting the pending payment items
+    not_pending_item = Item.query.filter(Item.user_id == user_id ,Item.status != 1).order_by(Item.id.asc()).all() # getting the items how are not pending payment
     for item in pending_items:
         items.append(item) # appending the pending items first
     for item in not_pending_item:
@@ -272,7 +272,7 @@ def get_all_user_events_sorted():
     elif order == "bascending": # bibiliographic ascending order
         items = Item.query.filter_by(user_id = user.id).order_by(Item.name.asc()).all()
     elif order == "pending payment": # order by pending payment
-        items = get_items_by_pending_payment()
+        items = get_items_by_pending_payment(user.id)
     else: # default
         items = Item.query.filter_by(user_id = user.id).all()
     items_list = []
