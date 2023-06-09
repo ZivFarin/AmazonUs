@@ -47,8 +47,24 @@
   width: 70px;
   border: 1px solid #cccccc;
   background-image: linear-gradient(to right, rgb(255, 255, 255), rgba(142, 206, 255, 0.929));
+  border-radius: 5px;
+
 }
 .search_button:hover{
   background-image: linear-gradient(to right, rgba(142, 206, 255, 0.929), rgb(255, 255, 255));
 
+}
+
+.delete_button{
+  padding: 2px;
+  border: 1px solid #cccccc;
+  background-image: linear-gradient(to right, rgb(255, 255, 255), rgba(253, 2, 2, 0.929));
+  border-radius: 5px;
+  width: 8%;
+  border-radius: 5px;
+
+}
+
+.delete_button:hover{
+  background-image: linear-gradient(to right, rgba(253, 2, 2, 0.929), rgb(255, 255, 255));
 }

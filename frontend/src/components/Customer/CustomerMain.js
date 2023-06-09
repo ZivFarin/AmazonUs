@@ -129,6 +129,17 @@ function CustomerMain() {
     }
   };
 
+  const handleItemDelete = (itemID) => {
+    let itemToDelete = {item_id: itemID} 
+    fetch("http://localhost:5000/deleteItem", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(itemToDelete),
+          })
+  };
+
   return userEmail === "" ? (
     <Loading />
   ) : (
@@ -169,6 +180,13 @@ function CustomerMain() {
               <div>
                 item link: <a href={item.url}>click here</a>
               </div>
+            <div>
+            {item.status <2 && (
+              <div>
+                <button className={styles.delete_button} onClick={() => handleItemDelete(item.id)}>Delete</button>
+              </div>
+            )}
+            </div>
             </div>
             {(item.status === 1 || item.status === 0) && (
               <div className={styles.button}>
