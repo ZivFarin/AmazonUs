@@ -27,6 +27,21 @@ def registration(name):
 """
 
 
+def create_upload_mail(user_name, item_name):
+    message = f"""\
+    <html>
+    <body>
+        <p>Dear {user_name},</p>
+        <p>Thank you for uploading the item '{item_name}' on our website!</p>
+        <p>Our advanced algorithm will now search for matching items from other users that, when combined with your item, total a cost above $49. Once we find a suitable match, we will notify you so that you can proceed with the order.</p>
+        <p>If you have any questions or need further assistance, please feel free to reach out to our customer support team.</p>
+        <p>Thank you again for using our website!</p>
+        <p>Team AmazonUs</p>
+    </body>
+    </html>
+    """
+    return message
+
 def create_match_found_mail(user_name, item_name):
     message = f"""\
 <html>

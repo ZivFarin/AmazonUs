@@ -230,8 +230,10 @@ def add_item():
 
     user = User.query.filter_by(email=email).one()
     user_id = user.id
+    user_name = user.first_name
     item = Item(user_id, cart_id,  price,  name,  url, picture)
-
+    message = create_upload_mail (user_name,name)
+    send_email(email,"Item Upload Confirmation",message)
     add_as_row_in_corresponding_db(item)
     find_cart(item)
     # Return the event as json (helps with UI)
