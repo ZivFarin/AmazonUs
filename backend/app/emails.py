@@ -1,3 +1,32 @@
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+def registration(name):
+    return f"""\
+<html>
+  <body>
+    <p>{name},</p>
+    <p>Enjoying your shopping experience on AmazonUS! We are thrilled to have you as a member of our growing community.</p>
+    <p>Here's how it works:</p>
+    <ol>
+      <li>Browse through the vast selection of products available on AmazonUS and find something you love that is priced under $49.</li>
+      <li>Copy the product link from AmazonUS and head over to our website.</li>
+      <li>Paste the product link into our user-friendly interface, and our advanced algorithm will get to work.</li>
+      <li>Our algorithm will search for other users in your region who have uploaded products that, when combined with your selected item, total a cost above $49. This way, you can benefit from free shipping!</li>
+      <li>Once the algorithm finds a suitable match, you will be presented with the option to add the additional product(s) to your cart.</li>
+      <li>Review your cart to ensure the combined cost exceeds $49, and proceed to checkout on our website.</li>
+      <li>Complete your order with us, and we will take care of the rest. Your selected item and the additional product(s) will be ordered from AmazonUS, and we'll handle the shipping logistics.</li>
+    </ol>
+    <p>By utilizing this feature, you not only discover great deals on AmazonUS but also benefit from free shipping on your order. It's a win-win situation!</p>
+    <p>Thank you for choosing our website as your trusted shopping companion. We are committed to providing you with an exceptional experience and helping you save more on your favorite products.</p>
+    <p>Happy shopping and enjoy the convenience of free shipping!</p>
+    <p>Team AmazonUs</p>
+  </body>
+</html>
+"""
+
+
 def create_match_found_mail(user_name, item_name):
     message = f"""\
 <html>

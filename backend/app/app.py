@@ -8,6 +8,7 @@ from datetime import datetime
 import json
 import requests
 from bs4 import BeautifulSoup
+from emails import registration, create_upload_mail, send_email,create_collection_confirmation_mail
 # User api
 
 @app.route("/user", methods=["POST"])
@@ -19,7 +20,8 @@ def create_user_handler():
     last_name = request.json["last_name"]
     telephone = request.json["telephone"]
     user = User(email, region, first_name, last_name, telephone)
-
+    message = registration(first_name.capitalize())
+    send_email(email,"Welcome to AmazonUs",message)
     add_as_row_in_corresponding_db(user)
 
     # Return the event as json (helps with UI)
