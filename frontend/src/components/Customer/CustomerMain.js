@@ -143,6 +143,7 @@ function CustomerMain() {
         <option value="descending">Price: high to low</option>
         <option value="bascending">Item name: a-z</option>
         <option value="bdescending">Item name: z-a</option>
+        <option value="pending">Pending payment</option>
       </select>
       <form onSubmit={handleSubmit}>
         <input

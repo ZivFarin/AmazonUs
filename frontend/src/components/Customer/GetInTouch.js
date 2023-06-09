@@ -5,7 +5,7 @@ function GetInTouch() {
     <div className={styles.container}>
       <h2 className={styles.title}>Use these to contact us:</h2>
       <p className={styles.text}>
-        E-mail us to: AUSupport@gmail.com
+        E-mail us to: AmazonUsILService@gmail.com
         <br />
         Phone us at: +972505000000
       </p>
