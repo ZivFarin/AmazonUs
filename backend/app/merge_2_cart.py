@@ -1,6 +1,7 @@
 from datetime import datetime
 from models import Item, Cart, User, Banned_user, Regional_admin, db, add_as_row_in_corresponding_db
 from math import ceil
+from emails import create_match_found_mail, send_email
 
 
 def find_cart(item):
@@ -15,6 +16,7 @@ def find_cart(item):
    add_as_row_in_corresponding_db(cart)
    cart_items_id = [getattr(cart_item,'id') for cart_item in cart_items] # Isolating the banned user id
    update_items(cart_items_id, cart.id)
+   
 
 
 def get_eligible_items(item):
@@ -71,3 +73,6 @@ def update_items(items_id, new_cart_id):
         item.status = 0
         item.status_change = datetime.utcnow()
         db.session.commit()
+        user_details = User.query.filter(User.id == item.user_id).first()
+        message = create_match_found_mail(user_details.first_name,item.name)
+        send_email(user_details.email,"Match Found!", message)
