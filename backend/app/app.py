@@ -248,6 +248,13 @@ def get_all_user_events(email):
 
 def get_items_by_pending_payment():
     items = []
+    pending_items = Item.query.filter(Item.status == 1).order_by(Item.id.asc()).all() # getting the pending payment items
+    not_pending_item = Item.query.filter(Item.status != 1).order_by(Item.id.asc()).all() # getting the items how are not pending payment
+    for item in pending_items:
+        items.append(item) # appending the pending items first
+    for item in not_pending_item:
+        items.append(item) # appending the not pending items
+    return items
 
 # API for sorting
 @app.route("/sort", methods=["POST"])
