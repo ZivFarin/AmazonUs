@@ -3,7 +3,7 @@ from config import app
 from models import User, Regional_admin, Banned_user, Cart, Item, add_as_row_in_corresponding_db,db
 from merge_2_cart import find_cart
 from sqlalchemy.orm.exc import NoResultFound
-from sqlalchemy import and_
+from sqlalchemy import and_ , or_
 from datetime import datetime
 import json
 import requests
@@ -248,12 +248,9 @@ def get_all_user_events(email):
 
 def get_items_by_pending_payment(user_id):
     items = []
-    pending_items = Item.query.filter(Item.user_id == user_id, Item.status == 1).order_by(Item.id.asc()).all() # getting the pending payment items
-    not_pending_item = Item.query.filter(Item.user_id == user_id ,Item.status != 1).order_by(Item.id.asc()).all() # getting the items how are not pending payment
+    pending_items = Item.query.filter(Item.user_id == user_id, or_(Item.status == 1, Item.status == 0)).order_by(Item.id.asc()).all() # getting the pending payment items
     for item in pending_items:
-        items.append(item) # appending the pending items first
-    for item in not_pending_item:
-        items.append(item) # appending the not pending items
+        items.append(item) # appending the pending items
     return items
 
 # API for sorting
@@ -271,7 +268,7 @@ def get_all_user_events_sorted():
         items = Item.query.filter_by(user_id = user.id).order_by(Item.name.desc()).all()
     elif order == "bascending": # bibiliographic ascending order
         items = Item.query.filter_by(user_id = user.id).order_by(Item.name.asc()).all()
-    elif order == "pending payment": # order by pending payment
+    elif order == "pending": # order by pending payment
         items = get_items_by_pending_payment(user.id)
     else: # default
         items = Item.query.filter_by(user_id = user.id).all()
