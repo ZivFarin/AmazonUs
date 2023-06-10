@@ -1,12 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Open+Sans:ital,wght@1,300;1,400&family=Oswald:wght@300&family=Playfair+Display:ital,wght@1,500&family=Playfair:ital,wght@1,300&family=Roboto&display=swap");
+
+@keyframes lightUpFadeOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .page_404 {
-  padding: 5% 0;
+  padding: 15% 0;
   background: #fff;
-  font-family: 'Arvo', serif;
+  font-family: "Arvo", serif;
 }
 
 .page_404 img {
   width: 100%;
-  max-width: 400px; 
+  max-width: 400px;
   height: auto;
 }
 
@@ -18,26 +32,33 @@
 }
 
 .four_zero_four_bg h1 {
-  font-size: 5vw; 
+  font-family: "DM Serif Display", serif;
+  font-size: 5vw;
   color: #000000;
+  animation: lightUpFadeOut 5s infinite;
 }
 
 .four_zero_four_bg h3 {
-  font-size: 3vw; 
+  font-family: "Playfair", sans-serif;
+  font-size: 3vw;
   color: #000000;
 }
 
 .link_404 {
-  color: #fff !important;
-  padding: 2% 4%; 
+  color: #000000 !important;
+  padding: 1% 2%;
   background: #39ac31;
-  margin: 4% 0; 
+  margin: 4% 0;
   display: inline-block;
   text-decoration: none;
 }
 
+.link_404:hover {
+  text-decoration: underline;
+}
+
 .contant_box_404 {
-  margin-top: -15%; 
+  margin-top: -15%;
   color: #000000;
-  text-align: center;
+  text-align: center;
 }

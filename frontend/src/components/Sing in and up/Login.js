@@ -3,7 +3,11 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import styles from "./Login.module.css";
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import { Link } from "react-router-dom";
 
 //connecting to the firebase project
@@ -91,6 +95,21 @@ function Login({ history }) {
     history.go(0);
   }
 
+  const passwordResetHandler = () => {
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        // Password reset email sent!
+        // ..
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+      });
+  };
+
   return (
     <form className={styles["login-form"]} onSubmit={handleLogin}>
       <input
@@ -110,6 +129,12 @@ function Login({ history }) {
       {error && <div className={styles["login-form__error"]}>{error}</div>}
       <button type="submit" className={styles["login-form__submit"]}>
         Login
+      </button>
+      <button
+        className={styles["login-form__submit"]}
+        onClick={passwordResetHandler}
+      >
+        Forgot password
       </button>
       <Link to="/signup" className={styles["signup-form__submit"]}>
         Create account

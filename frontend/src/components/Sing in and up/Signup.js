@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import styles from "./Signup.module.css";
 import { initializeApp } from "firebase/app";
 import { useHistory } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
-
-
+import { getAuth, createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
 
 //connecting to the firebase project
 const firebaseConfig = {
@@ -32,8 +29,13 @@ function Signup() {
   const [error, setError] = useState("");
   const history = useHistory();
 
-
-  const userData = { "email":email, "region": region, "first_name": firstName, "last_name": lastName, "telephone":telephone };
+  const userData = {
+    email: email,
+    region: region,
+    first_name: firstName,
+    last_name: lastName,
+    telephone: telephone,
+  };
 
   //handling the signup to the system
   const handleSignUp = (event) => {
@@ -68,21 +70,36 @@ function Signup() {
           body: JSON.stringify(userData),
         })
           .then((response) => response.json())
-          .then((response)=>{
-          // redirecting the page to the login
-          history.push("/Login");
-          history.go(0);})
+          .then((response) => {
+            // redirecting the page to the login
+            history.push("/Login");
+            history.go(0);
+          })
           .then((data) => console.log(data))
-          .catch(() => setError("Error phone already exists"));
-
+          .catch(() => {
+            setError("Error phone already exists");
+            const user = auth.currentUser;
+            deleteUser(user)
+              .then(() => {
+                // User deleted.
+              })
+              .catch((error) => {
+                const errorMessage = error.message;
+                setError(errorMessage);
+              });
+          });
       })
-      .then(console.log(JSON.stringify(userData),))
+      .then(console.log(JSON.stringify(userData)))
       //catching errors from firebase
       .catch((error) => {
         const errorMessage = error.message;
         setError(errorMessage);
       });
-      
+  };
+
+  const returnHandler = () => {
+    history.push("/Login");
+    history.go(0);
   };
 
   return (
@@ -142,9 +159,17 @@ function Signup() {
           onChange={(event) => setTelephone(event.target.value)}
         />
         {error && <div className={styles["login-form__error"]}>{error}</div>}
-        <button type="submit" className={styles["login-form__submit"]}>
-          Create Account
-        </button>
+        <div>
+          <button type="submit" className={styles["login-form__submit"]}>
+            Create Account
+          </button>
+          <button
+            className={styles["login-form__submit"]}
+            onClick={returnHandler}
+          >
+            Sign in
+          </button>
+        </div>
       </form>
     </div>
   );
