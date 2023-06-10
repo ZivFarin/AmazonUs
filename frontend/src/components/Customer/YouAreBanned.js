@@ -1,9 +1,10 @@
+/**Imports */
 import styles from "./GetInTouch.module.css";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { useState, useEffect } from "react";
 
-//connecting to the firebase project
+/**Firebase configuration for us specific*/
 const firebaseConfig = {
   apiKey: "AIzaSyAbr6iHHVwQ9BxycwDdkqeQLLD0kk3twgs",
   authDomain: "us-184db.firebaseapp.com",
@@ -14,27 +15,34 @@ const firebaseConfig = {
   measurementId: "G-S1343SSKC3",
 };
 
-//initialazing firebase
+/**Initializing firebase */
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+/**Main component function */
 function YouAreBanned() {
+  /**Declarations */
   const [userEmail, setUserEmail] = useState("");
   const [banReason, setBanReason] = useState("");
 
+  /**Here we get the user email from firebase*/
   useEffect(() => {
     const timer = setTimeout(() => {
       const user = auth.currentUser;
       if (user) {
         setUserEmail(user.email);
       }
-    }, 2000); // Delay of 2 seconds (2000 milliseconds)
+    }, 2000); /**Delay of 2 seconds (2000 milliseconds)*/
 
-    return () => clearTimeout(timer); // Clear the timer if the component unmounts or the dependency array changes
+    return () =>
+      clearTimeout(
+        timer
+      ); /**Clear the timer if the component unmounts or the dependency array changes*/
   }, []);
 
+  /**For fetch*/
   let url = "http://localhost:5000/banned_user/reason/" + userEmail;
-
+  /**Here we fetch the check if the user is indeed banned to give him the ban reason */
   useEffect(() => {
     const fetchData = async () => {
       console.clear();
@@ -47,16 +55,17 @@ function YouAreBanned() {
         })
           .then((response) => response.json())
           .then((data) => {
+            /**Here we set the ban reason to display it*/
             setBanReason(data.ban_reason);
           });
       } catch (error) {
+        /**In case there was an error in the fetch for us not for anyone who using the site*/
         console.error("Error fetching user items:", error);
       }
     };
-
     fetchData();
   }, [url]);
-
+  /**Here we render out what will be on the screen, in this component it's the reason and constant strings*/
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>unfortunately you got banned...</h2>

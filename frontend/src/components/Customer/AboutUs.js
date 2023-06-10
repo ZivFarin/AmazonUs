@@ -1,5 +1,6 @@
+/**Imports */
 import styles from './AboutUs.module.css';
-
+/**This is the about us, here we render all information pretty self explanatory*/ 
 function AboutUs() {
   return (
     <div className={styles.container}>
