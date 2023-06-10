@@ -14,11 +14,11 @@
 }
 
 .login-form__input {
-  margin: 5% 0;
-  padding: 5%;
+  margin: 3% 0;
+  padding: 3%;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 100%;
+  width: 75%;
 }
 
 .login-form__error {
@@ -33,13 +33,13 @@
 .login-form__submit,
 .signup-form__submit {
   margin: 2% 0;
-  padding: 5%;
+  padding: 2%;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 50%;
+  width: 37%;
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -54,6 +54,6 @@
 
 .login-form__submit:hover,
 .signup-form__submit:hover {
-  font-size: 120%;
+  text-decoration: underline;
   background-color:#0069d9;
 }
