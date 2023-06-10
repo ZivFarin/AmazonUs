@@ -5,22 +5,25 @@
   flex-direction: column;
   align-items: center;
   margin: auto;
-  padding: 20px;
+  padding: 5%;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 300px;
+  max-width: 400px; /* Adjust the value as per your needs */
+  width: 100%;
+  font-size: 130%;
 }
 
 .login-form__input {
-  margin: 10px 0;
-  padding: 10px;
+  margin: 5% 0;
+  padding: 5%;
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 100%;
 }
 
 .login-form__error {
-  margin: 10px 0;
+  margin: 5% 0;
+  padding: 5%;
   color: red;
   background-color: white;
   border: 1px solid black;
@@ -29,14 +32,14 @@
 
 .login-form__submit,
 .signup-form__submit {
-  margin: 10px 0;
-  padding: 10px;
+  margin: 2% 0;
+  padding: 5%;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%;
+  width: 50%;
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -49,14 +52,8 @@
   padding-right: 0;
 }
 
-
-.login-form__submit:hover {
-  background-color: #0069d9;
-}
-
+.login-form__submit:hover,
 .signup-form__submit:hover {
-  background-color: #0069d9;
-  color: #fff;
-  text-decoration: none;
+  font-size: 120%;
+  background-color:#0069d9;
 }
-

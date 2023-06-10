@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  position: relative; /* Add position relative to the container */
+  position: relative;
 }
 
 .text {
@@ -33,7 +33,7 @@
   font-style: italic;
 }
 
-.search{
+.search {
   margin: 10px;
   padding: 10px;
   border: 1px solid #cccccc;
@@ -42,29 +42,43 @@
   width: 13%;
 }
 
-.search_button{
+.search_button {
   height: 33px;
   width: 70px;
   border: 1px solid #cccccc;
   background-image: linear-gradient(to right, rgb(255, 255, 255), rgba(142, 206, 255, 0.929));
   border-radius: 5px;
-
 }
-.search_button:hover{
+
+.search_button:hover {
   background-image: linear-gradient(to right, rgba(142, 206, 255, 0.929), rgb(255, 255, 255));
-
 }
 
-.delete_button{
+.delete_button {
   padding: 2px;
+  margin-top: 5px;
   border: 1px solid #cccccc;
   background-image: linear-gradient(to right, rgb(255, 255, 255), rgba(253, 2, 2, 0.929));
   border-radius: 5px;
   width: 8%;
   border-radius: 5px;
-
 }
 
-.delete_button:hover{
+.delete_button:hover {
   background-image: linear-gradient(to right, rgba(253, 2, 2, 0.929), rgb(255, 255, 255));
+}
+
+@media (max-width: 768px) {
+  .sort_select,
+  .search {
+    width: 100%;
+  }
+
+  .search_button {
+    width: auto;
+  }
+
+  .delete_button {
+    width: 100%;
+  }
 }

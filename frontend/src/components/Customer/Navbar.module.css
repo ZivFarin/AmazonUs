@@ -30,3 +30,21 @@
 .nav-link:hover {
   color: rgb(237, 163, 206);
 }
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 1rem;
+  }
+
+  .nav-item {
+    margin: 0;
+    margin-bottom: 0.5rem;
+  }
+}
