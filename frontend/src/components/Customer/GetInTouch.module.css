@@ -3,9 +3,9 @@
 :local(h2) {
   color: black;
   font-size: 40px;
-  /*font-family: 'Lucida Handwriting', cursive;*/
   font-family: "Courier New", Courier, monospace;
 }
+
 a.container {
   display: flex;
   flex-direction: column;
@@ -32,4 +32,15 @@ a.container {
   color: black;
   font-size: 24px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 32px;
+  }
+
+  .text,
+  :local(p) {
+    font-size: 18px;
+  }
 }
