@@ -7,9 +7,17 @@
   margin: auto;
   padding: 2%;
   border-radius: 5px;
-  max-width: 400px; 
+  max-width: 400px;
   width: 100%;
 }
+
+.login-form h1 {
+  font-size: 2.5em; 
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
 
 .login-form__input {
   margin: 2% 0;
