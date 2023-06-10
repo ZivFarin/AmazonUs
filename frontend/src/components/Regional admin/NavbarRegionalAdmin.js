@@ -1,3 +1,4 @@
+/**this page is for the regional admin page guide */
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./NavbarRegionalAdmin.module.css";
