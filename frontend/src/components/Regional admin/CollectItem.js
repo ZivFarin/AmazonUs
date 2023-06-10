@@ -1,9 +1,12 @@
+//in this page the regional admin check if the customer have an item with the data he give
+//and give him the item if everything is ok
 import styles from "./CollectItem.module.css";
 import React, { useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, fetchSignInMethodsForEmail } from "firebase/auth";
 import { useEffect } from "react";
 
+//Coniguring the firebase
 const firebaseConfig = {
   apiKey: "AIzaSyAbr6iHHVwQ9BxycwDdkqeQLLD0kk3twgs",
   authDomain: "us-184db.firebaseapp.com",
@@ -23,27 +26,33 @@ function CollectItem() {
   const [cartID, setCartID] = useState("");
   const [error, setError] = useState("");
 
+  //setting user email
   const handleEmailChange = (event) => {
     setUserEmail(event.target.value);
   };
+  //setting user cart id
   const handleCartIDvChange = (event) => {
     setCartID(event.target.value);
   };
 
+  //checking with the backend that everything is ok
   useEffect(() => {
     const fetchData = async () => {
       try {
+        //if one of the data is null
         if (!userEmail || !cartID) return;
 
+        //setting the url to send to the backend
         const url = `http://localhost:5000/carts/${cartID}`;
-        console.log(url);
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data);
 
+        //looping over the cart to check if the user have an item there
         for (let i = 0; i < data.length; i++) {
           if (data[i].email === userEmail) {
+            //setting the data to send to the backend
             let itemCollected = { email: userEmail, cart_id: cartID };
+            //sending the data to the backend
             fetch("http://localhost:5000/updateItems", {
               method: "POST",
               headers: {
@@ -53,7 +62,6 @@ function CollectItem() {
             });
             break;
           } else {
-            console.log("no");
           }
         }
       } catch (error) {
@@ -67,16 +75,18 @@ function CollectItem() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    //checking if the regional admin added user email
     if (!userEmail) {
       setError("Please enter the customer email");
       return;
     }
-
+    //checking if the regional admin added user cart id
     if (!cartID) {
       setError("Please enter a cart id");
       return;
     }
     try {
+      //checking if the user email that the user gave is in the database
       const signInMethods = await fetchSignInMethodsForEmail(auth, userEmail);
       if (signInMethods.length > 0) {
         console.log("Email exists in Firebase Authentication");

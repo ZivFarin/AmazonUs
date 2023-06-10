@@ -1,3 +1,4 @@
+/** This page shows the cart info of a specific cart */
 import React, { useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import { useState } from "react";
@@ -10,15 +11,15 @@ function CartInfo() {
   const history = useHistory();
   const cartId = location.state && location.state.cartId;
 
+  //setting the url for the backend api
   let url = "http://localhost:5000/carts/" + cartId;
-  console.log(url);
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch carts
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data);
+        //mapping over the data to render each part
         const updatedItems = data.map((item) => ({
           id: item.id,
           name: item.name,
@@ -35,6 +36,7 @@ function CartInfo() {
     fetchData();
   }, [url]);
 
+  //this function changes the status from a number to a suitabe string
   const getStatusString = (status) => {
     if (status === 1 || status === 0) {
       console.log("1");
@@ -48,6 +50,7 @@ function CartInfo() {
     return "";
   };
 
+  //when a customer needs to pay we need to remind him need to fix!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   const handleNudgeCustomer = (email, name) => {
     const subject = encodeURIComponent("Payment Reminder");
     const body = encodeURIComponent(
@@ -64,6 +67,7 @@ function CartInfo() {
     emailWindow.addEventListener("blur", handleWindowBlur);
   };
 
+  //buttonn css style
   const buttonStyle = {
     backgroundColor: "#BAE7FF",
     color: "black",

@@ -1,8 +1,10 @@
+/**This page will be used when the regional admin needs to ban a user */
 import React, { useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, fetchSignInMethodsForEmail } from "firebase/auth";
 import styles from "./BanUser.module.css";
 
+//Coniguring the firebase
 const firebaseConfig = {
   apiKey: "AIzaSyAbr6iHHVwQ9BxycwDdkqeQLLD0kk3twgs",
   authDomain: "us-184db.firebaseapp.com",
@@ -22,26 +24,33 @@ const BanUser = () => {
   const [reason, setReason] = useState("");
   const [error, setError] = useState("");
 
+  //saving the user email
   const handleInputChange = (event) => {
     setUserEmail(event.target.value);
   };
+  //saving the ban reason
   const handleReasonChange = (event) => {
     setReason(event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
+    //checking if there is a ban reason
     if (!reason) {
       setError("Please enter a reason for the ban");
       return;
     }
-  
+
     try {
+      //getting the user email for ban him
       const signInMethods = await fetchSignInMethodsForEmail(auth, userEmail);
+      //if the email is in our database
       if (signInMethods.length > 0) {
         console.log("Email exists in Firebase Authentication");
-      } else {
+      }
+      //if the email is in our database
+      else {
         console.log("Email does not exist in Firebase Authentication");
         setError("Please try again, the email does not exist in our database");
         return;
@@ -49,21 +58,24 @@ const BanUser = () => {
     } catch (error) {
       console.log("Error checking email in Firebase Authentication:", error);
     }
-  
+
+    //setting the data to send to the backend
     let userBan = { email: userEmail, ban_reason: reason };
-    console.log(userBan);
+    //sending data to the backend
     fetch("http://localhost:5000/banned_user", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userBan),
-        });
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userBan),
+    });
   };
-  
+
   return (
     <form className={styles["ban_user-form"]} onSubmit={handleSubmit}>
-      <label htmlFor="emailToBan">Add the email of the user you want to ban:</label>
+      <label htmlFor="emailToBan">
+        Add the email of the user you want to ban:
+      </label>
       <input
         className={styles["ban_user-form__input"]}
         type="text"
@@ -71,14 +83,14 @@ const BanUser = () => {
         value={userEmail}
         onChange={handleInputChange}
       />
-         <label htmlFor="banReason">Reason for banning:</label> 
-    <input
-      className={styles["ban_user-form__input"]}
-      type="text"
-      id="banReason"
-      value={reason}
-      onChange={handleReasonChange}
-    />
+      <label htmlFor="banReason">Reason for banning:</label>
+      <input
+        className={styles["ban_user-form__input"]}
+        type="text"
+        id="banReason"
+        value={reason}
+        onChange={handleReasonChange}
+      />
       {error && <div className={styles["ban_user-form__error"]}>{error}</div>}
       <button className={styles["ban_user-form__submit"]} type="submit">
         Ban User
@@ -86,6 +98,5 @@ const BanUser = () => {
     </form>
   );
 };
-
 
 export default BanUser;
