@@ -1,7 +1,8 @@
+/**Imports */
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
-
+/**This is the costumer navigation bar, here we render all paths pretty self explanatory*/
 function Navbar() {
   return (
     <nav className={styles.navbar}>

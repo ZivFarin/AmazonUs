@@ -1,8 +1,9 @@
+/**Improts */
 import React from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import styles from "./PayPalButton.module.css";
 
-
+/**This is used for paying, code is by the api and so it's self explanatory*/
 const PayPalButton = ({ item }) => {
   return (
     <PayPalScriptProvider
@@ -29,7 +30,7 @@ const PayPalButton = ({ item }) => {
                 details.payer.name.given_name +
                 ". Thank you for your money :)"
             );
-            // Your code here after capturing the order
+            /**Your code here after capturing the order*/
           });
         }}
       />

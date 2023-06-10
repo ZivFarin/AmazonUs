@@ -1,5 +1,6 @@
+/**Imports */
 import styles from "./GetInTouch.module.css";
-
+/**This is the get in touch, here we render all information pretty self explanatory*/
 function GetInTouch() {
   return (
     <div className={styles.container}>
