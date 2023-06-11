@@ -301,6 +301,10 @@ def update_Items():
     user_id = user.id
     items = Item.query.filter(and_(Item.cart_id == cart_id, Item.user_id == user_id)).all()
     items_json = []
+    if items == []: # There is no such items
+        data = {'error' : 'True'}
+        new_json_str = json.dumps(data)
+        return new_json_str
     for item in items:
         item.status = 3
         item.status_change = datetime.utcnow()
