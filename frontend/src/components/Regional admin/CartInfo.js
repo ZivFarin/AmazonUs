@@ -50,23 +50,23 @@ function CartInfo() {
     return "";
   };
 
-  //when a customer needs to pay we need to remind him need to fix!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  const handleNudgeCustomer = (email, name) => {
-    const subject = encodeURIComponent("Payment Reminder");
-    const body = encodeURIComponent(
-      `Dear customer,\n\nWe noticed that you didn't pay for the ${name}. Please proceed with the payment to complete your purchase.\n\nThank you!`
-    );
-    const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
-    const emailWindow = window.open(mailtoLink, "_blank");
-
-    const handleWindowBlur = () => {
-      emailWindow.removeEventListener("blur", handleWindowBlur);
-      history.goBack(); // Redirect to the previous URL
-    };
-
-    emailWindow.addEventListener("blur", handleWindowBlur);
+  //when a customer needs to pay we need to remind him need to pay
+  const handleNudgeCustomer = (email, itemName) => {
+    let nudgeData={email: email, item_name:itemName}
+    fetch("http://localhost:5000/nudge", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(nudgeData),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        // redirecting the page to the login
+        history.push("/RegionalAdminMain");
+        history.go(0);
+      })
   };
-
   //buttonn css style
   const buttonStyle = {
     backgroundColor: "#BAE7FF",
