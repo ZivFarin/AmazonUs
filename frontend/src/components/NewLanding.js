@@ -1,3 +1,4 @@
+/**this page is for the landing page-the first page that a user will see */
 import "./NewLanding.scss";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 
