@@ -1,4 +1,5 @@
 //Login data including the login form and auth using firebase api
+//this page have the logic to sign customer, general admin, regional admin or banned customer
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import styles from "./Login.module.css";

@@ -1,3 +1,4 @@
+/**this page creates the logput button for a user with 10 min auto logout timer */
 import React, { useEffect, useRef, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import styles from "./LogoutButton.module.css";
@@ -7,15 +8,19 @@ function LogoutButton() {
   const timeoutRef = useRef(null);
 
   const handleLogout = useCallback(() => {
-    localStorage.removeItem("isLoggedIn"); // Remove isLoggedIn flag from localStorage
-    clearTimeout(timeoutRef.current); // Clear the timeout
-    history.push("/Login"); // Redirect to login page
+    // Remove isLoggedIn flag from localStorage
+    localStorage.removeItem("isLoggedIn"); 
+    // Clear the timeout
+    clearTimeout(timeoutRef.current); 
+    // Redirect to login page
+    history.push("/Login"); 
     history.go(0);
   }, [history]);
 
   const resetTimeout = useCallback(() => {
     clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(handleLogout, 10 * 60 * 1000); // 10 minutes in milliseconds
+    // 10 minutes timeout for auto logout
+    timeoutRef.current = setTimeout(handleLogout, 10 * 60 * 1000); 
   }, [handleLogout]);
 
   useEffect(() => {

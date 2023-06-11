@@ -1,3 +1,4 @@
+/**this page creates a new user-customer */
 import React, { useState } from "react";
 import styles from "./Signup.module.css";
 import { initializeApp } from "firebase/app";
@@ -29,6 +30,7 @@ function Signup() {
   const [error, setError] = useState("");
   const history = useHistory();
 
+  //setting the json to send to the backend
   const userData = {
     email: email,
     region: region,

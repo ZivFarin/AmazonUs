@@ -1,3 +1,4 @@
+/**this page is for handeling the situation when a user enter an url that is not recognize in our webpage */
 import React from "react";
 import { useHistory } from "react-router-dom";
 import styles from "./Page404.module.css";
