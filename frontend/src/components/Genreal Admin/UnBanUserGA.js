@@ -1,8 +1,9 @@
+/**Imports*/
 import React, { useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, fetchSignInMethodsForEmail } from "firebase/auth";
 import styles from "../Regional admin/BanUser.module.css";
-
+/**Configuring firebase to our specific project*/
 const firebaseConfig = {
   apiKey: "AIzaSyAbr6iHHVwQ9BxycwDdkqeQLLD0kk3twgs",
   authDomain: "us-184db.firebaseapp.com",
@@ -16,24 +17,26 @@ const firebaseConfig = {
 // Initialize Firebase app
 initializeApp(firebaseConfig);
 const auth = getAuth();
-
+/**Here is the main function of the component*/
 function UnBanUserGA() {
+  /**Declarations*/
   const [userEmail, setUserEmail] = useState("");
   const [error, setError] = useState("");
+  /**This handles the unban by sending the banneduser email to the back to remove him from bannenuser db*/
   const handleSubmit = async (event) => {
     event.preventDefault();
+    /**see if email exists or not*/
     try {
       const signInMethods = await fetchSignInMethodsForEmail(auth, userEmail);
       if (signInMethods.length > 0) {
-        console.log("Email exists in Firebase Authentication");
       } else {
-        console.log("Email does not exist in Firebase Authentication");
         setError("Please try again, the email does not exist in our database");
         return;
       }
     } catch (error) {
       console.log("Error checking email in Firebase Authentication:", error);
     }
+    /**For fetch to unban*/
     let userBan = { email: userEmail};
     fetch("http://localhost:5000/unban_user", {
       method: "POST",
@@ -43,12 +46,12 @@ function UnBanUserGA() {
       body: JSON.stringify(userBan),
     });
   };
-
+  /**Handles input change*/
   const handleInputChange = (event) => {
     setUserEmail(event.target.value);
     setError("");
   };
-
+  /**Here we render*/
   return (
     <form className={styles["ban_user-form"]} onSubmit={handleSubmit}>
       <label htmlFor="emailToBan">Add user email here</label>
