@@ -142,6 +142,16 @@ def tell_me_why(email):
     ban_user=Banned_user.query.filter(Banned_user.banned_user_id == user_id).one() # Getting the ban info
     return ban_user.to_json() # return the ban user instance
 
+@app.route("/paypal", methods=["POST"])
+def pay_item():
+    # create cart from json
+    item_id = request.json["item_id"]
+    item = Item.query.filter(Item.id == item_id).one()
+    item.status = 2
+    db.session.commit() # Commiting changes
+    # Return the event as json (helps with UI)
+    return item.to_json()
+
 # cart api
 
 @app.route("/cart", methods=["POST"])
