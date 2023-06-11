@@ -103,14 +103,13 @@ function Login({ history }) {
       .then(() => {
         // Password reset email sent!
         // ..
-        console.log(email + "2");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         // ..
-        console.log(errorCode + "3");
-        console.log(errorMessage + "4");
+        console.log(errorCode);
+        console.log(errorMessage);
       });
   };
 
