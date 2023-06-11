@@ -5,17 +5,17 @@
   flex-direction: column;
   align-items: center;
   margin: auto;
-  padding: 5%;
+  padding: 3%;
   border: 1px solid #ccc;
   border-radius: 5px;
   max-width: 400px; 
   width: 100%;
-  font-size: 130%;
+  font-size: 100%;
 }
 
 .collect-form__input {
   margin: 5% 0;
-  padding: 5%;
+  padding: 3%;
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 100%;
@@ -39,9 +39,10 @@
   border-radius: 5px;
   cursor: pointer;
   width: 50%;
+  font-size: 80%;
 }
 
 .collect-form__submit:hover {
-  font-size: 120%;
   background-color:#3cdc79;
+  text-decoration: underline;
 }
