@@ -1,3 +1,4 @@
+/**Imports*/
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LoginPage from "./Pages/LoginPage";
 import LogoutButton from "./components/Sing in and up/LogoutButton";
@@ -19,6 +20,7 @@ import Page404Page from "./Pages/Page404Page";
 import UnBanUserGAPage from "./Pages/UnBanUserGAPage";
 import YouAreBannedPage from "./Pages/YouAreBannedPage";
 
+/**Path array in order to create an easier way for routing and cleaner code*/
 const pathArray = [
   "/",
   "/Login",
@@ -36,28 +38,33 @@ const pathArray = [
   "/UnBanUserGA",
   "/404",
 ];
+
+/**The main component function*/
 function App() {
   // Check if user is authenticated
-
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   return (
     <BrowserRouter>
       <div>
+        {/**Checking if the user is a customer then displaying navbar accordingly */}
         {isLoggedIn === "Customer" ? (
           <>
             <LogoutButton /> <Navbar />
           </>
         ) : null}
+        {/**Checking if the user is a egional admin then displaying navbar accordingly */}
         {isLoggedIn === "Regional" ? (
           <>
             <LogoutButton /> <NavbarRegionalAdmin />
           </>
         ) : null}
+        {/**Checking if the user is the general admin then displaying navbar accordingly */}
         {isLoggedIn === "General" ? (
           <>
             <LogoutButton /> <GANavBar />
           </>
         ) : null}
+        {/**Checking if the user is a banned customer then displaying only the logout option accordingly */}
           {isLoggedIn === "BannedCustomer" ? (
           <>
             <LogoutButton />
@@ -65,13 +72,16 @@ function App() {
         ) : null}
         <main>
           <Switch>
+            {/**Routing pages that all users use*/}
             <Route path={pathArray[0]} exact component={LandingPagePage} />
             <Route path={pathArray[1]} exact component={LoginPage} />
             <Route path={pathArray[14]} exact component={Page404Page} />
             <Route path={pathArray[6]} exact component={SignupPage} />
+             {/**Below we route pages that bannedusers use*/}
             {isLoggedIn === "BannedCustomer" && (
               <Route path={pathArray[2]} exact component={YouAreBannedPage} />
             )}
+            {/**Below we route pages that customers use*/}
             {isLoggedIn === "Customer" && (
               <>
                 <Route path={pathArray[3]} exact component={CustomerMainPage} />
@@ -80,6 +90,7 @@ function App() {
                 <Route path={pathArray[7]} exact component={AboutUsPage} />
               </>
             )}
+            {/**Below we route pages that regional admins use*/}
             {isLoggedIn === "Regional" && (
               <>
                 <Route
@@ -92,6 +103,7 @@ function App() {
                 <Route path={pathArray[11]} exact component={CollectItemPage} />
               </>
             )}
+            {/**Below we route pages that the general admin use*/}
             {isLoggedIn === "General" && (
               <>
                 <Route
@@ -102,6 +114,7 @@ function App() {
                 <Route path={pathArray[13]} exact component={UnBanUserGAPage} />
               </>
             )}
+            {/**Below we change the route to 404 in case that particular route doesnt exist*/}
             {!pathArray.includes(window.location.pathname) &&
               window.location.replace("/404")}
           </Switch>
