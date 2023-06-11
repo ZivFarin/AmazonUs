@@ -1,5 +1,6 @@
 /**This page will be used when the regional admin needs to ban a user */
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { getAuth, fetchSignInMethodsForEmail } from "firebase/auth";
 import styles from "./BanUser.module.css";
@@ -23,7 +24,7 @@ const BanUser = () => {
   const [userEmail, setUserEmail] = useState("");
   const [reason, setReason] = useState("");
   const [error, setError] = useState("");
-
+  const history = useHistory();
   //saving the user email
   const handleInputChange = (event) => {
     setUserEmail(event.target.value);
@@ -62,13 +63,27 @@ const BanUser = () => {
     //setting the data to send to the backend
     let userBan = { email: userEmail, ban_reason: reason };
     //sending data to the backend
-    fetch("http://localhost:5000/banned_user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userBan),
-    });
+    if (
+      window.confirm(
+        "Are you sure you want to ban the user " + userEmail + " ?"
+      )
+    ) {
+      fetch("http://localhost:5000/banned_user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userBan),
+      });
+      alert("You have chosen to ban the user "+userEmail);
+    } else {
+      history.push("/BanUser");
+      history.go(0);
+    }
+    setTimeout(() => {
+      history.push("/BanUser");
+      history.go(0);
+    }, 1000); /**1 second timer for the fetch*/
   };
 
   return (
@@ -80,6 +95,7 @@ const BanUser = () => {
         className={styles["ban_user-form__input"]}
         type="text"
         id="emailToBan"
+        placeholder="Email"
         value={userEmail}
         onChange={handleInputChange}
       />
@@ -88,6 +104,7 @@ const BanUser = () => {
         className={styles["ban_user-form__input"]}
         type="text"
         id="banReason"
+        placeholder="Reason"
         value={reason}
         onChange={handleReasonChange}
       />
