@@ -2,6 +2,7 @@
 //and give him the item if everything is ok
 import styles from "./CollectItem.module.css";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { getAuth, fetchSignInMethodsForEmail } from "firebase/auth";
 import { useEffect } from "react";
@@ -25,7 +26,7 @@ function CollectItem() {
   const [userEmail, setUserEmail] = useState("");
   const [cartID, setCartID] = useState("");
   const [error, setError] = useState("");
-
+  const history = useHistory();
   //setting user email
   const handleEmailChange = (event) => {
     setUserEmail(event.target.value);
@@ -102,11 +103,12 @@ function CollectItem() {
 
   return (
     <form className={styles["collect-form"]} onSubmit={handleSubmit}>
-      <label htmlFor="emailToBan">Customer email:</label>
+      <label htmlFor="email">Customer email:</label>
       <input
         className={styles["collect-form__input"]}
         type="text"
-        id="emailToBan"
+        id="email"
+        placeholder="Email"
         value={userEmail}
         onChange={handleEmailChange}
       />
@@ -115,6 +117,7 @@ function CollectItem() {
         className={styles["collect-form__input"]}
         type="text"
         id="cartID"
+        placeholder="Cart id"
         value={cartID}
         onChange={handleCartIDvChange}
       />
