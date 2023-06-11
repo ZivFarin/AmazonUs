@@ -2,32 +2,7 @@
 import React, { useState, useEffect } from "react";
 import BanCard from "../../UI/BanCard";
 import styles from "../Customer/CustomerMain.module.css";
-
-/**Here we handle the ban user approval option*/
-const handleBanUser = (useremail) => {
-  let decision = { email: useremail, decision: "True" };
-  fetch("http://localhost:5000/banned_user_ga",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(decision),
-    });
-};
-
-/**Here we handle the ban user cancel option*/
-const handleCancelBanUser = (useremail) => {
-  let decision = { email: useremail, decision: "False" };
-  fetch("http://localhost:5000/banned_user_ga",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(decision),
-    });
-};
+import { useHistory } from "react-router-dom";
 
 /**Styling the button*/
 const buttonStyle = {
@@ -46,6 +21,7 @@ const buttonStyle = {
 function GeneralAdminMain() {
   /**Declarations*/
   const [banList, setBanList] = useState([]);
+  const history = useHistory();
   /**Here we get the list of pending ban to approve or cancel */
   useEffect(() => {
     const fetchData = async () => {
@@ -67,6 +43,51 @@ function GeneralAdminMain() {
     };
     fetchData();
   }, []);
+
+  /**Here we handle the ban user approval option*/
+  const handleBanUser = (useremail) => {
+    let decision = { email: useremail, decision: "True" };
+    if (
+      window.confirm(
+        "Are you sure you want to ban the user: " + useremail + "?"
+      )
+    ) {
+      fetch("http://localhost:5000/banned_user_ga", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(decision),
+      });
+    }
+    setTimeout(() => {
+      history.push("/GeneralAdminMain");
+      history.go(0);
+    }, 1000); /**1 second timer delay for the fetch*/
+  };
+
+  /**Here we handle the ban user cancel option*/
+  const handleCancelBanUser = (useremail) => {
+    let decision = { email: useremail, decision: "False" };
+    if (
+      window.confirm(
+        "Are you sure you want to not ban the user: " + useremail + "?"
+      )
+    ) {
+      fetch("http://localhost:5000/banned_user_ga", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(decision),
+      });
+    }
+    setTimeout(() => {
+      history.push("/GeneralAdminMain");
+      history.go(0);
+    }, 1000); /**1 second timer delay for the fetch*/
+  };
+
   /**Here we display the list and buttons*/
   return (
     <section>

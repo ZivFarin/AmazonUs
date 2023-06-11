@@ -1,5 +1,6 @@
 /**Imports*/
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { getAuth, fetchSignInMethodsForEmail } from "firebase/auth";
 import styles from "../Regional admin/BanUser.module.css";
@@ -22,6 +23,7 @@ function UnBanUserGA() {
   /**Declarations*/
   const [userEmail, setUserEmail] = useState("");
   const [error, setError] = useState("");
+  const history = useHistory();
   /**This handles the unban by sending the banneduser email to the back to remove him from bannenuser db*/
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -37,14 +39,22 @@ function UnBanUserGA() {
       console.log("Error checking email in Firebase Authentication:", error);
     }
     /**For fetch to unban*/
-    let userBan = { email: userEmail};
-    fetch("http://localhost:5000/unban_user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userBan),
-    });
+    let userBan = { email: userEmail };
+    if (window.confirm("Are you sure you want to unban this person")) {
+      fetch("http://localhost:5000/unban_user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userBan),
+      });
+    } else {
+      history.push("/UnBanUserGA");
+      history.go(0);
+    }
+    alert("You have chosen to unban the user: " + userEmail);
+    history.push("/UnBanUserGA");
+    history.go(0);
   };
   /**Handles input change*/
   const handleInputChange = (event) => {
@@ -59,6 +69,7 @@ function UnBanUserGA() {
         className={styles["ban_user-form__input"]}
         type="text"
         id="userEmail"
+        placeholder="Email"
         value={userEmail}
         onChange={handleInputChange}
       />
@@ -68,6 +79,6 @@ function UnBanUserGA() {
       </button>
     </form>
   );
-};
+}
 
 export default UnBanUserGA;
