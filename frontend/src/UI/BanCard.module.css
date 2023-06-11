@@ -3,8 +3,8 @@
 .card {
     padding: 1rem;
     margin: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 3px;
+    box-shadow: 5px 5px 5px 5px rgba(255, 119, 207, 0.683);
+    border-radius: 30px;
     background-color: white;
     width: 50%;
     height: 50%;
