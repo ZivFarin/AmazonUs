@@ -97,7 +97,6 @@ function Login({ history }) {
   }
 
   const passwordResetHandler = () => {
-    console.log(email + "1");
 
     const auth = getAuth();
     sendPasswordResetEmail(auth, email)
