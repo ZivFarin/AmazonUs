@@ -1,7 +1,9 @@
+/**Imports */
 import React, { useState, useEffect } from "react";
 import BanCard from "../../UI/BanCard";
 import styles from "../Customer/CustomerMain.module.css";
 
+/**Here we handle the ban user approval option*/
 const handleBanUser = (useremail) => {
   let decision = { email: useremail, decision: "True" };
   fetch("http://localhost:5000/banned_user_ga",
@@ -12,8 +14,9 @@ const handleBanUser = (useremail) => {
       },
       body: JSON.stringify(decision),
     });
-    //window.location.reload();
 };
+
+/**Here we handle the ban user cancel option*/
 const handleCancelBanUser = (useremail) => {
   let decision = { email: useremail, decision: "False" };
   fetch("http://localhost:5000/banned_user_ga",
@@ -24,8 +27,9 @@ const handleCancelBanUser = (useremail) => {
       },
       body: JSON.stringify(decision),
     });
-    //window.location.reload();
 };
+
+/**Styling the button*/
 const buttonStyle = {
   height: "40px",
   width: "90px",
@@ -38,8 +42,11 @@ const buttonStyle = {
   margin: "4px",
 };
 
+/**Here is the main function of the component*/
 function GeneralAdminMain() {
+  /**Declarations*/
   const [banList, setBanList] = useState([]);
+  /**Here we get the list of pending ban to approve or cancel */
   useEffect(() => {
     const fetchData = async () => {
       console.clear();
@@ -60,6 +67,7 @@ function GeneralAdminMain() {
     };
     fetchData();
   }, []);
+  /**Here we display the list and buttons*/
   return (
     <section>
       <h1 className={styles.banner}>Users that are waiting for ban: </h1>
