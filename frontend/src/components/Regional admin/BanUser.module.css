@@ -5,21 +5,22 @@
   flex-direction: column;
   align-items: center;
   margin: auto;
-  padding: 5%;
+  padding: 3%;
   border: 1px solid #ccc;
   border-radius: 5px;
   max-width: 400px; 
-  font-size: 130%;
+  font-size: 120%;
   width: 100%;
 }
 
 .ban_user-form__input {
-  margin: 5% 0;
-  padding: 5%;
+  margin: 3% 0;
+  padding: 3%;
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 100%;
 }
+
 
 .ban_user-form__error {
   margin: 5% 0;
@@ -39,9 +40,11 @@
   border-radius: 5px;
   cursor: pointer;
   width: 50%;
+  font-size: 95%;
 }
 
 .ban_user-form__submit:hover {
-  font-size: 120%;
   background-color: #ed080871;
+  text-decoration: underline;
+  color: black;
 }
