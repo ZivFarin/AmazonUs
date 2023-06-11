@@ -76,17 +76,18 @@
 }
 
 .delete_button {
-  padding: 2px;
+  padding: 3px;
   margin-top: 5px;
   border: 1px solid #cccccc;
   background-image: linear-gradient(to right, rgb(255, 255, 255), rgba(253, 2, 2, 0.929));
   border-radius: 5px;
-  width: 8%;
+  width: 10%;
   border-radius: 5px;
 }
 
 .delete_button:hover {
   background-image: linear-gradient(to right, rgba(253, 2, 2, 0.929), rgb(255, 255, 255));
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {
