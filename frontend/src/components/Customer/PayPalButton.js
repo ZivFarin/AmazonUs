@@ -12,6 +12,7 @@ const PayPalButton = ({ item }) => {
       }}
     >
       <PayPalButtons className={styles["body"]}
+        fundingSource="paypal" // Restrict to PayPal account payments only
         createOrder={(data, actions) => {
           return actions.order.create({
             purchase_units: [
@@ -32,6 +33,10 @@ const PayPalButton = ({ item }) => {
             );
             /**Your code here after capturing the order*/
           });
+        }}
+        onError={(error) => {
+          // handle the error here
+          console.error("PayPal SDK Error:", error);
         }}
       />
     </PayPalScriptProvider>

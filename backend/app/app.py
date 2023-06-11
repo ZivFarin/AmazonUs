@@ -8,7 +8,7 @@ from datetime import datetime
 import json
 import requests
 from bs4 import BeautifulSoup
-from emails import registration, create_upload_mail, send_email,create_collection_confirmation_mail
+from emails import registration, create_upload_mail, send_email,create_collection_confirmation_mail,create_purchase_reminder_mail
 # User api
 
 @app.route("/user", methods=["POST"])
@@ -249,6 +249,17 @@ def get_all_user_events(email):
     for item in items:
         items_list.append(item.to_json())
     return {"Items": items_list}
+
+@app.route("/nudge", methods=["POST"])      
+def nudge_user():
+    """send reminder email to user."""
+    email = request.json["email"]
+    user_name = request.json["first_name"]
+    item_name = request.json["item_name"]
+    message = create_purchase_reminder_mail(user_name,item_name)
+    send_email(email,"Complete Your Purchase!",message)
+    return []
+    
 
 def get_items_by_pending_payment(user_id):
     items = []
