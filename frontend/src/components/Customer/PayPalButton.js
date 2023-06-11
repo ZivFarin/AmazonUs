@@ -1,18 +1,41 @@
-/**Improts */
 import React from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import styles from "./PayPalButton.module.css";
+import { useHistory } from "react-router-dom";
 
-/**This is used for paying, code is by the api and so it's self explanatory*/
 const PayPalButton = ({ item }) => {
+  const history = useHistory();
+  const handlePaymentSuccess = (details) => {
+    // Perform your fetch request here with the captured order details
+    let itemPay = { item_id: item.id };
+    fetch("http://localhost:5000/paypal", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(itemPay),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response data as needed
+        history.push("/CustomerMain");
+        history.go(0);
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error("Error:", error);
+      });
+  };
+
   return (
     <PayPalScriptProvider
       options={{
         "client-id": "AenS6yd4eVo7_-_cpoeRU9YkENVVOwZZuHowJowFcoS46XyEpxPfkWItC6s7GCiedpOivmM-fOMAeaxa",
       }}
     >
-      <PayPalButtons className={styles["body"]}
-        fundingSource="paypal" // Restrict to PayPal account payments only
+      <PayPalButtons
+        className={styles["body"]}
+        fundingSource="paypal"
         createOrder={(data, actions) => {
           return actions.order.create({
             purchase_units: [
@@ -31,11 +54,10 @@ const PayPalButton = ({ item }) => {
                 details.payer.name.given_name +
                 ". Thank you for your money :)"
             );
-            /**Your code here after capturing the order*/
+            handlePaymentSuccess(details); // Call the handler function with the captured order details
           });
         }}
         onError={(error) => {
-          // handle the error here
           console.error("PayPal SDK Error:", error);
         }}
       />
