@@ -7,6 +7,10 @@ import Card from "../../UI/Card";
 import Loading from "../../UI/Loading";
 import PayPalButton from "./PayPalButton";
 import styles from "./CustomerMain.module.css";
+import { useHistory } from "react-router-dom";
+
+
+
 /**Firebase configuration for us specific*/
 const firebaseConfig = {
   apiKey: "AIzaSyAbr6iHHVwQ9BxycwDdkqeQLLD0kk3twgs",
@@ -29,6 +33,8 @@ function CustomerMain() {
   const [userEmail, setUserEmail] = useState("");
   const [searchField, setSearchField] = useState("");
   const [userItemsArray, setUserItemsArray] = useState([]);
+  const history = useHistory();
+
 
   /**Here we get the user email from firebase*/
   useEffect(() => {
@@ -96,7 +102,6 @@ function CustomerMain() {
               price: item.price,
               cartId: item.cart_id,
             }));
-            console.log(itemsData);
             setUserItems(itemsData);
           });
       } catch (error) {
@@ -148,15 +153,22 @@ function CustomerMain() {
     }
   };
   /**This handles the delete item when the delete button is pressed*/
-  const handleItemDelete = (itemID) => {
+  const handleItemDelete = (itemID,itemName) => {
     let itemToDelete = { item_id: itemID };
-    fetch("http://localhost:5000/deleteItem", {
+    if(window.confirm("Are you sure you want to delete" + itemName)){
+      fetch("http://localhost:5000/deleteItem", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(itemToDelete),
     });
+    history.push("/CustomerMain");
+    history.go(0);
+  }
+  else{
+    return;
+  }
   };
   /**Here we render out what will be on the screen*/
   return userEmail === "" ? (
@@ -207,7 +219,7 @@ function CustomerMain() {
                     {/**Here we add the delete*/}
                     <button
                       className={styles.delete_button}
-                      onClick={() => handleItemDelete(item.id)}
+                      onClick={() => handleItemDelete(item.id,item.name)}
                     >
                       Delete
                     </button>

@@ -254,9 +254,8 @@ def get_all_user_events(email):
 def nudge_user():
     """send reminder email to user."""
     email = request.json["email"]
-    user_name = request.json["first_name"]
     item_name = request.json["item_name"]
-    message = create_purchase_reminder_mail(user_name,item_name)
+    message = create_purchase_reminder_mail(item_name)
     send_email(email,"Complete Your Purchase!",message)
     return []
     

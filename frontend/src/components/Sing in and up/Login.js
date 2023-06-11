@@ -97,17 +97,21 @@ function Login({ history }) {
   }
 
   const passwordResetHandler = () => {
+    console.log(email + "1");
+
     const auth = getAuth();
     sendPasswordResetEmail(auth, email)
       .then(() => {
         // Password reset email sent!
         // ..
+        console.log(email + "2");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
+        // ..
+        console.log(errorCode + "3");
+        console.log(errorMessage + "4");
       });
   };
 
@@ -132,6 +136,7 @@ function Login({ history }) {
         Login
       </button>
       <button
+        type="button"
         className={styles["login-form__submit"]}
         onClick={passwordResetHandler}
       >
@@ -143,5 +148,4 @@ function Login({ history }) {
     </form>
   );
 }
-
 export default withRouter(Login);
