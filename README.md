@@ -1,42 +1,43 @@
 ![Amazonus banner](resources/Amazonus.jpg "AmazonUs")
->**Capturing amazon's free shipping with the power of community.**
+>**Capturing amazon's free shipping with the power of community**    
+This project was built as part of our internship at Microsoft and the Open University of Israel.    
+In this project we built a functioning web service based on the following technologies:   
++ Flask     
++ Python      
++ PostGress     
++ React
+
+While using the following API's:      
++ Firebase      
++ PayPal
+
+
+## What the project do?
+This project let's a user (costumer) to upload an item from Amazon which doesn't meet the requirement for free shipping to our web service for him to be paired with one (or more) other items in order to get the free shipping discount. We would love for you to shop with us, AmazonUs
+
+
+## Team Members
++ Frontend:         
+Dvir Bar Marziano     
+Omri Steinberg
++ Backend:      
+Eitan Bar Shimon    
+Elad Zaltsman   
+Ziv Farin         
+
+
 
 
 # Table Of Contents
 
 - [Table Of Contents](#table-of-contents)
-- [Basic Links](#basic-links)
-- [Prerequisites](#prerequisites)
-  - [Get a general sense of how the fullstack is built:](#get-a-general-sense-of-how-the-fullstack-is-built)
-  - [Required Installations](#required-installations)
+- [Required Installations](#required-installations)
 - [Preparing the project](#preparing-the-project)
 - [Database setup](#database-setup)
 - [Database design](#database-design)
 
 
-
-
-# Basic Links
-
-This is a [link to the project's word file](https://docs.google.com/document/d/1jmD3A_LeHQJUKwWg_DfLRRwrRqQm51C9XPU734alZHk/edit).
-
-This is the [course timeline](https://docs.google.com/document/d/1WQdbG7vpldybgLMACT_5cnEMC5H_RsYiuoQoPQzpFsA/edit)
-
----
-This project is based off of this video series (not a must watch. You can basically just follow the prerequisites below instead):
-1. [Backend](https://www.youtube.com/watch?v=RcQwcyyCOmM)
-2. [Frontend](https://www.youtube.com/watch?v=EAcD5ueqvHQ)
-
-
-
-# Prerequisites
-
-## Get a general sense of how the fullstack is built:
-These are very short and actually use amazon (and it's API) as their main example, so watching them is quite a good idea:
-+ [What is backend](https://www.youtube.com/watch?v=WG5ikvJ2TKA)
-+ [What is frontend](https://www.youtube.com/watch?v=XBu54nfzxAQ)
-+ [Super concise SQL explanation](https://www.youtube.com/watch?v=zsjvFFKOm3c), but you better also watch the [more in-depth video](https://www.youtube.com/watch?v=Cz3WcZLRaWc)<br/> which refers to MySQL - but it's good for SQLs in general.
-
+                                        
 ## Required Installations
 + Download [python](https://www.python.org/downloads/)
   + Python packages
