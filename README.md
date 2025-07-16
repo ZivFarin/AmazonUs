@@ -1,5 +1,4 @@
-![Amazonus banner](resources/Amazonus.jpg "AmazonUs")
->**Capturing amazon's free shipping with the power of community**    
+_**Capturing amazon's free shipping with the power of community**_    
 
 
 This project was built as part of our internship at Microsoft and the Open University of Israel.    
